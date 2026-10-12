@@ -187,6 +187,18 @@ footer b{color:var(--blue);}
   .course-grid{grid-template-columns:repeat(3,1fr);}
   .brand-txt h1{font-size:19px;}
 }
+#choices>*{min-width:0;}
+.num-row{display:flex;align-items:center;gap:8px;background:#f4fafd;border:2px solid #d7e9f1;border-radius:12px;padding:8px 12px;}
+.num-row .nl{font-weight:900;color:var(--red);min-width:22px;font-size:16px;}
+.num-row input{flex:1;min-width:0;font-size:20px;font-weight:800;padding:8px 10px;border:2px solid #9ed3ea;border-radius:10px;font-family:inherit;text-align:right;color:var(--ink);background:#fff;}
+.num-row .nu{font-weight:800;font-size:15px;}
+.num-row.nok{background:#f0f8e2;border-color:var(--green);}
+.num-row.nng{background:#fdeaea;border-color:var(--red);}
+.ord-item .ono{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;width:26px;height:26px;border-radius:50%;background:#fff;border:2px dashed #9ed3ea;font-weight:900;color:#fff;}
+.ord-item.sel .ono{background:var(--blue);border:2px solid var(--blue);}
+.ord-item.sel .mark::after{content:"";}
+.ord-btns{text-align:right;}
+.ord-reset{background:#fff;border:1.5px solid #9ed3ea;color:#1491bd;border-radius:999px;padding:5px 14px;font-weight:700;font-family:inherit;font-size:13px;cursor:pointer;}
 </style>
 </head>
 <body>
@@ -221,7 +233,7 @@ footer b{color:var(--blue);}
         <div class="wl-step s70">
           <div class="wl-pt">STEP 2｜70点コース</div>
           <div class="wl-h">資料・グラフの読み取りが中心</div>
-          <div class="wl-d">細胞分裂の図・かけ合わせ表・実験の結果を見て答える。おぼえた用語を「資料の中で使う」練習で、差がつくところ。</div>
+          <div class="wl-d">細胞分裂の図・かけ合わせ表・実験の結果を見て、選択・<b>数値入力</b>・<b>並べ替え</b>で答える。おぼえた用語を「資料の中で使う」練習で、差がつくところ。</div>
         </div>
         <div class="wl-arrow">▼</div>
         <div class="wl-step s90">
@@ -257,7 +269,7 @@ footer b{color:var(--blue);}
         <span class="badge">差がつく</span>
         <div class="pt">70<small>点コース</small></div>
         <h2>資料・グラフを読み取る</h2>
-        <p>細胞分裂の図・かけ合わせ表・実験結果の表を読む資料問題。読み取りのコツをつかもう！</p>
+        <p>図・かけ合わせ表・実験結果を読む資料問題。<b>選択・数値入力・並べ替え</b>の3タイプ！</p>
         <span class="best">全20問｜資料セット①②</span>
       </button>
       <button class="course c90" id="btn-c90" onclick="startCourse('90')">
@@ -730,7 +742,7 @@ function shisochoTable(){
   '<tr><td>e</td><td>長い<b>尾の骨</b>がある</td></tr></table>');
 }
 
-const Q70 = [
+const Q70_OLD = [
  {sh:bunretsuFig,
   q:"資料のア〜カを、体細胞分裂が進む順に正しく並べたものはどれ？（最初は核が見える細胞）",
   c:["イ→エ→ア→オ→カ→ウ","イ→ア→エ→オ→ウ→カ","イ→エ→オ→ア→カ→ウ","ウ→カ→オ→ア→エ→イ"],a:0,
@@ -803,7 +815,7 @@ const Q70 = [
      "「道管」は<b>水</b>の通り道。また、胚珠は卵細胞が入っている<b>場所</b>で、核ではない。"]},
 ];
 
-const Q70B = [
+const Q70B_OLD = [
  {sh:punnett1,
   q:"資料のXに当てはまる遺伝子の組み合わせと、その種子の形の組み合わせとして正しいものはどれ？",
   c:["Aa・丸","aa・しわ","AA・丸","Aa・しわ"],a:0,
@@ -874,6 +886,76 @@ const Q70B = [
   w:["翼（a）と羽毛（c）は<b>鳥類</b>の特徴。逆！",null,
      "aとcは鳥類の特徴。は虫類はbだけ入っている。",
      "羽毛（c）は<b>鳥類</b>の特徴。"]},
+];
+
+
+/* ---------- 70点コース v2：選択＋数値入力＋並べ替え ----------
+   kind:"num"   … blanks:[{l:"X",a:答え,u:"単位",tol:許容誤差,miss:{"よくある誤答":"なぜ違う"}}]
+   kind:"order" … items:[正しい順の文字列]（画面ではシャッフル表示） */
+const _O1=Q70_OLD, _O2=Q70B_OLD;
+
+const Q70 = [
+ {kind:"order",sh:bunretsuFig,
+  q:"資料のア〜カを、体細胞分裂が進む順にタップして並べなさい。（最初は核が見える細胞）",
+  items:["イ","エ","ア","オ","カ","ウ"],
+  e:"①核が見える（イ）→②染色体が現れる（エ）→③中央に並ぶ（ア）→④両はしに分かれる（オ）→⑤仕切りができる（カ）→⑥2つの細胞になる（ウ）。<b>「現れる→並ぶ→分かれる→仕切り」</b>の順で覚える！",
+  w:"よくあるミスは<b>「ア（並ぶ）とエ（現れる）」</b>、<b>「ア（並ぶ）とオ（分かれる）」</b>の入れかえ。染色体は<b>現れてから並び、並んでから分かれる</b>。最後は仕切り（カ）→2つの細胞（ウ）。"},
+ {kind:"order",
+  q:"タマネギの根で体細胞分裂を観察するときの手順を、正しい順にタップして並べなさい。",
+  items:["根の先端を切り取る","うすい塩酸に入れて数分間あたためる","水洗いしてから、酢酸オルセイン液で染色する","カバーガラスをかけ、ろ紙をのせて指で押しつぶす","顕微鏡で観察する"],
+  e:"<b>切る → 塩酸（離れやすく） → 染色（核・染色体を赤く） → 押しつぶす（重なりを減らす） → 観察</b>。それぞれの操作の<b>目的</b>もセットで覚えよう。",
+  w:"<b>塩酸と染色液の順番</b>の入れかえが多い。まず塩酸で細胞を離れやすくしてから（水洗いして）染色する。押しつぶすのは、染色してカバーガラスをかけたあと。"},
+ _O1[2], _O1[3],
+ {kind:"num",sh:nobiTable,
+  q:"開始時から48時間後までに、Cの区間が伸びた長さは何mmか。",
+  blanks:[{l:"",a:15.2,u:"mm",tol:0.05,miss:{"20.2":"20.2mmは48時間後の<b>長さそのもの</b>。伸びた長さは開始時の5.0mmを<b>引く</b>。","25.2":"5.0を<b>足して</b>しまっている。伸びた分は引き算。","10.4":"10.4mmは<b>24時間後の長さ</b>。列の読みまちがい。"}}],
+  e:"伸びた長さ＝<b>あとの長さ－はじめの長さ</b>＝20.2－5.0＝<b>15.2mm</b>。"},
+ {kind:"num",sh:nobiTable,
+  q:"12時間後から36時間後までの24時間で、Cの区間が伸びた長さは何mmか。",
+  blanks:[{l:"",a:7.3,u:"mm",tol:0.05,miss:{"14.9":"14.9mmは36時間後の<b>長さそのもの</b>。12時間後の長さを引く。","9.9":"開始時（5.0mm）から引いている。問われているのは<b>12時間後</b>から。","2.8":"<b>24時間後</b>から36時間後（12時間分）だけ計算している。"}}],
+  e:"36時間後の長さ－12時間後の長さ＝14.9－7.6＝<b>7.3mm</b>。<b>「いつから」</b>の列を正しく選ぶのがポイント。"},
+ {kind:"num",sh:kazuFlow,
+  q:"資料のX・Yに当てはまる数をそれぞれ答えなさい。",
+  blanks:[{l:"X",a:12,u:"本",miss:{"24":"生殖細胞は<b>減数分裂</b>でつくられるので、染色体の数は<b>半分</b>になる。","48":"減数分裂は数を<b>半分</b>にする分裂。2倍ではない。"}},
+          {l:"Y",a:24,u:"本",miss:{"12":"受精卵は精子（12本）と卵（12本）の核が<b>合体</b>したもの。12＋12＝24本。","48":"親の体細胞どうしを足している。受精するのは<b>半分になった生殖細胞</b>どうし。"}}],
+  e:"減数分裂で<b>半分（12本）</b>→受精で合わさって<b>もとの数（24本）</b>。だから親と子で染色体の数が同じに保たれる。"},
+ {kind:"order",
+  q:"被子植物で、受粉してから受精卵ができるまでのできごとを、正しい順にタップして並べなさい。",
+  items:["花粉がめしべの柱頭につく","花粉から花粉管が胚珠に向かってのびる","花粉管の中を精細胞が移動する","精細胞の核と卵細胞の核が合体する"],
+  e:"<b>受粉 → 花粉管がのびる → 精細胞が移動 → 卵細胞の核と合体（受精）</b>。受粉と受精はちがうできごと！",
+  w:"「受粉」（花粉が柱頭につく）がスタート、「受精」（核の合体）がゴール。花粉管は<b>のびてから</b>、その中を精細胞が移動する。"},
+ _O1[7], _O1[8],
+];
+
+const Q70B = [
+ _O2[0],
+ {kind:"num",sh:punnett1,
+  q:"資料のようにして孫の種子が800個できたとすると、しわの種子はおよそ何個か。",
+  blanks:[{l:"",a:200,u:"個",miss:{"600":"600個は<b>丸</b>の種子の数。丸：しわ＝3：1なので、しわは全体の1/4。","400":"丸：しわを<b>1：1</b>と考えている。Aa×Aaなら3：1。","267":"800を3で割っている。3：1は<b>全体を4つに分けた</b>うちの1つ分。"}}],
+  e:"4マスのうち、しわ（aa）は<b>1マス</b>→全体の1/4。800×1/4＝<b>200個</b>。"},
+ {kind:"num",sh:punnett1,
+  q:"資料の孫のうち、純系と同じ遺伝子の組み合わせ（AAまたはaa）をもつものは、全体のおよそ何%か。",
+  blanks:[{l:"",a:50,u:"%",miss:{"25":"AAだけ（またはaaだけ）を数えている。<b>両方</b>数える。","75":"75%は<b>丸の種子</b>（AA＋Aa）の割合。Aaは純系ではない。","100":"Aaは純系ではないので100%にはならない。"}}],
+  e:"4マスのうち<b>AA（1マス）とaa（1マス）</b>＝2/4＝<b>50%</b>。"},
+ {kind:"num",sh:kekkaTable,
+  q:"表の草たけについて、Xに当てはまる個体数はおよそいくらか。十の位を四捨五入して、百の位までの概数で答えなさい。",
+  blanks:[{l:"X",a:800,u:"個体",miss:{"300":"低いと<b>同じ数</b>（1：1）と考えている。純系の子どうしの孫なら3：1。","792":"計算（264×3＝792）は合っている！問題の指示どおり<b>十の位を四捨五入</b>して800に。","1100":"<b>4倍</b>している。顕性：潜性＝3：1なので、高いは低いの<b>3倍</b>。","500":"<b>2倍</b>で計算している。3倍が正しい。"}}],
+  e:"子に現れた「高い」が顕性。孫では顕性：潜性≒<b>3：1</b>なので、264×3＝792 → 十の位を四捨五入して<b>約800</b>。"},
+ {kind:"num",sh:punnett2,
+  q:"資料のかけ合わせで子が600個体できたとすると、しわの個体はおよそ何個体か。",
+  blanks:[{l:"",a:300,u:"個体",miss:{"150":"3：1（Aa×Aa）で計算している。片方が<b>aa</b>なので1：1。","450":"3：1で計算し、さらに丸の数を答えている。Aa×aaは<b>1：1</b>。","0":"Aaの親もaをもつ生殖細胞をつくるので、<b>しわも現れる</b>。"}}],
+  e:"4マスのうちAa（丸）2マス・aa（しわ）2マス → <b>丸：しわ＝1：1</b>。600÷2＝<b>300個体</b>。"},
+ {kind:"order",sh:nendaiFig,
+  q:"資料から、脊椎動物のなかまを地球上に現れた順（古い順）にタップして並べなさい。",
+  items:["魚類","両生類","は虫類","哺乳類","鳥類"],
+  e:"<b>魚類（約5億年前）→両生類→は虫類→哺乳類（約2.2億年前）→鳥類（約1.5億年前）</b>。哺乳類のほうが鳥類より<b>先</b>！",
+  w:"一番多いミスは<b>鳥類と哺乳類の入れかえ</b>。帯の左はし（赤い点）を見比べると、哺乳類のほうが左＝古い。"},
+ {kind:"order",
+  q:"遺伝子の組み合わせがAaの親から、子に遺伝子が受けつがれるまでの流れを、正しい順にタップして並べなさい。",
+  items:["親の体細胞の中で、遺伝子Aとaが対になっている","減数分裂で、対になっている遺伝子が分かれる","Aをもつ生殖細胞と、aをもつ生殖細胞ができる","受精によって、2つの生殖細胞の核が合体する","子の細胞で、遺伝子がふたたび対になる"],
+  e:"<b>対（Aa）→ 減数分裂で分かれる（分離の法則）→ 生殖細胞（Aかa）→ 受精で合体 → 子でふたたび対</b>。「分かれる→合わさる」の流れ。",
+  w:"「分かれる（減数分裂）」と「合わさる（受精）」の<b>順番</b>に注意。遺伝子が分かれるのは生殖細胞が<b>できるとき</b>で、受精はそのあと。"},
+ _O2[7], _O2[8], _O2[9],
 ];
 
 /* ---------- 90点コース：説明・記述（部品をすべて選ぶ） ---------- */
@@ -1089,8 +1171,8 @@ const SETS={
   {key:"mix",name:"🔀 全範囲ミックス",sub:"全30問からランダム10問。仕上げの腕試し！",get:()=>shuffle(ALL50).slice(0,N)},
  ],
  "70":[
-  {key:"s1",name:"資料セット①（成長と殖え方）",sub:"細胞分裂の図・根の観察・染色体の数・受精のしくみ（10問）",get:()=>shuffle(Q70)},
-  {key:"s2",name:"資料セット②（遺伝と進化）",sub:"かけ合わせ表・実験結果の比・出現年代・相同器官（10問）",get:()=>shuffle(Q70B)},
+  {key:"s1",name:"資料セット①（成長と殖え方）",sub:"分裂の順・観察手順の並べ替え／根の伸びの計算／染色体の数（10問）",get:()=>shuffle(Q70)},
+  {key:"s2",name:"資料セット②（遺伝と進化）",sub:"かけ合わせの個体数計算／出現順・遺伝子の流れの並べ替え／相同器官（10問）",get:()=>shuffle(Q70B)},
  ],
  "90":[
   {key:"s1",name:"説明セット①（成長と殖え方）",sub:"観察の操作・体細胞分裂・無性/有性生殖・減数分裂｜部品を選んで記述を完成（10問）",get:()=>shuffle(Q90)},
@@ -1159,15 +1241,20 @@ function renderDots(){
 const MARKS=["ア","イ","ウ","エ","オ","カ"];
 function renderQ(){
   const q=S.qs[S.idx];
-  const multi=typeof q.c[0]==="object";
+  const multi=!!q.c&&typeof q.c[0]==="object";
   renderDots();
   el("score-box").textContent="スコア "+S.score;
-  el("q-num").innerHTML="第"+(S.idx+1)+"問 / "+N+(multi?'<span id="q-type">すべて選べ</span>':(q.type?'<span id="q-type">'+q.type+'</span>':""));
+  el("q-num").innerHTML="第"+(S.idx+1)+"問 / "+N+(multi?'<span id="q-type">すべて選べ</span>':q.kind==="num"?'<span id="q-type">🔢 数値入力</span>':q.kind==="order"?'<span id="q-type">🔀 並べ替え</span>':(q.type?'<span id="q-type">'+q.type+'</span>':""));
   el("shiryo").innerHTML = q.sh ? (typeof q.sh==="function"?q.sh():q.sh) : "";
   let qt=q.q.replace("【誤っているもの】",'<span class="wrong-word">【誤っているもの】</span>')
             .replace("【すべて】",'<span class="wrong-word">【すべて】</span>');
   if(multi) qt+='\n（いくつ正解があるかはヒミツ。選び終わったら「決定する！」）';
+  if(q.kind==="order") qt+='\n（タップした順に番号がつくよ。もう一度タップで取り消し）';
   el("q-text").innerHTML=qt;
+  if(q.kind){
+    if(q.kind==="num") renderNum(q); else renderOrder(q);
+    hide("feedback");window.scrollTo({top:0,behavior:"smooth"});return;
+  }
   const order=shuffle([...Array(q.c.length).keys()]);
   S.order=order;
   const box=el("choices");box.innerHTML="";
@@ -1188,6 +1275,130 @@ function renderQ(){
   }
   hide("feedback");
   window.scrollTo({top:0,behavior:"smooth"});
+}
+
+
+/* ===== 数値入力・並べ替え ===== */
+function toHalf(s){return String(s).replace(/[０-９．－]/g,c=>String.fromCharCode(c.charCodeAt(0)-0xFEE0)).replace(/[。、，]/g,".").replace(/[^\d.\-]/g,"");}
+function renderNum(q){
+  const box=el("choices");box.innerHTML="";
+  q.blanks.forEach((b,i)=>{
+    const r=document.createElement("div");r.className="num-row";
+    r.innerHTML=(b.l?'<span class="nl">'+b.l+'</span>':'<span class="nl">答</span>')+
+      '<input type="text" size="4" inputmode="decimal" autocomplete="off" id="num'+i+'" placeholder="数字を入力">'+
+      '<span class="nu">'+(b.u||"")+'</span>';
+    box.appendChild(r);
+  });
+  const d=document.createElement("button");
+  d.id="decide-btn";d.textContent="答える！";d.disabled=true;d.onclick=judgeNum;
+  box.appendChild(d);
+  box.querySelectorAll("input").forEach(inp=>{
+    inp.addEventListener("input",()=>{d.disabled=[...box.querySelectorAll("input")].some(x=>toHalf(x.value)==="");});
+    inp.addEventListener("keydown",e=>{if(e.key==="Enter"&&!d.disabled)judgeNum();});
+  });
+}
+function judgeNum(){
+  const q=S.qs[S.idx];
+  const inputs=[...el("choices").querySelectorAll("input")];
+  const vals=inputs.map(x=>toHalf(x.value));
+  let allOk=true;const lines=[];
+  q.blanks.forEach((b,i)=>{
+    const v=parseFloat(vals[i]);
+    const ok=!isNaN(v)&&Math.abs(v-b.a)<=(b.tol||0)+1e-9;
+    if(!ok)allOk=false;
+    inputs[i].disabled=true;
+    inputs[i].parentNode.classList.add(ok?"nok":"nng");
+    const lbl=b.l?b.l+"：":"";
+    let why="";
+    if(!ok&&b.miss){const k=Object.keys(b.miss).find(k=>Math.abs(parseFloat(k)-v)<1e-9);if(k)why='<div class="rv-why">🤔 '+b.miss[k]+'</div>';}
+    lines.push('<div class="fb-item">'+(ok?"✅ ":"❌ ")+lbl+'あなたの答え <b>'+(vals[i]||"（空）")+(b.u||"")+'</b>'+(ok?"":' → 正解は <b>'+b.a+(b.u||"")+'</b>')+why+'</div>');
+  });
+  el("decide-btn").remove();
+  finishSpecial(q,allOk,{ans:vals},lines.join("")+'<div style="margin-top:6px;">💡 '+q.e+'</div>');
+}
+function renderOrder(q){
+  const box=el("choices");box.innerHTML="";
+  S.ordSel=[];
+  const ord=shuffle([...Array(q.items.length).keys()]);
+  S.order=ord;
+  ord.forEach(oi=>{
+    const b=document.createElement("button");
+    b.className="choice ord-item";b.dataset.oi=oi;
+    b.innerHTML='<span class="ono"></span><span>'+q.items[oi]+'</span>';
+    b.onclick=()=>toggleOrd(b);
+    box.appendChild(b);
+  });
+  const row=document.createElement("div");row.className="ord-btns";
+  row.innerHTML='<button class="ord-reset" onclick="resetOrd()">↺ やり直す</button>';
+  const d=document.createElement("button");
+  d.id="decide-btn";d.textContent="決定する！";d.disabled=true;d.onclick=judgeOrder;
+  box.appendChild(row);box.appendChild(d);
+}
+function paintOrd(){
+  el("choices").querySelectorAll(".ord-item").forEach(b=>{
+    const k=S.ordSel.indexOf(+b.dataset.oi);
+    b.classList.toggle("sel",k>=0);
+    b.querySelector(".ono").textContent=k>=0?String(k+1):"";
+  });
+  el("decide-btn").disabled=S.ordSel.length!==S.qs[S.idx].items.length;
+}
+function toggleOrd(b){
+  const oi=+b.dataset.oi,k=S.ordSel.indexOf(oi);
+  if(k>=0)S.ordSel.splice(k,1);else S.ordSel.push(oi);
+  paintOrd();
+}
+function resetOrd(){S.ordSel=[];paintOrd();}
+function judgeOrder(){
+  const q=S.qs[S.idx];
+  const sel=S.ordSel.slice();
+  const okPos=sel.filter((oi,i)=>oi===i).length;
+  const allOk=okPos===q.items.length;
+  el("choices").querySelectorAll(".ord-item").forEach(b=>{
+    const oi=+b.dataset.oi,k=sel.indexOf(oi);
+    b.disabled=true;b.classList.remove("sel");
+    b.classList.add(k===oi?"correct":"wrongpick");
+  });
+  el("choices").querySelector(".ord-btns").remove();el("decide-btn").remove();
+  const yours='<div class="fb-item"><b>あなたの順番</b>'+sel.map((oi,i)=>'<div>'+(oi===i?"✅":"❌")+" "+(i+1)+". "+q.items[oi]+'</div>').join("")+'</div>';
+  const right='<div class="fb-item"><b>⭕ 正しい順番</b>'+q.items.map((t,i)=>'<div>'+(i+1)+". "+t+'</div>').join("")+'</div>';
+  finishSpecial(q,allOk,{ord:sel},(allOk?"":'<div style="margin-bottom:6px;">'+okPos+"/"+q.items.length+" か所が正しい位置。</div>"+yours)+right+
+    '<div style="margin-top:6px;">💡 '+q.e+'</div>'+(allOk||!q.w?"":'<div style="margin-top:6px;">🤔 '+q.w+'</div>'));
+}
+function finishSpecial(q,ok,rec,html){
+  S.results.push(ok);
+  let got=0;
+  if(ok){S.correct++;S.streak++;got=COURSE_INFO[S.course].pts+(S.streak>=2?(S.streak-1)*5:0);S.score+=got;}
+  else{S.streak=0;S.wrongs.push(Object.assign({no:S.idx+1,q:q},rec));}
+  el("score-box").textContent="スコア "+S.score;
+  el("verdict").textContent=ok?"⭕ 正解！":"❌ ざんねん…";
+  el("verdict").className="verdict "+(ok?"ok":"ng");
+  el("gotpt").textContent=ok?"+"+got+"pt"+(S.streak>=2?"（"+S.streak+"連続正解ボーナス！）":""):"";
+  el("expl").innerHTML=html;
+  el("model-wrap").innerHTML="";
+  el("next-btn").textContent=S.idx===N-1?"結果を見る ▶":"次へ ▶";
+  show("feedback");
+  renderDotsAfter();
+}
+function reviewSpecial(q,w){
+  let h='';
+  if(w.ans){
+    h+='<div class="rv-sec rv-you"><div class="rv-lbl">❌ あなたの答え</div>';
+    q.blanks.forEach((b,i)=>{
+      const v=parseFloat(w.ans[i]);const ok=!isNaN(v)&&Math.abs(v-b.a)<=(b.tol||0)+1e-9;
+      let why="";
+      if(!ok&&b.miss){const k=Object.keys(b.miss).find(k=>Math.abs(parseFloat(k)-v)<1e-9);if(k)why='<div class="rv-why">🤔 <b>なぜ違う？</b> '+b.miss[k]+'</div>';}
+      h+='<div class="rv-line">'+(ok?"✅ ":"❌ ")+(b.l?b.l+"：":"")+'<b>'+(w.ans[i]||"（空）")+(b.u||"")+'</b>'+why+'</div>';
+    });
+    h+='</div><div class="rv-sec rv-right"><div class="rv-lbl">⭕ 正しくは</div><div class="rv-line"><b>'+
+       q.blanks.map(b=>(b.l?b.l+"＝":"")+b.a+(b.u||"")).join("　")+'</b></div><div class="rv-why">💡 '+q.e+'</div></div>';
+  }else{
+    h+='<div class="rv-sec rv-you"><div class="rv-lbl">❌ あなたの順番</div>'+
+       w.ord.map((oi,i)=>'<div class="rv-line">'+(oi===i?"✅":"❌")+" "+(i+1)+". "+q.items[oi]+'</div>').join("")+
+       (q.w?'<div class="rv-why">🤔 <b>なぜ違う？</b> '+q.w+'</div>':'')+'</div>';
+    h+='<div class="rv-sec rv-right"><div class="rv-lbl">⭕ 正しい順番</div>'+
+       q.items.map((t,i)=>'<div class="rv-line">'+(i+1)+". "+t+'</div>').join("")+'<div class="rv-why">💡 '+q.e+'</div></div>';
+  }
+  return h;
 }
 
 function toggleSel(b){
@@ -1326,7 +1537,8 @@ function reviewCard(w){
   if(q.sh){
     h+='<details class="rv-sh"><summary>📊 資料をもう一度見る</summary>'+(typeof q.sh==="function"?q.sh():q.sh)+'</details>';
   }
-  if(w.sel){ /* 90点コース：部品選択 */
+  if(w.ans||w.ord){ h+=reviewSpecial(q,w); }
+  else if(w.sel){ /* 90点コース：部品選択 */
     const wrongSel=w.sel.filter(i=>!q.c[i].ok);
     const missed=q.c.map((c,i)=>i).filter(i=>q.c[i].ok&&w.sel.indexOf(i)<0);
     const okSel=w.sel.filter(i=>q.c[i].ok);
