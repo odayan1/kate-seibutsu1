@@ -199,6 +199,51 @@ footer b{color:var(--blue);}
 .ord-item.sel .mark::after{content:"";}
 .ord-btns{text-align:right;}
 .ord-reset{background:#fff;border:1.5px solid #9ed3ea;color:#1491bd;border-radius:999px;padding:5px 14px;font-weight:700;font-family:inherit;font-size:13px;cursor:pointer;}
+/* ===== lab ===== */
+.lab-entry{display:flex;align-items:center;gap:12px;width:100%;margin-top:12px;background:linear-gradient(135deg,#f3eefe,#eaf7fd);border:2px solid #c9b8f2;border-radius:16px;padding:14px 16px;text-align:left;font:inherit;color:var(--ink);cursor:pointer;box-shadow:0 2px 8px rgba(110,80,200,.12);}
+.lab-entry .le-ic{font-size:30px;}
+.lab-entry b{font-size:16px;color:#6a4fc4;}
+.lab-entry small{font-size:11.5px;color:#48616d;}
+.lab-entry .le-go{margin-left:auto;color:#6a4fc4;font-weight:900;}
+.lab-head{font-size:17px;font-weight:900;color:#6a4fc4;margin:2px 0 10px;}
+.lab-card{background:#fff;border-radius:16px;padding:14px;box-shadow:0 2px 8px rgba(31,120,150,.10);}
+.lab-lbl{font-size:12px;font-weight:800;color:#1491bd;margin:10px 0 4px;}
+.lab-note{font-size:12px;color:#48616d;margin:6px 0;}
+.seg{display:flex;flex-wrap:wrap;gap:6px;}
+.segbtn{flex:1;min-width:64px;background:#f4fafd;border:2px solid #d7e9f1;border-radius:999px;padding:8px 10px;font:inherit;font-size:13.5px;font-weight:800;color:var(--ink);cursor:pointer;}
+.segbtn.on{background:var(--blue);border-color:var(--blue);color:#fff;}
+.segbtn:disabled{opacity:.4;cursor:default;}
+.lab-pun{border-collapse:separate;border-spacing:5px;margin:8px auto;}
+.lab-pun th{background:#e5f3f9;border-radius:8px;padding:6px 14px;font-size:15px;color:#1c5a72;}
+.lab-pun th.corner{font-size:10px;padding:4px;background:none;color:#7a95a1;}
+.lab-pun td{border-radius:10px;padding:7px 18px;text-align:center;font-size:17px;}
+.lab-pun td small{font-size:11px;font-weight:700;}
+.lab-pun td.dom{background:#e3f0ff;border:2px solid #9cc4f0;}
+.lab-pun td.rec{background:#fdeaea;border:2px solid #f1a9a9;}
+.lab-res{background:#eef7fb;border-radius:12px;padding:10px 12px;font-size:13.5px;margin:8px 0;line-height:1.7;}
+.lab-res small{font-size:11.5px;color:#48616d;}
+.lab-bar{display:flex;height:22px;border-radius:999px;overflow:hidden;margin:6px 0 2px;background:#e1edf2;}
+.lab-bar span{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;white-space:nowrap;overflow:hidden;transition:width .3s;}
+.b-dom{background:#2f84d0;} .b-rec{background:#e05d5d;}
+.lab-tip{background:#fffbe8;border:1.5px solid #f2dc7a;border-radius:12px;padding:9px 12px;font-size:12.5px;margin-top:8px;line-height:1.7;}
+.lab-svg{width:100%;height:auto;display:block;margin:6px 0;}
+.lab-ctrl{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;}
+.lab-steps{display:flex;justify-content:center;gap:6px;}
+.lab-steps span{width:26px;height:26px;border-radius:50%;background:#e1edf2;color:#7a95a1;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;}
+.lab-steps span.done{background:#cfe8b0;color:#4f7a1e;} .lab-steps span.on{background:var(--blue);color:#fff;}
+.lab-big{font-size:22px;font-weight:900;text-align:center;color:#1c3a47;}
+.lab-big small{font-size:13px;color:#5b7884;margin-left:4px;}
+.lab-range{width:100%;margin:8px 0;accent-color:#6a4fc4;height:28px;}
+.ms-flow{margin:10px 0;}
+.ms-row{display:flex;align-items:center;justify-content:center;gap:8px;margin:4px 0;}
+.ms-arr{font-size:11px;font-weight:800;color:#1491bd;text-align:center;line-height:1.2;}
+.ms-arr.big{font-size:13px;margin:2px 0;}
+.lab-cell{text-align:center;}
+.lab-cell .lc-in{width:84px;height:84px;border:2.5px solid #9ed3ea;border-radius:50%;background:#fff;display:flex;align-items:flex-end;justify-content:center;padding-bottom:22px;margin:0 auto;}
+.lab-cell.small .lc-in{width:66px;height:66px;padding-bottom:16px;}
+.lab-cell.kid .lc-in{border-color:#8dc63f;background:#f7fcef;}
+.lab-cell .lc-l{font-size:11px;font-weight:800;margin-top:2px;}
+.cbar{display:inline-block;width:8px;border-radius:4px;margin:0 2px;}
 </style>
 </head>
 <body>
@@ -244,6 +289,7 @@ footer b{color:var(--blue);}
       </div>
       <div class="wl-note">
         📱 1プレイは10問。<br>
+        🧪 ホームの「インタラクティブ教材」で、図を動かして理解することもできるよ。<br>
         📒 最後の結果画面で、まちがえた問題を「なぜ違うのか」までくわしく解説するよ。<b>ここを読むのが一番伸びる！</b>
       </div>
       <button class="btn retry" onclick="closeWelcome()">わかった！コースを選ぶ ▶</button>
@@ -281,9 +327,17 @@ footer b{color:var(--blue);}
         <span class="best">全20問｜説明セット①②</span>
       </button>
     </div>
+    <button class="lab-entry" onclick="openLab()">
+      <span class="le-ic">🧪</span>
+      <span><b>インタラクティブ教材</b><br><small>かけ合わせ・体細胞分裂・減数分裂と受精・根の伸び・進化タイムライン｜動かして理解！</small></span>
+      <span class="le-go">▶</span>
+    </button>
     <button class="wl-link" onclick="openWelcome()">📖 はじめに（使い方）をもう一度読む</button>
     <p class="range-note">出題範囲：中3理科「生命の連続性」（生物の成長と殖え方／遺伝の規則性／生物の種類の多様性と進化）<br>※収録問題はすべて KATE APP のオリジナル問題です。</p>
   </section>
+
+  <!-- ========== LAB（インタラクティブ教材） ========== -->
+  <section id="lab" class="hidden"><div id="lab-body"></div></section>
 
   <!-- ========== SET PICKER ========== -->
   <section id="sets" class="hidden">
@@ -1576,8 +1630,234 @@ function reviewCard(w){
 function closeWelcome(){hide("welcome");show("home");window.scrollTo(0,0);}
 function openWelcome(){hide("home");show("welcome");window.scrollTo(0,0);}
 function retry(){startSet(S.setIdx);}
-function goHome(){hide("quiz");hide("result");hide("sets");hide("intro90");hide("welcome");show("home");window.scrollTo(0,0);}
+function goHome(){stopLabTimer();hide("lab");hide("quiz");hide("result");hide("sets");hide("intro90");hide("welcome");show("home");window.scrollTo(0,0);}
 function backToSets(){hide("quiz");hide("result");renderSets();show("sets");window.scrollTo(0,0);}
+
+/* ================= 🧪 インタラクティブ教材 ================= */
+const LABS=[
+ {t:"🧬 かけ合わせシミュレーター",d:"親の遺伝子を選ぶと、子の組み合わせと比が分かる。実際に育てる実験も！",f:labCross},
+ {t:"🔬 体細胞分裂ステップ観察",d:"1段階ずつ進めて、染色体の動きを自分の目で追う",f:labMitosis},
+ {t:"🎲 減数分裂と受精（有性生殖 vs 無性生殖）",d:"何度もくり返して、子の染色体の組み合わせが変わるか確かめる",f:labMeiosis},
+ {t:"📏 根の伸び方タイムラプス",d:"時間を進めると、根のどこが伸びるのかが見える",f:labRoot},
+ {t:"🦕 脊椎動物の進化タイムライン",d:"5億年前から現在まで。なかまが現れる順と、陸上への変化",f:labEvo},
+];
+let labTimer=null;
+function stopLabTimer(){if(labTimer){clearInterval(labTimer);labTimer=null;}}
+function openLab(){hide("home");hide("welcome");show("lab");renderLabMenu();}
+function renderLabMenu(){
+  stopLabTimer();
+  let h='<div class="lead">🧪 <b>さわって理解する教材</b>だよ。ボタンやスライダーを動かして、教科書の図が「どう動くのか」を確かめよう。問題でまちがえたところの確認にも使える！</div><div class="set-grid">';
+  LABS.forEach((L,i)=>{h+='<button class="setbtn" onclick="labOpen('+i+')"><span><span class="sn">'+L.t+'</span><br><span class="sd">'+L.d+'</span></span><span class="sb">ひらく ▶</span></button>';});
+  h+='</div><div class="btn-row"><button class="btn home" onclick="goHome()">ホームにもどる</button></div>';
+  el("lab-body").innerHTML=h;window.scrollTo(0,0);
+}
+function labOpen(i){
+  stopLabTimer();
+  el("lab-body").innerHTML='<div class="lab-head">'+LABS[i].t+'</div><div id="lab-x" class="lab-card"></div>'+
+    '<div class="btn-row"><button class="btn home" onclick="renderLabMenu()">教材一覧にもどる</button></div>';
+  LABS[i].f(el("lab-x"));window.scrollTo(0,0);
+}
+function seg(opts,cur,fn){return '<div class="seg">'+opts.map((o,i)=>'<button class="segbtn'+(o[0]===cur?' on':'')+'" onclick="'+fn+'(\''+o[0]+'\')">'+o[1]+'</button>').join("")+'</div>';}
+function gcdN(a,b){return b?gcdN(b,a%b):a;}
+
+/* ---------- 1. かけ合わせシミュレーター ---------- */
+const TRAITS={shape:["種子の形","丸","しわ"],color:["子葉の色","黄色","緑色"],tall:["草たけ","高い","低い"]};
+let CX={p1:"Aa",p2:"Aa",tr:"shape",sim:null};
+function geno(a,b){return a===a.toUpperCase()?a+b:b+a;}
+function cxSet(k,v){CX[k]=v;CX.sim=null;labCrossRender();}
+function cxP1(v){cxSet("p1",v);} function cxP2(v){cxSet("p2",v);} function cxTr(v){CX.tr=v;labCrossRender();}
+function labCross(root){labCrossRender();}
+function labCrossRender(){
+  const T=TRAITS[CX.tr], G=[["AA","AA"],["Aa","Aa"],["aa","aa"]];
+  const g1=[CX.p1[0],CX.p1[1]], g2=[CX.p2[0],CX.p2[1]];
+  const cnt={AA:0,Aa:0,aa:0};
+  let tb='<table class="lab-pun"><tr><th class="corner">親①＼親②</th><th>'+g2[0]+'</th><th>'+g2[1]+'</th></tr>';
+  g1.forEach(a=>{tb+='<tr><th>'+a+'</th>';g2.forEach(b=>{const g=geno(a,b);cnt[g]++;const dom=g.indexOf("A")>=0;
+    tb+='<td class="'+(dom?"dom":"rec")+'"><b>'+g+'</b><br><small>'+(dom?T[1]:T[2])+'</small></td>';});tb+='</tr>';});
+  tb+='</table>';
+  const d=cnt.AA+cnt.Aa, r=cnt.aa;
+  const k=gcdN(gcdN(cnt.AA,cnt.Aa),cnt.aa);
+  const nz=["AA","Aa","aa"].filter(g=>cnt[g]>0);
+  const gr=nz.length===1?"すべて "+nz[0]:nz.join("：")+" ＝ "+nz.map(g=>cnt[g]/k).join("：");
+  const pr = r===0?"すべて "+T[1]: d===0?"すべて "+T[2] : T[1]+"："+T[2]+" ＝ "+d/gcdN(d,r)+"："+r/gcdN(d,r);
+  const pair=[CX.p1,CX.p2].sort().join("×");
+  const tips={"Aa×Aa":"<b>子どうし（Aa×Aa）</b>のかけ合わせ。孫では顕性：潜性＝<b>3：1</b>。テスト最頻出！",
+    "AA×aa":"<b>純系どうし</b>のかけ合わせ。子はすべてAa → すべて顕性形質。潜性の遺伝子aは<b>消えずにかくれている</b>。",
+    "Aa×aa":"顕性：潜性＝<b>1：1</b>。遺伝子が分からない個体に<b>aaをかけ合わせる</b>と、正体（AAかAaか）が分かる。",
+    "AA×AA":"純系（AA）どうし。何代たっても同じ形質。","aa×aa":"潜性の純系（aa）どうし。子もすべて潜性形質。",
+    "AA×Aa":"Aを必ず1つ受けつぐので、子はすべて顕性形質。でも遺伝子はAAとAaの2種類。"};
+  let sim="";
+  if(CX.sim){const s=CX.sim,tot=s.d+s.r;
+    sim='<div class="lab-res">🌱 '+tot+'個体を育てた結果：'+T[1]+' <b>'+s.d+'</b>／'+T[2]+' <b>'+s.r+'</b>'+
+      (s.r&&s.d?'　→ およそ <b>'+(s.d/s.r).toFixed(2)+'：1</b>':'')+
+      '<div class="lab-bar"><span class="b-dom" style="width:'+(s.d/tot*100)+'%"></span><span class="b-rec" style="width:'+(s.r/tot*100)+'%"></span></div>'+
+      '<small>理論上の比は上の表の4マスから。数が<b>多い</b>ほど理論の比に近づくよ（何回か押して比べてみよう）。</small></div>';}
+  el("lab-x").innerHTML=
+   '<div class="lab-lbl">形質</div>'+seg(Object.keys(TRAITS).map(k=>[k,TRAITS[k][0]]),CX.tr,"cxTr")+
+   '<div class="lab-note">A＝'+T[1]+'にする遺伝子（顕性）／a＝'+T[2]+'にする遺伝子（潜性）</div>'+
+   '<div class="lab-lbl">親① の遺伝子</div>'+seg(G,CX.p1,"cxP1")+
+   '<div class="lab-lbl">親② の遺伝子</div>'+seg(G,CX.p2,"cxP2")+
+   '<div class="lab-note">減数分裂で対の遺伝子が分かれる（分離の法則）→ 親①の生殖細胞は <b>'+g1.join("</b> と <b>")+'</b>、親②は <b>'+g2.join("</b> と <b>")+'</b></div>'+
+   tb+
+   '<div class="lab-res">遺伝子の組み合わせ：<b>'+gr+'</b><br>現れる形質：<b>'+pr+'</b>'+
+   '<div class="lab-bar"><span class="b-dom" style="width:'+(d*25)+'%">'+(d?T[1]+" "+d*25+"%":"")+'</span><span class="b-rec" style="width:'+(r*25)+'%">'+(r?T[2]+" "+r*25+"%":"")+'</span></div></div>'+
+   '<div class="lab-tip">💡 '+(tips[pair]||"")+'</div>'+
+   '<div class="lab-lbl">実際に育ててみる（ランダム実験）</div><div class="seg">'+[20,100,1000,8000].map(n=>'<button class="segbtn" onclick="cxSim('+n+')">'+n+'個体</button>').join("")+'</div>'+sim;
+}
+function cxSim(n){
+  const g1=[CX.p1[0],CX.p1[1]], g2=[CX.p2[0],CX.p2[1]];let d=0,r=0;
+  for(let i=0;i<n;i++){const g=geno(g1[Math.random()<.5?0:1],g2[Math.random()<.5?0:1]);if(g.indexOf("A")>=0)d++;else r++;}
+  CX.sim={d,r};labCrossRender();
+}
+
+/* ---------- 2. 体細胞分裂ステップ観察 ---------- */
+let MT=0;
+const MT_TXT=[
+ "<b>① 分裂前</b>：核の中で染色体が<b>複製</b>され、同じものが<b>2本ずつ</b>（くっついた状態）になっている。まだ核の形が見える。",
+ "<b>② 染色体が現れる</b>：核の形が見えなくなり、染色体が太く短くなって<b>ひも状に見える</b>。X字＝複製された2本がくっついた形。",
+ "<b>③ 中央に並ぶ</b>：染色体が細胞の<b>中央</b>（点線）に並ぶ。",
+ "<b>④ 分かれる</b>：くっついていた2本が<b>分かれて</b>、細胞の<b>両はし</b>へ移動する。",
+ "<b>⑤ 仕切りができる</b>：両はしに核ができはじめ、中央に<b>仕切り</b>ができる（植物細胞）。",
+ "<b>⑥ 2つの細胞に</b>：どちらの細胞も、もとの細胞と<b>同じ数（4本）</b>の染色体をもつ。このあと1つ1つが<b>大きくなる</b>。"];
+function mtBar(x,y,len,col,rot,w){return '<line x1="'+x+'" y1="'+(y-len/2)+'" x2="'+x+'" y2="'+(y+len/2)+'" stroke="'+col+'" stroke-width="'+(w||6)+'" stroke-linecap="round"'+(rot?' transform="rotate('+rot+' '+x+' '+y+')"':'')+'/>';}
+function mitoSvg(st){
+  const X=[136,164,196,224],L=[44,26,44,26],C=["#d0457a","#d0457a","#2f84d0","#2f84d0"];
+  let s='<svg viewBox="0 0 360 260" class="lab-svg">';
+  if(st<5){s+='<rect x="70" y="14" width="220" height="232" rx="16" fill="#f4fbf0" stroke="#6a8f3a" stroke-width="2.5"/>';}
+  else{s+='<rect x="70" y="14" width="220" height="110" rx="14" fill="#f4fbf0" stroke="#6a8f3a" stroke-width="2.5"/><rect x="70" y="136" width="220" height="110" rx="14" fill="#f4fbf0" stroke="#6a8f3a" stroke-width="2.5"/>';}
+  if(st===0){
+    s+='<circle cx="180" cy="130" r="54" fill="#f6e4ee" stroke="#b06a92" stroke-width="2"/>';
+    [[150,110,30],[200,105,-40],[160,150,70],[205,150,15]].forEach((p,i)=>{s+='<path d="M'+(p[0]-14)+' '+p[1]+' q7 -9 14 0 t14 0" fill="none" stroke="'+C[i]+'" stroke-width="2" opacity=".55" transform="rotate('+p[2]+' '+p[0]+' '+p[1]+')"/>';});
+    s+='<text x="180" y="200" text-anchor="middle" font-size="12" fill="#8a3a6c">核</text>';
+  }else if(st===1){
+    [[140,95,25],[220,92,-35],[150,170,65],[214,168,10]].forEach((p,i)=>{s+=mtBar(p[0],p[1],L[i],C[i],p[2]+12)+mtBar(p[0],p[1],L[i],C[i],p[2]-12);});
+  }else if(st===2){
+    s+='<line x1="78" y1="130" x2="282" y2="130" stroke="#9fb98a" stroke-dasharray="5 4" stroke-width="1.5"/>';
+    X.forEach((x,i)=>{s+=mtBar(x-4,130,L[i],C[i])+mtBar(x+4,130,L[i],C[i]);});
+  }else if(st===3){
+    X.forEach((x,i)=>{s+=mtBar(x,62,L[i],C[i])+mtBar(x,198,L[i],C[i]);});
+    s+='<text x="300" y="70" font-size="18" fill="#1491bd">↑</text><text x="300" y="205" font-size="18" fill="#1491bd">↓</text>';
+  }else if(st===4){
+    s+='<ellipse cx="180" cy="52" rx="66" ry="30" fill="#f6e4ee" opacity=".7"/><ellipse cx="180" cy="208" rx="66" ry="30" fill="#f6e4ee" opacity=".7"/>';
+    X.forEach((x,i)=>{s+=mtBar(x,52,L[i]*.75,C[i],0,5)+mtBar(x,208,L[i]*.75,C[i],0,5);});
+    s+='<line x1="74" y1="130" x2="286" y2="130" stroke="#6a8f3a" stroke-width="4" stroke-dasharray="10 5"/>';
+  }else{
+    [69,191].forEach(cy=>{s+='<circle cx="180" cy="'+cy+'" r="36" fill="#f6e4ee" stroke="#b06a92" stroke-width="2"/>';
+      X.forEach((x,i)=>{s+=mtBar(180+(x-180)*.45,cy,L[i]*.55,C[i],0,4);});
+      s+='<text x="228" y="'+(cy+5)+'" font-size="13" font-weight="800" fill="#1c3a47">4本</text>';});
+  }
+  return s+'</svg>';
+}
+function labMitosis(root){MT=0;mtRender();}
+function mtGo(d){stopLabTimer();MT=Math.max(0,Math.min(5,MT+d));mtRender();}
+function mtPlay(){stopLabTimer();MT=0;mtRender();labTimer=setInterval(()=>{if(MT>=5){stopLabTimer();mtRender();return;}MT++;mtRender();},1700);}
+function mtRender(){
+  el("lab-x").innerHTML='<div class="lab-steps">'+[0,1,2,3,4,5].map(i=>'<span class="'+(i===MT?"on":(i<MT?"done":""))+'">'+(i+1)+'</span>').join("")+'</div>'+
+   mitoSvg(MT)+'<div class="lab-res">'+MT_TXT[MT]+'</div>'+
+   '<div class="lab-ctrl"><button class="segbtn" onclick="mtGo(-1)" '+(MT===0?"disabled":"")+'>◀ 前へ</button><button class="segbtn on" onclick="mtGo(1)" '+(MT===5?"disabled":"")+'>次へ ▶</button><button class="segbtn" onclick="mtPlay()">▶ 自動再生</button></div>'+
+   '<div class="lab-tip">💡 合言葉は <b>「現れる → 並ぶ → 分かれる → 仕切り」</b>。体細胞分裂では、分裂の前後で染色体の数は<b>変わらない</b>（4本→4本）。赤と青は、形と大きさが同じで対になっている染色体。</div>';
+}
+
+/* ---------- 3. 減数分裂と受精 ---------- */
+let MS={mode:"sex",m:[0,0],f:[0,0],seen:{},n:0};
+const MSC={m:["#a3214f","#ef8db6"],f:["#1d5aa6","#8cc4f2"]};
+function cbar(c,h){return '<span class="cbar" style="height:'+h+'px;background:'+c+'"></span>';}
+function cellBox(inner,lbl,cls){return '<div class="lab-cell '+(cls||"")+'"><div class="lc-in">'+inner+'</div><div class="lc-l">'+lbl+'</div></div>';}
+function parentChrom(P){return cbar(MSC[P][0],34)+cbar(MSC[P][1],34)+cbar(MSC[P][0],20)+cbar(MSC[P][1],20);}
+function msMode(v){MS.mode=v;MS.seen={};MS.n=0;msRoll();}
+function labMeiosis(root){MS.mode="sex";MS.seen={};MS.n=0;msRoll();}
+function msRoll(){
+  const r=()=>Math.random()<.5?0:1;
+  MS.m=[r(),r()];MS.f=[r(),r()];MS.n++;
+  MS.seen[MS.mode==="sex"?MS.m.join("")+MS.f.join(""):"x"]=1;msRender();
+}
+function msRender(){
+  let body;
+  const cnt=Object.keys(MS.seen).length;
+  if(MS.mode==="sex"){
+    const gm=cbar(MSC.m[MS.m[0]],34)+cbar(MSC.m[MS.m[1]],20), gf=cbar(MSC.f[MS.f[0]],34)+cbar(MSC.f[MS.f[1]],20);
+    const ch=cbar(MSC.m[MS.m[0]],34)+cbar(MSC.f[MS.f[0]],34)+cbar(MSC.m[MS.m[1]],20)+cbar(MSC.f[MS.f[1]],20);
+    body='<div class="ms-flow">'+
+      '<div class="ms-row">'+cellBox(parentChrom("m"),"親（雄）4本")+'<span class="ms-arr">減数分裂<br>→</span>'+cellBox(gm,"精子 2本","small")+'</div>'+
+      '<div class="ms-row">'+cellBox(parentChrom("f"),"親（雌）4本")+'<span class="ms-arr">減数分裂<br>→</span>'+cellBox(gf,"卵 2本","small")+'</div>'+
+      '<div class="ms-arr big">↓ 受精</div><div class="ms-row c">'+cellBox(ch,"子（受精卵）4本","kid")+'</div></div>'+
+      '<div class="lab-res">見つけた子の組み合わせ：<b>'+cnt+' / 16 種類</b>（'+MS.n+'回目）<br>'+
+      '減数分裂では、対になっている染色体の<b>どちらか一方</b>が生殖細胞に入る。だから受精のたびに<b>組み合わせが変わる</b> → 子の形質は<b>多様</b>になる。</div>';
+  }else{
+    const p=parentChrom("m");
+    body='<div class="ms-flow"><div class="ms-row c">'+cellBox(p,"親 4本")+'<span class="ms-arr">体細胞分裂<br>→</span>'+cellBox(p,"子 4本","kid")+'</div></div>'+
+      '<div class="lab-res">見つけた子の組み合わせ：<b>'+cnt+' 種類</b>（'+MS.n+'回目）<br>何度やっても子は親と<b>まったく同じ</b>染色体 → 形質も親と<b>同じ</b>。（例：ジャガイモのいも、アメーバの分裂）</div>';
+  }
+  el("lab-x").innerHTML=seg([["sex","有性生殖（受精あり）"],["asex","無性生殖（受精なし）"]],MS.mode,"msMode")+body+
+   '<div class="lab-ctrl"><button class="segbtn on" onclick="msRoll()">🎲 もう一度、子をつくる</button></div>'+
+   '<div class="lab-tip">💡 数の流れ：<b>親4本 → 生殖細胞2本（半分）→ 子4本（もとにもどる）</b>。生殖細胞が半分だから、代を重ねても数が変わらない。</div>';
+}
+
+/* ---------- 4. 根の伸び方タイムラプス ---------- */
+let RT=0;
+const RT_T=[0,12,24,36,48],RT_C=[5,7.6,10.4,14.9,20.2];
+function rtC(t){for(let i=0;i<4;i++){if(t<=RT_T[i+1]){const k=(t-RT_T[i])/12;return RT_C[i]+(RT_C[i+1]-RT_C[i])*k;}}return 20.2;}
+function labRoot(root){RT=0;rtRender();}
+function rtSet(v){RT=+v;rtRender(true);}
+function rtPlay(){stopLabTimer();RT=0;rtRender();labTimer=setInterval(()=>{RT=Math.min(48,RT+1);rtRender();if(RT>=48)stopLabTimer();},90);}
+function rtRender(fromSlider){
+  const c=rtC(RT),S=6,y3=42,y2=y3+30,y1=y2+30,tip=y1+c*S;
+  let s='<svg viewBox="0 0 360 270" class="lab-svg">';
+  s+='<ellipse cx="150" cy="6" rx="80" ry="22" fill="#e8c88a" stroke="#b08a4a"/>';
+  s+='<path d="M140 10 L140 '+(tip-11)+' Q140 '+tip+' 151 '+tip+' Q162 '+tip+' 162 '+(tip-11)+' L162 10 Z" fill="#fbf6e6" stroke="#b9a46a" stroke-width="1.5"/>';
+  s+='<rect x="141" y="'+Math.max(y1,tip-6*S)+'" width="20" height="'+Math.max(0,tip-Math.max(y1,tip-6*S)-4)+'" fill="#f6dce8" opacity=".8"/>';
+  [y3,y2,y1].forEach(y=>{s+='<line x1="134" y1="'+y+'" x2="168" y2="'+y+'" stroke="#1c3a47" stroke-width="2.5"/>';});
+  const lab=(y0,y1_,t,len,col)=>'<line x1="176" y1="'+(y0+2)+'" x2="176" y2="'+(y1_-2)+'" stroke="'+col+'" stroke-width="2"/><text x="184" y="'+((y0+y1_)/2+4)+'" font-size="12.5" font-weight="800" fill="'+col+'">'+t+'：'+len.toFixed(1)+'mm</text>';
+  s+=lab(y3,y2,"A",5,"#5b7884")+lab(y2,y1,"B",5,"#5b7884")+lab(y1,tip,"C",c,"#d0457a");
+  s+='<text x="20" y="'+(tip-4)+'" font-size="11" fill="#b06a92">細胞分裂が</text><text x="20" y="'+(tip+10)+'" font-size="11" fill="#b06a92">さかんな所 →</text>';
+  s+='</svg>';
+  if(!document.getElementById("rt-dyn")){
+    el("lab-x").innerHTML='<div class="lab-big" id="rt-big"></div><input type="range" min="0" max="48" step="1" value="0" class="lab-range" id="rt-rng" oninput="rtSet(this.value)">'+
+     '<div id="rt-dyn"></div><div class="lab-ctrl"><button class="segbtn on" onclick="rtPlay()">▶ 0→48時間を再生</button></div>'+
+     '<div class="lab-tip">💡 A・Bは5.0mmのまま。伸びるのは<b>先端をふくむCだけ</b>。根の先端近くで<b>細胞分裂</b>がさかんに行われ、増えた細胞が<b>大きくなる</b>ことで根が伸びる。（数値は「生物マスター①」オリジナルの観察例）</div>';
+  }
+  el("rt-big").textContent="⏱ "+RT+" 時間後";
+  if(!fromSlider) el("rt-rng").value=RT;
+  el("rt-dyn").innerHTML=s+'<div class="lab-res">A＝5.0mm／B＝5.0mm／C＝<b>'+c.toFixed(1)+'mm</b>（伸びた長さ <b>'+(c-5).toFixed(1)+'mm</b>）</div>';
+}
+
+/* ---------- 5. 脊椎動物の進化タイムライン ---------- */
+let EV=0; // 0..540 → 何百万年前 = 540-EV
+const EVG=[["魚類",500,"#2fbdea","水中で生活。<b>えら</b>呼吸。殻のない卵。体表は<b>うろこ</b>。変温。"],
+ ["両生類",360,"#8dc63f","水辺で生活。子は<b>えら</b>、親は<b>肺と皮ふ</b>で呼吸。殻のない卵を水中に産む。<b>しめった皮ふ</b>。変温。手がかり：<b>シーラカンス</b>（魚類→両生類）。"],
+ ["は虫類",320,"#e0a82e","陸上で生活。<b>肺</b>呼吸。<b>殻のある卵</b>（乾燥に強い）。<b>うろこ</b>。変温。"],
+ ["哺乳類",220,"#e07da0","<b>肺</b>呼吸。<b>胎生</b>。体表は<b>毛</b>。<b>恒温</b>。※鳥類より<b>先</b>に出現！"],
+ ["鳥類",150,"#8b6fd6","<b>肺</b>呼吸。殻のある卵。<b>羽毛</b>。<b>恒温</b>。手がかり：<b>始祖鳥</b>（は虫類→鳥類の中間）。"]];
+const EVE=[[66,"🌋 恐竜（は虫類のなかま）が絶滅。中生代が終わり新生代へ。"],[7,"🧍 人類が出現（約700万年前）。"]];
+function evAgo(){return 540-EV;}
+function evFmt(a){return a<=0?"現在":a>=100?(a/100).toFixed(1).replace(/\.0$/,"")+"億年前":a+"00万年前";}
+function labEvo(root){EV=0;evRender();}
+function evSet(v){EV=+v;evRender(true);}
+function evPlay(){stopLabTimer();EV=0;evRender();labTimer=setInterval(()=>{EV=Math.min(540,EV+4);evRender();if(EV>=540)stopLabTimer();},45);}
+function evRender(fromSlider){
+  const a=evAgo(), x0=70,x1=350, X=v=>x0+(x1-x0)*(540-v)/540;
+  const era=a>252?"古生代":a>66?"中生代":"新生代";
+  let s='<svg viewBox="0 0 360 215" class="lab-svg">';
+  [[540,252,"古生代","#eef7fb"],[252,66,"中生代","#fdf6e3"],[66,0,"新生代","#f1f8e8"]].forEach(e=>{s+='<rect x="'+X(e[0])+'" y="4" width="'+(X(e[1])-X(e[0]))+'" height="18" fill="'+e[3]+'"/><text x="'+(X(e[0])+X(e[1]))/2+'" y="17" text-anchor="middle" font-size="10.5" fill="#5b7884">'+e[2]+'</text>';});
+  EVG.forEach((g,i)=>{const y=34+i*30;
+    s+='<text x="'+(x0-6)+'" y="'+(y+13)+'" text-anchor="end" font-size="12" font-weight="700" fill="'+(a<=g[1]?"#1c3a47":"#c3cfd5")+'">'+g[0]+'</text>';
+    if(a<=g[1]) s+='<rect x="'+X(g[1])+'" y="'+y+'" width="'+Math.max(2,X(a)-X(g[1]))+'" height="18" rx="4" fill="'+g[2]+'" opacity=".9"/><circle cx="'+X(g[1])+'" cy="'+(y+9)+'" r="4" fill="#e05d5d"/>';});
+  EVE.forEach(e=>{if(a<=e[0]) s+='<line x1="'+X(e[0])+'" y1="24" x2="'+X(e[0])+'" y2="184" stroke="#e05d5d" stroke-dasharray="3 3"/>';});
+  s+='<line x1="'+X(a)+'" y1="24" x2="'+X(a)+'" y2="188" stroke="#1c3a47" stroke-width="2"/>';
+  [500,400,300,200,100,0].forEach(v=>{s+='<text x="'+X(v)+'" y="204" text-anchor="middle" font-size="9.5" fill="#5b7884">'+(v?v/100+"億":"現在")+'</text>';});
+  s+='</svg>';
+  const last=EVG.filter(g=>a<=g[1]).pop();
+  const evs=EVE.filter(e=>a<=e[0]).map(e=>'<div>'+e[1]+'</div>').join("");
+  if(!document.getElementById("ev-dyn")){
+    el("lab-x").innerHTML='<div class="lab-big" id="ev-big"></div><input type="range" min="0" max="540" step="2" value="0" class="lab-range" id="ev-rng" oninput="evSet(this.value)">'+
+     '<div id="ev-dyn"></div><div class="lab-ctrl"><button class="segbtn on" onclick="evPlay()">▶ 5億年前から再生</button></div>'+
+     '<div class="lab-tip">💡 出現順は <b>魚類 → 両生類 → は虫類 → 哺乳類 → 鳥類</b>。水中から陸上へ：<b>えら→肺</b>、<b>ひれ→あし</b>、<b>殻のない卵→殻のある卵・胎生</b>と変化した。</div>';
+  }
+  el("ev-big").innerHTML='🕰 '+evFmt(a)+'<small>（'+era+'）</small>';
+  if(!fromSlider) el("ev-rng").value=EV;
+  el("ev-dyn").innerHTML=s+'<div class="lab-res">'+(last?'最も新しく現れたなかま：<b>'+last[0]+'</b>（約'+evFmt(last[1])+'）<br>'+last[3]:'まだ脊椎動物は現れていない（最初の生物は約40億年前）。')+evs+'</div>';
+}
+
 </script>
 </body>
 </html>
