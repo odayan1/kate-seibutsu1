@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>生物マスター①（生命の連続性：成長と殖え方・遺伝・進化）| KATE APP</title>
+<style>
+:root{
+  --blue:#2fbdea;
+  --green:#8dc63f;
+  --yellow:#f7d000;
+  --ink:#1c3a47;
+  --bg:#f2fafd;
+  --red:#e05d5d;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic",Meiryo,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;}
+header{background:linear-gradient(135deg,var(--blue),#1ea5d4);color:#fff;padding:14px 16px;box-shadow:0 2px 8px rgba(31,120,150,.25);}
+.brand{display:flex;align-items:center;gap:10px;max-width:760px;margin:0 auto;}
+.logo{background:#fff;color:var(--blue);font-weight:800;border-radius:10px;padding:4px 10px;font-size:15px;letter-spacing:.5px;white-space:nowrap;}
+.logo span{color:var(--green);}
+.brand-txt{flex:1;min-width:0;}
+.brand-txt h1{font-size:17px;line-height:1.3;}
+.brand-txt p{font-size:11px;opacity:.92;}
+main{max-width:760px;margin:0 auto;padding:16px 14px 50px;}
+.hidden{display:none !important;}
+
+/* ===== home ===== */
+.lead{background:#fff;border-radius:14px;padding:14px 16px;margin-bottom:14px;box-shadow:0 2px 6px rgba(31,120,150,.08);font-size:13.5px;}
+.lead b{color:#1491bd;}
+.course-grid{display:grid;grid-template-columns:1fr;gap:12px;}
+.course{background:#fff;border-radius:16px;padding:16px;border:2px solid transparent;cursor:pointer;box-shadow:0 2px 8px rgba(31,120,150,.10);transition:transform .12s;position:relative;overflow:hidden;text-align:left;width:100%;font:inherit;color:inherit;}
+.course:active{transform:scale(.98);}
+.course .pt{font-size:30px;font-weight:900;line-height:1;}
+.course .pt small{font-size:14px;font-weight:700;}
+.course h2{font-size:16px;margin:6px 0 4px;}
+.course p{font-size:12.5px;color:#48616d;}
+.course .best{display:inline-block;margin-top:8px;font-size:11.5px;background:#eef7fb;border-radius:999px;padding:2px 10px;color:#1491bd;font-weight:700;}
+.course .stripe{position:absolute;top:0;left:0;width:8px;height:100%;}
+.c50 .stripe{background:var(--green);} .c50 .pt{color:var(--green);}
+.c70 .stripe{background:var(--blue);} .c70 .pt{color:var(--blue);}
+.c90 .stripe{background:var(--yellow);} .c90 .pt{color:#d4a900;}
+.badge{display:inline-block;font-size:11px;font-weight:800;color:#fff;border-radius:999px;padding:2px 10px;margin-bottom:2px;}
+.c50 .badge{background:var(--green);} .c70 .badge{background:var(--blue);} .c90 .badge{background:#d4a900;}
+.range-note{margin-top:14px;font-size:11.5px;color:#64808c;text-align:center;}
+
+/* ===== welcome（0ページ目） ===== */
+.wl-card{background:#fff;border-radius:16px;padding:18px 16px;box-shadow:0 2px 8px rgba(31,120,150,.10);border-top:6px solid var(--blue);}
+.wl-card h2{font-size:17px;color:#1491bd;margin-bottom:8px;}
+.wl-card>p{font-size:14px;margin-bottom:10px;}
+.wl-alert{background:#fdeeee;border:2px solid var(--red);border-radius:12px;padding:11px 13px;font-size:13.5px;line-height:1.75;margin-bottom:14px;}
+.wl-alert b{color:#c0392b;}
+.wl-steps{display:flex;flex-direction:column;gap:2px;margin-bottom:14px;}
+.wl-step{border-radius:12px;padding:10px 13px;border-left:7px solid;}
+.wl-step.s50{background:#f3f9ea;border-color:var(--green);}
+.wl-step.s70{background:#eaf7fc;border-color:var(--blue);}
+.wl-step.s90{background:#fffbe8;border-color:var(--yellow);}
+.wl-pt{font-size:12px;font-weight:900;}
+.s50 .wl-pt{color:#5f9a1d;} .s70 .wl-pt{color:#1491bd;} .s90 .wl-pt{color:#9c7c00;}
+.wl-h{font-size:15px;font-weight:900;margin:1px 0 2px;}
+.wl-d{font-size:12.5px;color:#48616d;}
+.wl-arrow{text-align:center;color:#8aa0ab;font-weight:900;font-size:13px;line-height:1.2;}
+.wl-note{background:#eef7fb;border-radius:10px;padding:10px 12px;font-size:13px;line-height:1.75;margin-bottom:14px;}
+.wl-link{display:block;margin:14px auto 0;background:none;border:none;color:#1491bd;font:inherit;font-size:13px;font-weight:800;text-decoration:underline;cursor:pointer;}
+
+/* ===== set picker ===== */
+.set-grid{display:grid;gap:10px;}
+.setbtn{background:#fff;border:2px solid #d7e9f1;border-radius:14px;padding:13px 15px;text-align:left;cursor:pointer;font:inherit;color:inherit;box-shadow:0 2px 6px rgba(31,120,150,.08);display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;}
+.setbtn:active{transform:scale(.98);}
+.setbtn .sn{font-size:14.5px;font-weight:800;}
+.setbtn .sd{font-size:11.5px;color:#64808c;margin-top:2px;}
+.setbtn .sb{font-size:11.5px;font-weight:800;color:#1491bd;background:#eef7fb;border-radius:999px;padding:3px 10px;white-space:nowrap;flex-shrink:0;}
+.blank{color:var(--red);font-weight:900;}
+
+/* ===== quiz ===== */
+#quiz-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+#course-tag{font-size:12px;font-weight:800;color:#fff;border-radius:999px;padding:3px 12px;}
+#course-tag.c50{background:var(--green);} #course-tag.c70{background:var(--blue);} #course-tag.c90{background:#d4a900;}
+#score-box{font-size:13px;font-weight:800;color:#1491bd;background:#fff;border-radius:999px;padding:3px 12px;box-shadow:0 1px 4px rgba(31,120,150,.12);}
+#dots{display:flex;gap:5px;margin-bottom:12px;}
+.dot{flex:1;height:7px;border-radius:99px;background:#d7e9f1;}
+.dot.done{background:var(--green);}
+.dot.now{background:var(--blue);}
+.dot.miss{background:#f0b4b4;}
+.qcard{background:#fff;border-radius:16px;padding:16px;box-shadow:0 2px 8px rgba(31,120,150,.10);}
+#q-num{font-size:12px;font-weight:800;color:#1491bd;margin-bottom:4px;}
+#q-type{display:inline-block;font-size:11px;font-weight:800;background:#fdf3cc;color:#9c7c00;border-radius:6px;padding:1px 8px;margin-left:6px;}
+#shiryo{margin:10px 0;}
+#shiryo .shiryo-box{border:1.5px solid #cfe6f0;border-radius:12px;padding:10px;background:#fbfeff;}
+#shiryo .shiryo-title{font-size:12px;font-weight:800;color:#1491bd;margin-bottom:6px;}
+#shiryo svg{width:100%;height:auto;display:block;}
+#q-text{font-size:15px;font-weight:700;margin:8px 0 12px;white-space:pre-wrap;}
+#q-text .wrong-word{color:var(--red);}
+#choices{display:grid;gap:9px;}
+.choice{width:100%;text-align:left;background:#f4fafd;border:2px solid #d7e9f1;border-radius:12px;padding:11px 13px;font-size:14px;font-family:inherit;color:var(--ink);cursor:pointer;display:flex;gap:9px;align-items:flex-start;transition:background .1s;}
+.choice:active{background:#e5f3f9;}
+.choice .mark{font-weight:900;color:var(--blue);flex-shrink:0;}
+.choice.correct{background:#f0f8e2;border-color:var(--green);}
+.choice.wrongpick{background:#fdeaea;border-color:var(--red);}
+.choice.dim{opacity:.5;}
+.choice:disabled{cursor:default;}
+.choice.sel{background:#dff4fc;border-color:var(--blue);box-shadow:0 0 0 2px rgba(47,189,234,.25);}
+.choice.sel .mark::after{content:" ✔";color:var(--blue);}
+.choice.missed{background:#fffbe8;border-color:var(--yellow);}
+#decide-btn{margin-top:4px;width:100%;background:var(--green);color:#fff;border:none;border-radius:12px;padding:13px;font-size:16px;font-weight:800;font-family:inherit;cursor:pointer;box-shadow:0 3px 0 #74a82c;}
+#decide-btn:disabled{opacity:.45;cursor:default;box-shadow:none;}
+#decide-btn:not(:disabled):active{transform:translateY(2px);box-shadow:none;}
+.verdict.part{color:#e08a00;}
+.fb-title{font-size:12.5px;font-weight:900;color:#1491bd;margin-bottom:6px;}
+.fb-item{background:#fff;border:1.5px solid #d7e9f1;border-radius:10px;padding:8px 11px;font-size:12.5px;margin-bottom:7px;line-height:1.65;}
+.fb-item b{color:#1c5a72;}
+
+/* 90点コース導入画面 */
+.intro-card{background:#fff;border-radius:16px;padding:18px 16px;box-shadow:0 2px 8px rgba(31,120,150,.10);border-top:6px solid var(--yellow);}
+.intro-card h2{font-size:17px;color:#9c7c00;margin-bottom:10px;}
+.intro-card p{font-size:13.5px;margin-bottom:10px;}
+.intro-steps{display:grid;gap:8px;margin:12px 0;}
+.intro-step{background:#fffbe8;border-radius:10px;padding:9px 12px;font-size:13px;display:flex;gap:9px;align-items:flex-start;}
+.intro-step .no{background:#d4a900;color:#fff;font-weight:900;border-radius:999px;min-width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;}
+.intro-note{background:#eef7fb;border-radius:10px;padding:9px 12px;font-size:12.5px;margin-bottom:14px;}
+
+/* feedback */
+#feedback{margin-top:14px;}
+.verdict{font-size:19px;font-weight:900;margin-bottom:6px;}
+.verdict.ok{color:var(--green);}
+.verdict.ng{color:var(--red);}
+.gotpt{font-size:12.5px;font-weight:800;color:#d4a900;margin-bottom:8px;}
+.expl{background:#eef7fb;border-radius:12px;padding:11px 13px;font-size:13.5px;}
+.expl b{color:#1491bd;}
+.model-box{margin-top:10px;background:#fffbe8;border:2px solid var(--yellow);border-radius:12px;padding:11px 13px;}
+.model-box .mb-title{font-size:12px;font-weight:900;color:#9c7c00;margin-bottom:4px;}
+.model-box .mb-text{font-size:14px;font-weight:700;line-height:1.75;}
+.ondoku{margin-top:10px;background:linear-gradient(135deg,#8dc63f,#6fae23);color:#fff;border-radius:12px;padding:10px 13px;font-size:14px;font-weight:800;display:flex;align-items:center;gap:8px;}
+.ondoku .spk{font-size:20px;}
+#next-btn{margin-top:14px;width:100%;background:var(--blue);color:#fff;border:none;border-radius:12px;padding:13px;font-size:16px;font-weight:800;font-family:inherit;cursor:pointer;box-shadow:0 3px 0 #1a97c2;}
+#next-btn:active{transform:translateY(2px);box-shadow:none;}
+
+/* ===== result ===== */
+.result-card{background:#fff;border-radius:16px;padding:22px 14px;text-align:center;box-shadow:0 2px 8px rgba(31,120,150,.10);}
+#rank{font-size:56px;font-weight:900;line-height:1;}
+#rank.S{color:#d4a900;} #rank.A{color:var(--blue);} #rank.B{color:var(--green);} #rank.C{color:#8aa0ab;}
+#stars{font-size:26px;letter-spacing:4px;margin:6px 0;}
+#result-msg{font-size:15px;font-weight:800;margin-bottom:4px;}
+#result-score{font-size:13.5px;color:#48616d;margin-bottom:6px;}
+#result-best{font-size:12px;color:#1491bd;font-weight:700;margin-bottom:12px;}
+.review{margin-top:16px;text-align:left;}
+.review h3{font-size:13.5px;color:#1491bd;margin-bottom:8px;}
+.review-item{background:#fdf6f6;border-left:4px solid var(--red);border-radius:8px;padding:9px 11px;font-size:12.5px;margin-bottom:8px;}
+.review-item b{color:#2a7a12;}
+.rv-lead{font-size:12px;color:#64808c;margin-bottom:10px;}
+.rv-perfect{background:#f0f8e2;border-radius:12px;padding:12px;font-size:13.5px;font-weight:800;color:#4d7d17;text-align:center;}
+.rv-card{background:#fff;border:1.5px solid #d7e9f1;border-left:5px solid var(--red);border-radius:12px;padding:12px 13px;margin-bottom:14px;box-shadow:0 1px 5px rgba(31,120,150,.08);}
+.rv-no{display:inline-block;font-size:11px;font-weight:900;color:#fff;background:var(--red);border-radius:999px;padding:1px 10px;margin-bottom:5px;}
+.rv-q{font-size:13.5px;font-weight:700;margin-bottom:8px;line-height:1.6;}
+.rv-sec{border-radius:10px;padding:9px 11px;margin-top:8px;font-size:13px;line-height:1.7;}
+.rv-lbl{font-size:11.5px;font-weight:900;margin-bottom:3px;}
+.rv-line{margin:3px 0;}
+.rv-why{font-size:12.5px;color:#34505c;margin-top:2px;}
+.rv-why b{color:#1c5a72;}
+.rv-you{background:#fdeeee;} .rv-you .rv-lbl{color:#c0392b;}
+.rv-right{background:#f0f8e2;} .rv-right .rv-lbl{color:#4d7d17;}
+.rv-good{background:#f0f8e2;} .rv-good .rv-lbl{color:#4d7d17;}
+.rv-miss{background:#fffbe8;} .rv-miss .rv-lbl{color:#9c7c00;}
+.rv-model{background:#fffbe8;border:1.5px solid var(--yellow);} .rv-model .rv-lbl{color:#9c7c00;}
+.rv-mtext{font-weight:700;}
+.rv-sh,.rv-more{margin-top:8px;font-size:12.5px;}
+.rv-sh summary,.rv-more summary{cursor:pointer;font-weight:800;color:#1491bd;padding:4px 0;}
+.rv-more{background:#f4fafd;border-radius:10px;padding:6px 11px;}
+.btn-row{display:grid;gap:10px;margin-top:18px;}
+.btn{width:100%;border:none;border-radius:12px;padding:13px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;}
+.btn.retry{background:var(--green);color:#fff;box-shadow:0 3px 0 #74a82c;}
+.btn.home{background:#e4eef3;color:var(--ink);box-shadow:0 3px 0 #c3d4dc;}
+.btn:active{transform:translateY(2px);box-shadow:none;}
+
+/* shiryo tables & flow */
+.shiryo-table{width:100%;border-collapse:collapse;font-size:12.5px;}
+.shiryo-table th,.shiryo-table td{border:1px solid #cfe6f0;padding:5px 7px;}
+.shiryo-table th{background:#e5f3f9;color:#1c5a72;font-size:12px;}
+.shiryo-table .blank{color:var(--red);font-weight:900;}
+.flow{display:flex;flex-direction:column;align-items:stretch;gap:2px;}
+.flow .fbox{background:#e5f3f9;border:1.5px solid #9ed3ea;border-radius:10px;padding:7px 10px;font-size:12.5px;text-align:center;font-weight:700;}
+.flow .fbox .blank{color:var(--red);font-weight:900;}
+.flow .farrow{text-align:center;color:#1491bd;font-weight:900;font-size:14px;line-height:1.1;}
+footer{text-align:center;font-size:11.5px;color:#7a95a1;padding:18px 10px 26px;}
+footer b{color:var(--blue);}
+@media(min-width:560px){
+  .course-grid{grid-template-columns:repeat(3,1fr);}
+  .brand-txt h1{font-size:19px;}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="logo">KATE <span>APP</span></div>
+    <div class="brand-txt">
+      <h1>生物マスター①</h1>
+      <p>中3理科 生命の連続性（成長と殖え方・遺伝・進化）｜つまずきを、プラスに。</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- ========== WELCOME（0ページ目：はじめに） ========== -->
+  <section id="welcome">
+    <div class="wl-card">
+      <h2>👋 はじめに ― このアプリの使い方</h2>
+      <p>このアプリには <b>50点・70点・90点</b> の3つのコースがあるよ。</p>
+      <div class="wl-alert">
+        ⚠️ <b>いきなり90点コースからはやらないで！</b><br>
+        90点コースの説明問題は、50点コースの「用語」と70点コースの「資料の読み方」を<b>部品として組み立てて</b>答える問題。土台がないと解けないんだ。<br>
+        <b>50点 → 70点 → 90点</b> の順に、ちょっとずつ積み重ねていこう！
+      </div>
+      <div class="wl-steps">
+        <div class="wl-step s50">
+          <div class="wl-pt">STEP 1｜50点コース</div>
+          <div class="wl-h">暗記問題が中心</div>
+          <div class="wl-d">テストに必ず出る基本用語を、4択の穴うめでおぼえる。まずはここで知識の「部品」をそろえよう。</div>
+        </div>
+        <div class="wl-arrow">▼</div>
+        <div class="wl-step s70">
+          <div class="wl-pt">STEP 2｜70点コース</div>
+          <div class="wl-h">資料・グラフの読み取りが中心</div>
+          <div class="wl-d">細胞分裂の図・かけ合わせ表・実験の結果を見て答える。おぼえた用語を「資料の中で使う」練習で、差がつくところ。</div>
+        </div>
+        <div class="wl-arrow">▼</div>
+        <div class="wl-step s90">
+          <div class="wl-pt">STEP 3｜90点コース</div>
+          <div class="wl-h">説明・記述問題に対応</div>
+          <div class="wl-d">「〜を説明しなさい」に答える力をつける。正しい部品を選ぶと、そのまま記述の模範解答が完成するよ。</div>
+        </div>
+      </div>
+      <div class="wl-note">
+        📱 1プレイは10問。<br>
+        📒 最後の結果画面で、まちがえた問題を「なぜ違うのか」までくわしく解説するよ。<b>ここを読むのが一番伸びる！</b>
+      </div>
+      <button class="btn retry" onclick="closeWelcome()">わかった！コースを選ぶ ▶</button>
+    </div>
+  </section>
+
+  <!-- ========== HOME ========== -->
+  <section id="home" class="hidden">
+    <div class="lead">
+      目指す点数のコースを選ぼう！同じ範囲を <b>50点（暗記）→ 70点（資料読み取り）→ 90点（説明できる）</b> と段階的にレベルアップしていくよ。1プレイ10問。
+    </div>
+    <div class="course-grid">
+      <button class="course c50" id="btn-c50" onclick="startCourse('50')">
+        <div class="stripe"></div>
+        <span class="badge">まずはここから</span>
+        <div class="pt">50<small>点コース</small></div>
+        <h2>基礎用語をおぼえる</h2>
+        <p>テストに必ず出る基本用語の4択。単元ごとに基礎を全部つぶそう！</p>
+        <span class="best">全30問｜3単元 各10問＋全範囲ミックス</span>
+      </button>
+      <button class="course c70" id="btn-c70" onclick="startCourse('70')">
+        <div class="stripe"></div>
+        <span class="badge">差がつく</span>
+        <div class="pt">70<small>点コース</small></div>
+        <h2>資料・グラフを読み取る</h2>
+        <p>細胞分裂の図・かけ合わせ表・実験結果の表を読む資料問題。読み取りのコツをつかもう！</p>
+        <span class="best">全20問｜資料セット①②</span>
+      </button>
+      <button class="course c90" id="btn-c90" onclick="startCourse('90')">
+        <div class="stripe"></div>
+        <span class="badge">説明できたら本物</span>
+        <div class="pt">90<small>点コース</small></div>
+        <h2>理由・しくみを説明する</h2>
+        <p>説明の「部品」をすべて選ぶと模範解答が完成。音読して「書ける」力をつける！</p>
+        <span class="best">全20問｜説明セット①②</span>
+      </button>
+    </div>
+    <button class="wl-link" onclick="openWelcome()">📖 はじめに（使い方）をもう一度読む</button>
+    <p class="range-note">出題範囲：中3理科「生命の連続性」（生物の成長と殖え方／遺伝の規則性／生物の種類の多様性と進化）<br>※収録問題はすべて KATE APP のオリジナル問題です。</p>
+  </section>
+
+  <!-- ========== SET PICKER ========== -->
+  <section id="sets" class="hidden">
+    <div class="lead" id="sets-lead"></div>
+    <div class="set-grid" id="set-list"></div>
+    <div class="btn-row">
+      <button class="btn home" onclick="goHome()">コース選択にもどる</button>
+    </div>
+  </section>
+
+  <!-- ========== 90点コース 導入 ========== -->
+  <section id="intro90" class="hidden">
+    <div class="intro-card">
+      <h2>🏆 90点コースの遊び方（ここ大事！）</h2>
+      <p>記述・説明問題は、バラバラに覚えた知識の<b>「点」を1本の「線」につなげて書く</b>問題。このコースでは、その「つなげ方」を練習するよ。</p>
+      <div class="intro-steps">
+        <div class="intro-step"><span class="no">1</span><span>「◯◯を説明したい」というお題が出る</span></div>
+        <div class="intro-step"><span class="no">2</span><span>説明の<b>部品として正しいものをすべて</b>選ぶ（いくつ正解があるかはヒミツ！）</span></div>
+        <div class="intro-step"><span class="no">3</span><span>正しい部品を組み合わせると、<b>そのまま記述の模範解答</b>が完成する</span></div>
+        <div class="intro-step"><span class="no">4</span><span>模範解答を<b>2回音読</b>して、自分の言葉にする</span></div>
+      </div>
+      <div class="intro-note">💡 まちがい選択肢の解説には「その知識が本当はどこの話なのか」も書いてある。<b>全部読む</b>と勘違いが直って一気に伸びるよ。採点は部分点あり：正しい部品 +7pt／誤りを選ぶと −4pt／完答でボーナス！</div>
+      <button class="btn retry" onclick="ackIntro90()">了解しました！スタート</button>
+    </div>
+  </section>
+
+  <!-- ========== QUIZ ========== -->
+  <section id="quiz" class="hidden">
+    <div id="quiz-top">
+      <span id="course-tag"></span>
+      <span id="score-box">スコア 0</span>
+    </div>
+    <div id="dots"></div>
+    <div class="qcard">
+      <div id="q-num"></div>
+      <div id="shiryo"></div>
+      <div id="q-text"></div>
+      <div id="choices"></div>
+      <div id="feedback" class="hidden">
+        <div id="verdict" class="verdict"></div>
+        <div id="gotpt" class="gotpt"></div>
+        <div id="expl" class="expl"></div>
+        <div id="model-wrap"></div>
+        <button id="next-btn" onclick="nextQ()">次へ ▶</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== RESULT ========== -->
+  <section id="result" class="hidden">
+    <div class="result-card">
+      <div id="rank"></div>
+      <div id="stars"></div>
+      <div id="result-msg"></div>
+      <div id="result-score"></div>
+      <div id="result-best"></div>
+      <div id="review" class="review"></div>
+      <div class="btn-row">
+        <button class="btn retry" id="retry-btn" onclick="retry()">もう一度チャレンジ</button>
+        <button class="btn home" onclick="backToSets()">セット選択にもどる</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <b>KATE APP</b>（カテアプ）｜つまずきを、プラスに。<br>生物マスター①｜収録問題はすべてオリジナル問題です
+</footer>
+
+<script>
+"use strict";
+/* ================================================================
+   生物マスター①（生命の連続性）  50点=基礎暗記 / 70点=資料読み取り / 90点=説明・記述
+   ================================================================ */
+
+/* ---------- 50点コース：基礎用語（w=誤答解説、正解位置はnull） ---------- */
+const CH1 = [
+ {q:"1個の細胞が2つに分かれて、2個の細胞になることを何という？",
+  c:["受精","細胞分裂","発生","生殖"],a:1,
+  e:"1個→2個に分かれる＝<b>細胞分裂</b>。多細胞生物はこれをくり返して細胞の数を増やす。",
+  w:["「受精」は、卵と精子（卵細胞と精細胞）の核が<b>合体</b>すること。2つが1つになるので、分かれるのとは逆。",null,
+     "「発生」は、受精卵が細胞分裂をくり返して<b>成体になっていく過程全体</b>のこと。1回の「分かれる」ことではない。",
+     "「生殖」は、生物が<b>自分と同じ種類の個体（子）をつくる</b>こと。細胞が分かれること自体ではない。"]},
+ {q:"からだをつくる細胞（体細胞）の数が増えるときに見られる細胞分裂を何という？",
+  c:["減数分裂","栄養生殖","体細胞分裂","受粉"],a:2,
+  e:"体細胞が増える分裂＝<b>体細胞分裂</b>。分裂の前後で染色体の数は変わらない。",
+  w:["「減数分裂」は、<b>生殖細胞</b>（卵・精子など）をつくるときの特別な分裂。染色体の数が半分になる。",
+     "「栄養生殖」は、植物の<b>からだの一部</b>（いも・葉など）から新しい個体ができる無性生殖。細胞分裂の種類ではない。",null,
+     "「受粉」は、<b>花粉がめしべの柱頭につく</b>こと。細胞分裂ではない。"]},
+ {q:"細胞分裂のときに見られるひも状のもので、生物の形質を決める情報が入っているものは？",
+  c:["染色体","細胞壁","葉緑体","液胞"],a:0,
+  e:"ひも状で形質の情報をもつ＝<b>染色体</b>。分裂が始まる前に<b>複製されて2本ずつ</b>になる。",
+  w:[null,"「細胞壁」は、植物の細胞のいちばん外側にある<b>じょうぶな仕切り</b>。からだを支える役目で、形質の情報はもっていない。",
+     "「葉緑体」は、植物の細胞にある<b>光合成を行う緑色の粒</b>。ひも状でも形質の情報の入れ物でもない。",
+     "「液胞」は、植物の細胞にある<b>液体の入った袋</b>（不要物などをためる）。分裂のときに現れるひもではない。"]},
+ {q:"根の細胞分裂を観察するとき、細胞を1つ1つ離れやすくするために使う薬品は？",
+  c:["酢酸オルセイン液","うすい塩酸","ヨウ素液","石灰水"],a:1,
+  e:"細胞どうしを離れやすくする＝<b>うすい塩酸</b>（あたためた塩酸に根をひたす）。染色するのは別の薬品！",
+  w:["「酢酸オルセイン液」は、<b>核や染色体を赤く染める</b>染色液。離れやすくする役ではない。セットで出るので役割を区別！",null,
+     "「ヨウ素液」は、<b>デンプン</b>があると青紫色になる薬品。光合成や消化の実験で使う。",
+     "「石灰水」は、<b>二酸化炭素</b>があると白くにごる薬品。呼吸や燃焼の実験で使う。"]},
+ {q:"体細胞分裂によって新しい個体をつくる生殖（雌雄が関係しない生殖）を何という？",
+  c:["有性生殖","無性生殖","受精","交配"],a:1,
+  e:"雌雄に関係なく、体細胞分裂で子をつくる＝<b>無性生殖</b>。子は親と<b>同じ形質</b>になる。",
+  w:["「有性生殖」は、<b>生殖細胞（卵と精子）が受精</b>して子をつくる生殖。雌雄が関係するほう。",null,
+     "「受精」は、卵と精子の核が合体すること。<b>有性生殖</b>の中で起こるできごと。",
+     "「交配」は、<b>2個体の間</b>で受粉や受精を行うこと。有性生殖の話。"]},
+ {q:"ジャガイモのいもやセイロンベンケイの葉から芽が出るように、植物のからだの一部から新しい個体ができる無性生殖を何という？",
+  c:["分裂","出芽","栄養生殖","受粉"],a:2,
+  e:"植物のからだの一部（いも・葉・茎）から増える＝<b>栄養生殖</b>。農業ではさし木などに利用される。",
+  w:["「分裂」は、アメーバやミカヅキモのように<b>単細胞生物のからだが2つに分かれる</b>無性生殖。",
+     "「出芽」は、ヒドラのように<b>からだの一部がふくらんで（芽のように）分かれる</b>無性生殖。動物の例で出る。",null,
+     "「受粉」は、花粉がめしべの柱頭につくこと。<b>有性生殖</b>（種子をつくる）側の話。"]},
+ {q:"卵と精子が受精してできる、新しい1個の細胞を何という？",
+  c:["受精卵","胚","胚珠","生殖細胞"],a:0,
+  e:"受精によってできた細胞＝<b>受精卵</b>。ここから細胞分裂をくり返して胚になる。",
+  w:[null,"「胚」は、受精卵が<b>細胞分裂を始めたあと</b>の段階。受精した直後の1個の細胞ではない。",
+     "「胚珠」は、被子植物の<b>子房の中</b>にあり、のちに種子になる部分。細胞の名前ではない。",
+     "「生殖細胞」は、卵や精子など<b>受精する前</b>の細胞。受精してできた細胞ではない。"]},
+ {q:"動物で、受精卵が細胞分裂を始めてから、自分で食物をとることができるようになる前までの段階を何という？",
+  c:["幼生","胚","成体","胚珠"],a:1,
+  e:"受精卵が分裂を始めてから自分で食物をとる前まで＝<b>胚</b>。植物では種子の中の、根・茎・葉になる部分を胚という。",
+  w:["「幼生」は、カエルのおたまじゃくしのように、<b>自分で食物をとれるようになった</b>子の時期。胚よりあと。",null,
+     "「成体」は、<b>親と同じ体のつくりやはたらき</b>をもつまでに成長した個体。",
+     "「胚珠」は、植物の<b>子房の中</b>にある、のちに種子になる部分。動物の成長段階ではない。"]},
+ {q:"被子植物で、花粉が柱頭についたあと、花粉から胚珠に向かってのびる管を何という？",
+  c:["道管","師管","花粉管","気孔"],a:2,
+  e:"花粉からのびる管＝<b>花粉管</b>。この中を<b>精細胞</b>が移動して、胚珠の中の卵細胞に届く。",
+  w:["「道管」は、根から吸収した<b>水や養分</b>が通る管。花粉からのびる管ではない。",
+     "「師管」は、葉でつくられた<b>栄養分（デンプンが変化したもの）</b>が通る管。",null,
+     "「気孔」は、葉の表面にある<b>すきま</b>。蒸散や気体の出入りが行われる。管ではない。"]},
+ {q:"生殖細胞がつくられるときに行われる、染色体の数がもとの細胞の半分になる特別な細胞分裂を何という？",
+  c:["体細胞分裂","減数分裂","受精","発生"],a:1,
+  e:"染色体が半分になる＝<b>減数分裂</b>。だから受精すると、受精卵の染色体の数は親の体細胞と同じにもどる。",
+  w:["「体細胞分裂」は、からだの細胞が増える分裂。染色体の数は<b>変わらない</b>。",null,
+     "「受精」は、卵と精子の<b>核が合体</b>すること。半分になった染色体が合わさって、もとの数に<b>もどる</b>ほう。",
+     "「発生」は、受精卵から成体になるまでの<b>過程全体</b>。細胞分裂の種類ではない。"]},
+];
+const CH2 = [
+ {q:"親の形質（形や性質など）が子に伝わることを何という？",
+  c:["進化","遺伝","発生","交配"],a:1,
+  e:"親→子へ形質が伝わる＝<b>遺伝</b>。染色体の中の遺伝子が受けつがれることで起こる。",
+  w:["「進化」は、生物の形質が<b>長い時間をかけて、世代を重ねる中で変化</b>すること。親→子へ伝わることではない。",null,
+     "「発生」は、受精卵が<b>成体になっていく過程</b>。形質が伝わることではない。",
+     "「交配」は、2個体の間で受粉や受精を<b>行うこと（操作）</b>。伝わる現象そのものの名前ではない。"]},
+ {q:"染色体の中にあり、形質を決めるもとになるものを何という？",
+  c:["核","遺伝子","細胞質","葉緑体"],a:1,
+  e:"形質を決めるもと＝<b>遺伝子</b>。遺伝子は<b>染色体</b>の中にあり、その本体はDNA。",
+  w:["「核」は、染色体が入っている<b>細胞の中の丸い部分</b>。入れ物の名前で、形質を決めるもとそのものではない。",null,
+     "「細胞質」は、細胞の中で<b>核以外</b>の部分。遺伝子は核の中の染色体にある。",
+     "「葉緑体」は、<b>光合成</b>を行う緑色の粒。形質を決める遺伝子の話とは別。"]},
+ {q:"親、子、孫と自家受粉をくり返しても、形質がすべて親と同じになる系統を何という？",
+  c:["純系","雑種","対立形質","顕性"],a:0,
+  e:"何代たっても親と同じ＝<b>純系</b>。同じ形質を表す遺伝子を対にしてもっている（AAやaa）。",
+  w:[null,"「雑種」は、<b>異なる形質の親どうし</b>をかけ合わせてできた子（Aaなど）。自家受粉すると孫に別の形質が現れるので純系ではない。",
+     "「対立形質」は、丸としわのように<b>同時に現れない、対になる2つの形質</b>。系統の名前ではない。",
+     "「顕性」は、純系どうしをかけ合わせたとき<b>子に現れる形質</b>のこと。系統の名前ではない。"]},
+ {q:"花粉が、同じ個体の花のめしべについて受粉することを何という？",
+  c:["他家受粉","自家受粉","受精","交配"],a:1,
+  e:"同じ個体どうし＝<b>自家受粉</b>。エンドウは自然の状態では自家受粉をする。",
+  w:["「他家受粉」は、花粉が<b>異なる個体</b>のめしべについて受粉すること。",null,
+     "「受精」は、精細胞と卵細胞の<b>核が合体</b>すること。花粉がめしべにつく「受粉」とは別のできごと。",
+     "「交配」は、<b>2個体の間</b>で受粉や受精を行うこと。同じ個体の中で受粉するのとは逆。"]},
+ {q:"エンドウの種子の「丸」と「しわ」のように、どちらか一方しか現れない、対になっている2つの形質を何という？",
+  c:["顕性形質","潜性形質","対立形質","相同器官"],a:2,
+  e:"同時に現れない対の形質＝<b>対立形質</b>。丸⇔しわ、黄色⇔緑色、高い⇔低い など。",
+  w:["「顕性形質」は、対立形質のうち<b>子に現れるほう</b>（丸など）。2つセットの名前ではない。",
+     "「潜性形質」は、対立形質のうち<b>子に現れないほう</b>（しわなど）。2つセットの名前ではない。",null,
+     "「相同器官」は、<b>進化</b>の単元の言葉。もとは同じものから変化した器官（ヒトの腕・クジラのひれ等）。"]},
+ {q:"対立形質をもつ純系どうしをかけ合わせたとき、子に現れる形質を何という？",
+  c:["顕性形質","潜性形質","純系","雑種"],a:0,
+  e:"子に現れる＝<b>顕性形質</b>（優性とよぶこともある）。例：丸×しわ → 子はすべて丸 → 丸が顕性。",
+  w:[null,"「潜性形質」は、子に<b>現れない</b>ほうの形質。逆！",
+     "「純系」は、自家受粉をくり返しても形質が変わらない<b>系統</b>のこと。形質の現れ方の名前ではない。",
+     "「雑種」は、異なる形質の親からできた<b>子そのもの</b>（Aa）。形質の名前ではない。"]},
+ {q:"対立形質をもつ純系どうしをかけ合わせたとき、子に現れないほうの形質を何という？",
+  c:["顕性形質","潜性形質","対立形質","純系"],a:1,
+  e:"子に現れない＝<b>潜性形質</b>（劣性とよぶこともある）。でも孫の代でふたたび現れる（約4分の1）。",
+  w:["「顕性形質」は、子に<b>現れる</b>ほうの形質。逆！",null,
+     "「対立形質」は、顕性・潜性の<b>2つをセット</b>にした呼び方。",
+     "「純系」は、自家受粉をくり返しても形質が変わらない<b>系統</b>のこと。形質の名前ではない。"]},
+ {q:"減数分裂のときに、対になっている遺伝子が分かれて、別々の生殖細胞に入ることを何という？",
+  c:["分離の法則","受精","自然選択","細胞分裂"],a:0,
+  e:"対の遺伝子が分かれる＝<b>分離の法則</b>。Aaの親からは、Aをもつ生殖細胞とaをもつ生殖細胞ができる。",
+  w:[null,"「受精」は、生殖細胞の核が<b>合体</b>すること。遺伝子が「分かれる」のとは逆で、分かれた遺伝子がふたたび対になる場面。",
+     "「自然選択」は、環境に適した個体が生き残るという<b>進化</b>の考え方。遺伝子が分かれることではない。",
+     "「細胞分裂」は、細胞が分かれることの全般。<b>遺伝子が分かれて別々に入る決まり</b>を表す名前ではない。"]},
+ {q:"エンドウを使った実験で、遺伝の規則性をはじめて明らかにしたオーストリアの人物は？",
+  c:["ダーウィン","メンデル","パスツール","フック"],a:1,
+  e:"エンドウ×遺伝の規則性＝<b>メンデル</b>（オーストリア）。",
+  w:["「ダーウィン」は、1859年に『<b>種の起源</b>』を発表し、<b>進化</b>について唱えたイギリスの人物。",null,
+     "「パスツール」は、微生物の研究（ワクチンなど）で知られるフランスの人物。遺伝の規則性とは関係ない。",
+     "「フック」は、顕微鏡でコルクを観察し<b>「細胞」</b>と名づけたイギリスの人物。"]},
+ {q:"遺伝子の本体である物質を何という？",
+  c:["タンパク質","DNA（デオキシリボ核酸）","デンプン","アミノ酸"],a:1,
+  e:"遺伝子の本体＝<b>DNA（デオキシリボ核酸）</b>。DNAが変化すると形質が変わることがある。",
+  w:["「タンパク質」は、からだをつくる主な成分の1つ。遺伝子の<b>本体ではない</b>。",null,
+     "「デンプン」は、植物が光合成でつくる<b>炭水化物</b>。遺伝とは関係ない。",
+     "「アミノ酸」は、タンパク質が<b>消化されてできる</b>物質。遺伝子の本体ではない。"]},
+];
+const CH3 = [
+ {q:"フナやカエル、トカゲのように、周囲の温度の変化とともに体温も変化する動物を何という？",
+  c:["恒温動物","変温動物","無脊椎動物","哺乳類"],a:1,
+  e:"体温が周りに合わせて変わる＝<b>変温動物</b>（魚類・両生類・は虫類）。",
+  w:["「恒温動物」は、周囲の温度が変わっても<b>体温が一定</b>に保たれる動物（鳥類・哺乳類）。逆！",null,
+     "「無脊椎動物」は、<b>背骨をもたない</b>動物（昆虫・イカなど）。フナやカエルは背骨をもつ脊椎動物。",
+     "「哺乳類」は恒温動物のなかま。フナ（魚類）・カエル（両生類）・トカゲ（は虫類）は哺乳類ではない。"]},
+ {q:"ハトやネズミのように、周囲の温度が変化しても体温が一定に保たれる動物を何という？",
+  c:["変温動物","恒温動物","両生類","は虫類"],a:1,
+  e:"体温一定＝<b>恒温動物</b>（鳥類と哺乳類）。",
+  w:["「変温動物」は、周囲の温度とともに<b>体温が変化</b>する動物。逆！",null,
+     "「両生類」はカエルなどのなかまで、<b>変温動物</b>。",
+     "「は虫類」はトカゲ・ヘビなどのなかまで、<b>変温動物</b>。"]},
+ {q:"脊椎動物の5つのなかまのうち、化石から考えて、地球上に最も早く出現したのはどれ？",
+  c:["魚類","両生類","は虫類","鳥類"],a:0,
+  e:"最初は<b>魚類</b>（約5億年前）。その後 両生類→は虫類→哺乳類→鳥類 の順に現れた。",
+  w:[null,"「両生類」は約3.6億年前。<b>魚類から</b>生じたと考えられている（2番目）。",
+     "「は虫類」は約3.2億年前（3番目）。",
+     "「鳥類」は約1.5億年前で、5つのなかまの中で<b>最も新しい</b>。"]},
+ {q:"翼や羽毛をもつ一方で、歯や爪ももっていたことから、は虫類と鳥類の中間の生物と考えられているものは？",
+  c:["シーラカンス","始祖鳥","カモノハシ","ティラノサウルス"],a:1,
+  e:"は虫類→鳥類の中間＝<b>始祖鳥</b>。羽毛・翼＝鳥類の特徴、歯・爪＝は虫類の特徴。",
+  w:["「シーラカンス」は、<b>魚類と両生類</b>の関係を考える手がかりになる魚。胸びれに太い骨格がある。",null,
+     "「カモノハシ」は、卵を産む<b>哺乳類</b>。教科書では、は虫類と鳥類の中間としてはあつかわない。",
+     "「ティラノサウルス」は恐竜（<b>は虫類</b>のなかま）。羽毛と翼をもつ中間的な生物の代表例ではない。"]},
+ {q:"古生代のころの特徴がほぼ変化しておらず、胸びれに両生類の前あしと同じつくりの太い骨格があることから、両生類が魚類から生じたと考える手がかりになる生物は？",
+  c:["始祖鳥","シーラカンス","メダカ","イモリ"],a:1,
+  e:"魚類→両生類の手がかり＝<b>シーラカンス</b>。",
+  w:["「始祖鳥」は、<b>は虫類→鳥類</b>の手がかり。組み合わせを入れかえるひっかけが多い！",null,
+     "「メダカ」はふつうの魚類。両生類の前あしに似た骨格はもたない。",
+     "「イモリ」は<b>両生類そのもの</b>。魚類から両生類への中間の生物ではない。"]},
+ {q:"現在の形やはたらきはちがっていても、もとは同じものから変化したと考えられる器官を何という？",
+  c:["相同器官","痕跡器官","感覚器官","消化器官"],a:0,
+  e:"もとは同じ＝<b>相同器官</b>。例：カエル・ワニの前あし、ハトの翼、クジラのひれ、ヒトの腕。",
+  w:[null,"「痕跡器官」は、相同器官のうち<b>はたらきが失われても残っている</b>器官。「形やはたらきがちがう」器官全体の名前ではない。",
+     "「感覚器官」は、目・耳など<b>刺激を受け取る</b>器官。進化の証拠の話ではない。",
+     "「消化器官」は、胃・小腸など<b>食物を消化する</b>器官。進化の証拠の話ではない。"]},
+ {q:"相同器官のうち、はたらきが失われているのに存在が残っている器官を何という？",
+  c:["相同器官","痕跡器官","生殖器官","呼吸器官"],a:1,
+  e:"はたらきを失っても残る＝<b>痕跡器官</b>。これも進化の証拠の1つ。",
+  w:["「相同器官」は、もとは同じでも<b>形やはたらきが変化した</b>器官の全体。はたらきが失われたものに限らない。",null,
+     "「生殖器官」は、子をつくるための器官。はたらきを失った器官ではない。",
+     "「呼吸器官」は、肺やえらなど呼吸を行う器官。はたらきを失った器官ではない。"]},
+ {q:"生物の形や性質が、長い時間をかけて、世代を重ねる間に変化することを何という？",
+  c:["遺伝","発生","進化","成長"],a:2,
+  e:"長い時間＋世代を重ねて変化＝<b>進化</b>。",
+  w:["「遺伝」は、親の形質が<b>そのまま子に伝わる</b>こと。「変化」がキーワードなら進化。",
+     "「発生」は、1つの受精卵が<b>成体になるまで</b>の過程（1代の中のできごと）。",null,
+     "「成長」は、1つの個体が<b>大きくなる</b>こと。世代を重ねる話ではない。"]},
+ {q:"植物が水中から陸上へ生活の場を広げてきた順として、最も適切なものはどれ？",
+  c:["被子植物 → 裸子植物 → コケ・シダ植物","コケ・シダ植物 → 裸子植物 → 被子植物","裸子植物 → コケ・シダ植物 → 被子植物","コケ・シダ植物 → 被子植物 → 裸子植物"],a:1,
+  e:"<b>コケ・シダ植物 → 裸子植物 → 被子植物</b>。陸上の<b>乾燥に強い</b>からだを獲得していった。",
+  w:["順番が完全に<b>逆</b>。被子植物（花に子房がある）は最も新しいなかま。",null,
+     "裸子植物は<b>シダ植物から</b>進化したと考えられている。コケ・シダ植物が先。",
+     "被子植物は<b>裸子植物のあと</b>。子房の有無を思い出そう：裸子（子房なし）→被子（子房あり）。"]},
+ {q:"1859年に『種の起源』を発表し、生物の進化について唱えた人物は？",
+  c:["メンデル","ダーウィン","ガリレイ","フック"],a:1,
+  e:"『種の起源』＝<b>ダーウィン</b>（イギリス）。ガラパゴス諸島の生物の調査などをもとにした。",
+  w:["「メンデル」は、エンドウで<b>遺伝の規則性</b>を明らかにした人物。進化ではない。人物の入れかえは定番のひっかけ！",null,
+     "「ガリレイ」は、地動説を支持した<b>天文学・物理</b>の人物。",
+     "「フック」は、顕微鏡でコルクを観察し<b>「細胞」</b>と名づけた人物。"]},
+];
+const ALL50=[].concat(CH1,CH2,CH3);
+
+/* ---------- 70点コース：資料読み取り ---------- */
+function box(title,inner,src){return '<div class="shiryo-box"><div class="shiryo-title">'+title+'</div>'+inner+(src?'<div style="font-size:10px;color:#7a95a1;text-align:right;">'+src+'</div>':'')+'</div>';}
+
+/* 体細胞分裂の各段階（順番はバラバラ） */
+function bunretsuFig(){
+  const W=384,H=118,pw=56,ph=72,gap=8,y=26;
+  const labels=["ア","イ","ウ","エ","オ","カ"];
+  const kinds=["line","nuc","two","appear","sep","wall"];
+  let s='<svg viewBox="0 0 '+W+' '+H+'" role="img">';
+  kinds.forEach((k,i)=>{
+    const x=6+i*(pw+gap), cx=x+pw/2, cy=y+ph/2;
+    s+='<text x="'+cx+'" y="16" text-anchor="middle" font-size="13" font-weight="800" fill="#1491bd">'+labels[i]+'</text>';
+    if(k==="two"){
+      s+='<rect x="'+x+'" y="'+y+'" width="'+pw+'" height="'+(ph/2-2)+'" rx="5" fill="#f4fbf0" stroke="#6a8f3a" stroke-width="1.5"/>';
+      s+='<rect x="'+x+'" y="'+(y+ph/2+2)+'" width="'+pw+'" height="'+(ph/2-2)+'" rx="5" fill="#f4fbf0" stroke="#6a8f3a" stroke-width="1.5"/>';
+      s+='<circle cx="'+cx+'" cy="'+(y+ph/4)+'" r="8" fill="#d9a9c8" stroke="#8a3a6c"/><circle cx="'+cx+'" cy="'+(y+ph*3/4)+'" r="8" fill="#d9a9c8" stroke="#8a3a6c"/>';
+      return;
+    }
+    s+='<rect x="'+x+'" y="'+y+'" width="'+pw+'" height="'+ph+'" rx="6" fill="#f4fbf0" stroke="#6a8f3a" stroke-width="1.5"/>';
+    const bar=(bx,by,len,rot)=>'<line x1="'+bx+'" y1="'+(by-len/2)+'" x2="'+bx+'" y2="'+(by+len/2)+'" stroke="#8a3a6c" stroke-width="3.2" stroke-linecap="round" transform="rotate('+rot+' '+bx+' '+by+')"/>';
+    if(k==="nuc"){
+      s+='<circle cx="'+cx+'" cy="'+cy+'" r="13" fill="#d9a9c8" stroke="#8a3a6c"/><circle cx="'+(cx+3)+'" cy="'+(cy-2)+'" r="3" fill="#8a3a6c"/>';
+    }else if(k==="appear"){
+      s+=bar(cx-10,cy-6,12,30)+bar(cx+8,cy-9,12,-40)+bar(cx-6,cy+9,12,70)+bar(cx+10,cy+8,12,10);
+    }else if(k==="line"){
+      s+='<line x1="'+(x+4)+'" y1="'+cy+'" x2="'+(x+pw-4)+'" y2="'+cy+'" stroke="#b9c9b0" stroke-dasharray="2 3"/>';
+      [-15,-5,5,15].forEach(d=>{s+=bar(cx+d,cy,12,0);});
+    }else if(k==="sep"){
+      [-15,-5,5,15].forEach(d=>{s+=bar(cx+d,y+13,9,0)+bar(cx+d,y+ph-13,9,0);});
+    }else if(k==="wall"){
+      [-12,-4,4,12].forEach(d=>{s+=bar(cx+d,y+12,8,0)+bar(cx+d,y+ph-12,8,0);});
+      s+='<line x1="'+(x+3)+'" y1="'+cy+'" x2="'+(x+pw-3)+'" y2="'+cy+'" stroke="#6a8f3a" stroke-width="2.5" stroke-dasharray="4 2"/>';
+    }
+  });
+  s+='</svg>';
+  return box("◆タマネギの根の先端で見られた細胞（順番はバラバラ）",s);
+}
+
+/* 根の各部分の細胞（顕微鏡で同じ倍率） */
+function nekoFig(){
+  const W=384,H=170;
+  let s='<svg viewBox="0 0 '+W+' '+H+'" role="img">';
+  const panels=[{l:"A（根もとに近い部分）",cw:22,ch:46},{l:"B（中間の部分）",cw:22,ch:30},{l:"C（先端に近い部分）",cw:13,ch:13}];
+  panels.forEach((p,i)=>{
+    const cx=66+i*126,cy=92,r=54;
+    s+='<defs><clipPath id="cp'+i+'"><circle cx="'+cx+'" cy="'+cy+'" r="'+r+'"/></clipPath></defs>';
+    s+='<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="#f4fbf0" stroke="#6a8f3a" stroke-width="2"/>';
+    s+='<g clip-path="url(#cp'+i+')" stroke="#8fae6a" stroke-width="1" fill="none">';
+    let row=0;
+    for(let yy=cy-r;yy<cy+r;yy+=p.ch){
+      const off=(row%2)*p.cw/2;
+      for(let xx=cx-r-off;xx<cx+r;xx+=p.cw){
+        s+='<rect x="'+xx+'" y="'+yy+'" width="'+p.cw+'" height="'+p.ch+'"/>';
+        if(i===2 && ((Math.round(xx)+Math.round(yy))%5===0)) s+='<line x1="'+(xx+3)+'" y1="'+(yy+p.ch/2)+'" x2="'+(xx+p.cw-3)+'" y2="'+(yy+p.ch/2)+'" stroke="#8a3a6c" stroke-width="2.2"/>';
+        else s+='<circle cx="'+(xx+p.cw/2)+'" cy="'+(yy+p.ch/2)+'" r="'+(i===2?2.2:2.6)+'" fill="#c08aa9" stroke="none"/>';
+      }
+      row++;
+    }
+    s+='</g><text x="'+cx+'" y="22" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1c3a47">'+p.l+'</text>';
+  });
+  s+='</svg>';
+  return box("◆根の3か所の細胞を、同じ倍率の顕微鏡で観察したスケッチ",s,"（赤むらさきの線＝染色されたひも状のもの）");
+}
+
+/* 根の成長の記録（オリジナル数値） */
+function nobiTable(){
+  return box("◆タマネギの根に5mm間隔で印をつけ、各区間の長さを測定した記録",
+  '<table class="shiryo-table"><tr><th>区間</th><th>開始時</th><th>12時間後</th><th>24時間後</th><th>36時間後</th><th>48時間後</th></tr>'+
+  '<tr><td><b>A</b>（根もと側）</td><td>5.0</td><td>5.0</td><td>5.0</td><td>5.0</td><td>5.0</td></tr>'+
+  '<tr><td><b>B</b>（中間）</td><td>5.0</td><td>5.0</td><td>5.0</td><td>5.0</td><td>5.0</td></tr>'+
+  '<tr><td><b>C</b>（先端側）</td><td>5.0</td><td>7.6</td><td>10.4</td><td>14.9</td><td>20.2</td></tr>'+
+  '</table><div style="font-size:11px;margin-top:4px;">単位：mm／Cの区間は根の先端までをふくむ</div>');
+}
+
+/* 染色体の受けつがれ方 */
+function chrom(cols){return cols.map(c=>'<span style="display:inline-block;width:7px;height:'+(c[1]||22)+'px;background:'+(c[0]==="r"?"#d0457a":"#2f84d0")+';border-radius:3px;margin:0 1.5px;vertical-align:bottom;"></span>').join("");}
+function cell(inner,lbl){return '<div style="display:inline-block;text-align:center;margin:0 4px;"><div style="border:2px solid #9ed3ea;border-radius:50%;width:62px;height:62px;display:flex;align-items:center;justify-content:center;background:#fff;">'+inner+'</div><div style="font-size:11px;font-weight:700;">'+lbl+'</div></div>';}
+function ukeFig(){
+  const P1=chrom([["r",30],["r",30],["r",18],["r",18]]), P2=chrom([["b",30],["b",30],["b",18],["b",18]]);
+  const G1=chrom([["r",30],["r",18]]), G2=chrom([["b",30],["b",18]]);
+  const X='<span style="font-size:22px;font-weight:900;color:#e05d5d;">X</span>';
+  return box("◆有性生殖での染色体の受けつがれ方（模式図）",
+   '<div style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:2px;font-size:12px;">'+
+   '<div>'+cell(P1,"親①")+'<br>'+cell(P2,"親②")+'</div><div style="font-weight:900;color:#1491bd;">→<br><span style="font-size:10px;">減数分裂</span></div>'+
+   '<div>'+cell(G1,"生殖細胞")+'<br>'+cell(G2,"生殖細胞")+'</div><div style="font-weight:900;color:#1491bd;">→<br><span style="font-size:10px;">受精</span></div>'+
+   cell(X,"子")+'</div>');
+}
+
+/* 染色体の数の変化 */
+function kazuFlow(){
+  return box("◆ある動物の染色体の数の変化",
+  '<div class="flow"><div class="fbox">親（雄）の体細胞：24本 ｜ 親（雌）の体細胞：24本</div><div class="farrow">▼ 減数分裂</div>'+
+  '<div class="fbox">精子：<span class="blank">（ X ）</span>本 ｜ 卵：<span class="blank">（ X ）</span>本</div><div class="farrow">▼ 受精</div>'+
+  '<div class="fbox">受精卵：<span class="blank">（ Y ）</span>本</div></div>');
+}
+
+/* カエルの発生 */
+function hasseiFlow(){
+  return box("◆カエルの受精卵が成体になるまで",
+  '<div class="flow"><div class="fbox">受精卵（1個の細胞）</div><div class="farrow">▼ 細胞分裂をくり返す</div>'+
+  '<div class="fbox">2細胞 → 4細胞 → 8細胞 → … → たくさんの細胞</div><div class="farrow">▼</div>'+
+  '<div class="fbox">自分で食物をとれるようになる → おたまじゃくし（幼生）</div><div class="farrow">▼</div>'+
+  '<div class="fbox">成体（親と同じからだのつくり）</div></div><div style="font-size:11px;margin-top:4px;">※2細胞〜たくさんの細胞の段階の、全体の大きさは受精卵とほぼ同じだった。</div>');
+}
+
+/* 被子植物の受精 */
+function jusei(){
+  return box("◆被子植物の受精のしくみ",
+  '<div class="flow"><div class="fbox">花粉がめしべの柱頭につく（受粉）</div><div class="farrow">▼</div>'+
+  '<div class="fbox">花粉から <span class="blank">（ X ）</span> が胚珠に向かってのびる</div><div class="farrow">▼</div>'+
+  '<div class="fbox">（ X ）の中を精細胞が移動する</div><div class="farrow">▼</div>'+
+  '<div class="fbox">精細胞の核と、胚珠の中の <span class="blank">（ Y ）</span> の核が合体 → 受精卵</div></div>');
+}
+
+/* ジャガイモの増やし方比較 */
+function imoTable(){
+  return box("◆ジャガイモの2つの増やし方",
+  '<table class="shiryo-table"><tr><th></th><th>方法①</th><th>方法②</th></tr>'+
+  '<tr><td><b>やり方</b></td><td>いもを植える</td><td>種子をまく</td></tr>'+
+  '<tr><td><b>関係する親</b></td><td>1個体</td><td>2個体（受粉させた）</td></tr>'+
+  '<tr><td><b>育ったものの形質</b></td><td><span class="blank">（ X ）</span></td><td><span class="blank">（ Y ）</span></td></tr></table>');
+}
+
+/* かけ合わせ表 */
+function punnett(p1,p2,blank){
+  let h='<table class="shiryo-table" style="text-align:center;max-width:280px;margin:0 auto;"><tr><th>生殖細胞</th><th>'+p2[0]+'</th><th>'+p2[1]+'</th></tr>';
+  p1.forEach((a,i)=>{
+    h+='<tr><th>'+a+'</th>';
+    p2.forEach((b,j)=>{
+      const g=(b===b.toUpperCase()&&a!==a.toUpperCase())?b+a:a+b;
+      h+='<td style="font-size:15px;font-weight:800;">'+(blank&&blank[0]===i&&blank[1]===j?'<span class="blank">（ X ）</span>':g)+'</td>';
+    });
+    h+='</tr>';
+  });
+  return h+'</table>';
+}
+function punnett1(){return box("◆子（Aa）を自家受粉させたときの孫の遺伝子の組み合わせ",punnett(["A","a"],["A","a"],[1,0])+'<div style="font-size:11px;margin-top:4px;">A＝種子を丸くする遺伝子（顕性）／a＝しわにする遺伝子（潜性）</div>');}
+function punnett2(){return box("◆遺伝子の組み合わせがAaの個体と、aaの個体をかけ合わせたとき",punnett(["A","a"],["a","a"],null)+'<div style="font-size:11px;margin-top:4px;">A＝丸（顕性）／a＝しわ（潜性）</div>');}
+
+/* 交配実験の結果（オリジナル数値） */
+function kekkaTable(){
+  return box("◆純系どうしをかけ合わせ、子を自家受粉させた結果",
+  '<table class="shiryo-table"><tr><th>形質</th><th>親の組み合わせ</th><th>子</th><th colspan="2">孫の個体数</th></tr>'+
+  '<tr><td>子葉の色</td><td>黄色×緑色</td><td>すべて黄色</td><td>黄色 3012</td><td>緑色 1005</td></tr>'+
+  '<tr><td>さやの形</td><td>ふくれ×くびれ</td><td>すべてふくれ</td><td>ふくれ 882</td><td>くびれ 299</td></tr>'+
+  '<tr><td>草たけ</td><td>高い×低い</td><td>すべて高い</td><td>高い <span class="blank">X</span></td><td>低い 264</td></tr></table>');
+}
+
+/* 脊椎動物の出現（帯グラフ） */
+function nendaiFig(){
+  const W=384,H=196,x0=96,x1=372;
+  const toX=v=>x0+(x1-x0)*(5.4-v)/5.4; // 億年前 → x
+  const g=[["魚類",5.0,"#2fbdea"],["両生類",3.6,"#8dc63f"],["は虫類",3.2,"#e0a82e"],["哺乳類",2.2,"#e07da0"],["鳥類",1.5,"#8b6fd6"]];
+  let s='<svg viewBox="0 0 '+W+' '+H+'" role="img">';
+  [5,4,3,2,1,0].forEach(v=>{const x=toX(v);s+='<line x1="'+x+'" y1="22" x2="'+x+'" y2="168" stroke="#e1edf2"/><text x="'+x+'" y="182" text-anchor="middle" font-size="10" fill="#5b7884">'+(v===0?"現在":v+"億年前")+'</text>';});
+  g.forEach((r,i)=>{
+    const y=30+i*28,x=toX(r[1]);
+    s+='<text x="'+(x0-8)+'" y="'+(y+13)+'" text-anchor="end" font-size="12" font-weight="700" fill="#1c3a47">'+r[0]+'</text>';
+    s+='<rect x="'+x+'" y="'+y+'" width="'+(x1-x)+'" height="18" rx="4" fill="'+r[2]+'" opacity=".85"/>';
+    s+='<circle cx="'+x+'" cy="'+(y+9)+'" r="4" fill="#e05d5d"/>';
+  });
+  s+='</svg>';
+  return box("◆脊椎動物のなかまが地球上に現れた時期（帯の左はし＝最古の化石）",s);
+}
+
+/* 脊椎動物の特徴比較 */
+function tokuchoTable(){
+  return box("◆脊椎動物の特徴",
+  '<table class="shiryo-table" style="font-size:11.5px;"><tr><th></th><th>魚類</th><th>両生類</th><th>は虫類</th><th>鳥類</th><th>哺乳類</th></tr>'+
+  '<tr><td><b>呼吸</b></td><td>えら</td><td>子:えら<br>親:肺と皮ふ</td><td>肺</td><td>肺</td><td>肺</td></tr>'+
+  '<tr><td><b>生まれ方</b></td><td>卵（殻なし）</td><td>卵（殻なし）</td><td>卵（殻あり）</td><td>卵（殻あり）</td><td>胎生</td></tr>'+
+  '<tr><td><b>体表</b></td><td>うろこ</td><td>しめった皮ふ</td><td>うろこ</td><td>羽毛</td><td>毛</td></tr>'+
+  '<tr><td><b>体温</b></td><td>変温</td><td>変温</td><td>変温</td><td>恒温</td><td>恒温</td></tr></table>');
+}
+
+/* 前あしの比較 */
+function maeashiTable(){
+  return box("◆いろいろな脊椎動物の前あし（にあたる部分）",
+  '<table class="shiryo-table"><tr><th>動物</th><th>名前</th><th>主なはたらき</th><th>骨格の基本的なつくり</th></tr>'+
+  '<tr><td>カエル</td><td>前あし</td><td>体を支える・はねる</td><td rowspan="6" style="text-align:center;">上腕の骨1本<br>→<br>前腕の骨2本<br>→<br>手首・指の骨<br><b style="color:#1491bd;">（どれも共通）</b></td></tr>'+
+  '<tr><td>ワニ</td><td>前あし</td><td>歩く</td></tr><tr><td>ハト</td><td>翼</td><td>飛ぶ</td></tr>'+
+  '<tr><td>コウモリ</td><td>翼</td><td>飛ぶ</td></tr><tr><td>クジラ</td><td>胸びれ</td><td>泳ぐ</td></tr>'+
+  '<tr><td>ヒト</td><td>腕・手</td><td>物をつかむ</td></tr></table>');
+}
+
+/* 始祖鳥の特徴 */
+function shisochoTable(){
+  return box("◆始祖鳥の化石から分かる特徴",
+  '<table class="shiryo-table"><tr><th>記号</th><th>特徴</th></tr>'+
+  '<tr><td>a</td><td>前あしが<b>翼</b>になっている</td></tr><tr><td>b</td><td>口に<b>歯</b>がある</td></tr>'+
+  '<tr><td>c</td><td>体が<b>羽毛</b>でおおわれている</td></tr><tr><td>d</td><td>翼の先に<b>爪</b>のついた指がある</td></tr>'+
+  '<tr><td>e</td><td>長い<b>尾の骨</b>がある</td></tr></table>');
+}
+
+const Q70 = [
+ {sh:bunretsuFig,
+  q:"資料のア〜カを、体細胞分裂が進む順に正しく並べたものはどれ？（最初は核が見える細胞）",
+  c:["イ→エ→ア→オ→カ→ウ","イ→ア→エ→オ→ウ→カ","イ→エ→オ→ア→カ→ウ","ウ→カ→オ→ア→エ→イ"],a:0,
+  e:"①核が見える（イ）→②染色体が現れる（エ）→③中央に並ぶ（ア）→④両はしに分かれる（オ）→⑤仕切りができる（カ）→⑥2つの細胞になる（ウ）。<b>「現れる→並ぶ→分かれる」</b>の順で覚える！",
+  w:[null,"アとエが逆。染色体は<b>まず現れて（エ）</b>、それから<b>中央に並ぶ（ア）</b>。また、仕切り（カ）ができてから2つの細胞（ウ）になる。",
+     "アとオが逆。染色体は<b>中央に並んでから（ア）</b>両はしに<b>分かれる（オ）</b>。並ぶ前に分かれることはない。",
+     "最初と最後が完全に逆。最初は<b>核が見える1つの細胞（イ）</b>、最後が<b>2つの細胞（ウ）</b>。"]},
+ {sh:bunretsuFig,
+  q:"資料で、染色体が細胞の中央付近に集まって並んでいる段階はどれ？",
+  c:["ア","エ","オ","カ"],a:0,
+  e:"中央の点線にそって染色体が並んでいる＝<b>ア</b>。このあと両はしに分かれる（オ）。",
+  w:[null,"エは、核の形が見えなくなり、染色体が<b>現れはじめた</b>段階。まだばらばらで並んでいない。",
+     "オは、染色体が<b>両はしに分かれた</b>段階。並んだあと。",
+     "カは、両はしに分かれた染色体の間に<b>仕切り</b>ができはじめた段階。"]},
+ {sh:nekoFig,
+  q:"資料から考えて、細胞分裂がさかんに行われている部分はどれ？",
+  c:["A","B","C","A〜Cすべて同じ"],a:2,
+  e:"<b>C</b>：細胞が小さく、ひも状のもの（染色体）が見える細胞がある＝分裂中。根は<b>先端近く</b>で細胞分裂がさかん。",
+  w:["Aは細胞が<b>大きく</b>、染色体も見えない。分裂した細胞がすでに大きく成長した部分。",
+     "Bも細胞が大きくなりつつあり、染色体は見えない。分裂がさかんな部分ではない。",null,
+     "細胞の大きさや染色体の有無が<b>A〜Cで明らかにちがう</b>。資料の差を読もう。"]},
+ {sh:nekoFig,
+  q:"資料から読み取れることとして正しいものはどれ？",
+  c:["根の先端に近いほど、1つ1つの細胞が大きい","根もとに近いほど、1つ1つの細胞が大きい","A〜Cの細胞の大きさはどれも同じである","Aの部分では、多くの細胞が分裂の途中である"],a:1,
+  e:"Cの小さな細胞が分裂で増え、それぞれが<b>大きくなって根もと側（A）へ</b>。根は「分裂で数が増える」＋「1つ1つが大きくなる」で成長する。",
+  w:["逆。先端に近いCの細胞が<b>いちばん小さい</b>。",null,
+     "同じ倍率なのに、Aの細胞はCよりずっと大きく描かれている。",
+     "Aの細胞には染色体が見えない。分裂の途中の細胞があるのは<b>C</b>。"]},
+ {sh:nobiTable,
+  q:"資料から読み取れることとして正しいものはどれ？",
+  c:["A・B・Cの3つの区間が同じように伸びた","根が伸びたのは、主に先端をふくむCの区間である","Aの区間が最もよく伸びた","48時間でCの区間の長さは2倍になった"],a:1,
+  e:"AとBは5.0mmのまま。伸びたのは<b>先端をふくむC</b>だけ。先端付近で細胞分裂がさかんだから。",
+  w:["AとBは48時間後も<b>5.0mmのまま</b>。同じようには伸びていない。",null,
+     "Aは<b>まったく伸びていない</b>（5.0mmのまま）。",
+     "5.0→20.2mmなので<b>約4倍</b>。2倍ではない。"]},
+ {sh:nobiTable,
+  q:"開始時から48時間後までに、Cの区間が伸びた長さは何mm？",
+  c:["20.2mm","15.2mm","10.4mm","25.2mm"],a:1,
+  e:"伸びた長さ＝<b>48時間後の長さ－開始時の長さ</b>＝20.2－5.0＝<b>15.2mm</b>。",
+  w:["20.2mmは48時間後の<b>長さそのもの</b>。「伸びた長さ」は開始時の5.0mmを引く！",null,
+     "10.4mmは<b>24時間後の長さ</b>。時間を読みまちがえている。",
+     "20.2＋5.0と<b>足してしまった</b>数。伸びた分は引き算。"]},
+ {sh:kazuFlow,
+  q:"資料のX・Yに当てはまる数の組み合わせとして正しいものはどれ？",
+  c:["X：24　Y：48","X：12　Y：24","X：12　Y：12","X：48　Y：24"],a:1,
+  e:"減数分裂で<b>半分（12本）</b>→受精で合わさって<b>もとの数（24本）</b>。だから親子で染色体の数が同じに保たれる。",
+  w:["生殖細胞は<b>減数分裂</b>でつくられるので半分になる。24本のままだと、受精卵は48本になってしまい、代を重ねるごとに倍々に増えてしまう。",null,
+     "受精卵は精子（12本）と卵（12本）の核が合体したもの。<b>12＋12＝24本</b>。",
+     "減数分裂は<b>半分</b>にする分裂。2倍にはならない。"]},
+ {sh:ukeFig,
+  q:"資料のXに入る、子の染色体のようすとして正しいものはどれ？",
+  c:["親①と同じ赤い染色体だけをもつ","親②と同じ青い染色体だけをもつ","赤い染色体と青い染色体を半分ずつもつ","赤と青の染色体をすべて（8本）もつ"],a:2,
+  e:"有性生殖では、子は受精によって<b>両親から半分ずつ</b>染色体を受けつぐ。だから組み合わせが多様になり、子の形質も多様になる。",
+  w:["親①だけと同じになるのは<b>無性生殖</b>の場合。有性生殖では両親の染色体を受けつぐ。",
+     "親②だけと同じになることはない。受精では<b>両方の生殖細胞の核</b>が合体する。",null,
+     "生殖細胞は減数分裂で半分ずつになっている。子は<b>2本＋2本＝4本</b>で、親と同じ数。"]},
+ {sh:hasseiFlow,
+  q:"受精卵が細胞分裂をくり返す段階（2細胞〜たくさんの細胞）での、細胞の数と全体の大きさの変化として正しいものはどれ？",
+  c:["細胞の数は増え、全体の大きさはほぼ変わらない","細胞の数は変わらず、全体の大きさが大きくなる","細胞の数も全体の大きさも増える","細胞の数は減り、全体の大きさは小さくなる"],a:0,
+  e:"自分で食物をとれない<b>胚</b>の時期は、分裂するたびに細胞が<b>小さく</b>なるので、数は増えても<b>全体の大きさはほぼ同じ</b>。",
+  w:[null,"細胞分裂をくり返しているので、細胞の数は<b>必ず増える</b>。",
+     "全体が大きくなるのは、<b>自分で食物をとれるようになってから</b>。資料の※にも「ほぼ同じ」とある。",
+     "細胞分裂で細胞の数が減ることはない。"]},
+ {sh:jusei,
+  q:"資料のX・Yに当てはまる語句の組み合わせとして正しいものはどれ？",
+  c:["X：花粉管　Y：卵細胞","X：師管　Y：卵細胞","X：花粉管　Y：精細胞","X：道管　Y：胚珠"],a:0,
+  e:"花粉からのびるのは<b>花粉管</b>。その中を精細胞が移動し、胚珠の中の<b>卵細胞</b>と受精する。",
+  w:[null,"「師管」は、葉でつくられた<b>栄養分</b>が通る管。花粉からはのびない。",
+     "移動してくるのが精細胞なので、胚珠の中で待っているのは<b>卵細胞</b>。精細胞どうしは受精しない。",
+     "「道管」は<b>水</b>の通り道。また、胚珠は卵細胞が入っている<b>場所</b>で、核ではない。"]},
+];
+
+const Q70B = [
+ {sh:punnett1,
+  q:"資料のXに当てはまる遺伝子の組み合わせと、その種子の形の組み合わせとして正しいものはどれ？",
+  c:["Aa・丸","aa・しわ","AA・丸","Aa・しわ"],a:0,
+  e:"左のa（行）と上のA（列）の組み合わせ＝<b>Aa</b>。Aが1つでもあれば顕性の<b>丸</b>になる。",
+  w:[null,"aaになるのは、行も列も<b>a</b>のマス（右下）。Xの列はAなので、aaにはならない。",
+     "AAになるのは左上のマス。Xは行が<b>a</b>なのでAAにはならない。",
+     "Aaは<b>Aを1つもつ</b>ので顕性の丸。しわになるのはaaだけ。"]},
+ {sh:punnett1,
+  q:"資料のように孫ができるとき、孫に現れる「丸：しわ」の個体数の比として最も近いものはどれ？",
+  c:["1：1","3：1","1：3","1：2：1"],a:1,
+  e:"AA：Aa：aa＝1：2：1。AAとAaは丸、aaだけしわ → <b>丸：しわ＝3：1</b>。",
+  w:["1：1は、<b>Aa×aa</b>（片方が潜性の純系）をかけ合わせたときの比。",null,
+     "逆。顕性の丸のほうが<b>多く</b>現れる。",
+     "1：2：1は<b>遺伝子の組み合わせ</b>（AA：Aa：aa）の比。問われているのは<b>形質</b>（丸・しわ）の比。"]},
+ {sh:punnett1,
+  q:"資料の孫のうち、純系と同じ遺伝子の組み合わせ（AAまたはaa）をもつものは、全体のおよそ何%か？",
+  c:["25%","50%","75%","100%"],a:1,
+  e:"4マスのうち<b>AA（1マス）とaa（1マス）</b>＝2/4＝<b>50%</b>。",
+  w:["25%はAAだけ、またはaaだけの割合。<b>両方</b>数える！",null,
+     "75%は<b>丸の種子</b>（AA＋Aa）の割合。Aaは純系ではない。",
+     "Aa（2マス）は純系ではないので100%にはならない。"]},
+ {sh:kekkaTable,
+  q:"表の草たけについて、Xに当てはまる個体数として最も近いものはどれ？",
+  c:["約260","約530","約790","約1060"],a:2,
+  e:"顕性：潜性≒<b>3：1</b>。低い（潜性）264×3≒<b>約790</b>。",
+  w:["約260は、低いのと<b>同じ数</b>（1：1）と考えた場合。純系の子どうしなら3：1になる。",
+     "約530は<b>2倍</b>（2：1）で計算した場合。",null,
+     "約1060は<b>4倍</b>で計算した場合。全体（高い＋低い）を4とすると、高いは3、低いは1。"]},
+ {sh:kekkaTable,
+  q:"表から考えられることとして正しいものはどれ？",
+  c:["子葉の色は、緑色が顕性形質である","さやの形は、くびれが顕性形質である","どの形質でも、孫には顕性と潜性がおよそ3：1で現れている","孫には、潜性形質はまったく現れない"],a:2,
+  e:"3012：1005、882：299 はどちらも<b>およそ3：1</b>。子に現れた形質（黄色・ふくれ・高い）が顕性。",
+  w:["子がすべて<b>黄色</b>になったので、顕性は黄色。緑色は子に現れない潜性。",
+     "子がすべて<b>ふくれ</b>なので、ふくれが顕性。",null,
+     "孫では潜性形質（緑色・くびれ・低い）が<b>ふたたび現れている</b>。現れないのは子の代。"]},
+ {sh:punnett2,
+  q:"資料のかけ合わせでできる子の「丸：しわ」の比として正しいものはどれ？",
+  c:["すべて丸","3：1","1：1","すべてしわ"],a:2,
+  e:"4マスのうちAaが2つ（丸）、aaが2つ（しわ）→ <b>丸：しわ＝1：1</b>。遺伝子が分からない個体に<b>aaをかけ合わせる</b>と、その正体が分かる。",
+  w:["すべて丸になるのは、<b>AA×aa</b>のとき。",
+     "3：1は<b>Aa×Aa</b>のとき。片方がaaなら1：1。",null,
+     "Aaの親がAをもつ生殖細胞もつくるので、<b>丸も現れる</b>。"]},
+ {sh:nendaiFig,
+  q:"資料から、脊椎動物のなかまが地球上に現れた順として正しいものはどれ？",
+  c:["魚類→両生類→は虫類→鳥類→哺乳類","魚類→両生類→は虫類→哺乳類→鳥類","魚類→は虫類→両生類→哺乳類→鳥類","両生類→魚類→は虫類→鳥類→哺乳類"],a:1,
+  e:"帯の左はし（最古の化石）が古い順に：<b>魚類→両生類→は虫類→哺乳類→鳥類</b>。<b>哺乳類のほうが鳥類より先</b>なのが要注意ポイント！",
+  w:["鳥類（約1.5億年前）と哺乳類（約2.2億年前）が逆。<b>哺乳類が先</b>。",null,
+     "両生類（約3.6億年前）のほうが、は虫類（約3.2億年前）より<b>先</b>。",
+     "いちばん古いのは<b>魚類</b>（約5億年前）。"]},
+ {sh:tokuchoTable,
+  q:"表から考えて、脊椎動物が陸上の乾燥した環境に適するように変化したことを表しているものはどれ？",
+  c:["呼吸器官が肺からえらへ変化した","殻のない卵から、殻のある卵や胎生へ変化した","体温が恒温から変温へ変化した","体表がうろこから、しめった皮ふへ変化した"],a:1,
+  e:"<b>殻のある卵</b>は陸上でも乾燥しにくい。さらに<b>胎生</b>へ。ほかに「えら→肺」「ひれ→あし」も陸上への変化。",
+  w:["逆。水中の<b>えら</b>から、陸上で空気を取り入れる<b>肺</b>へ変化した。",null,
+     "逆。表では魚類〜は虫類が変温、鳥類・哺乳類が<b>恒温</b>。新しいなかまほど恒温。",
+     "しめった皮ふは<b>乾燥に弱い</b>。両生類が水辺から離れられない理由。陸上に適した変化ではない。"]},
+ {sh:maeashiTable,
+  q:"資料から考えられることとして最も適切なものはどれ？",
+  c:["6つの動物は、すべて同じ時期に地球上に現れた","はたらきが同じなら、骨格のつくりも必ず同じになる","形やはたらきはちがうが、もとは同じものから変化したと考えられる","すべての脊椎動物は陸上で生活するのに適した形をしている"],a:2,
+  e:"はたらき（はねる・飛ぶ・泳ぐ・つかむ）はちがうのに骨格の基本は共通＝<b>相同器官</b>。もとは同じ → <b>進化の証拠</b>。",
+  w:["脊椎動物のなかまは<b>出現した時期がちがう</b>（魚類約5億年前〜鳥類約1.5億年前）。資料は時期については何も言っていない。",
+     "資料が言っているのは逆で、<b>はたらきがちがっても</b>骨格の基本が同じということ。",null,
+     "クジラは<b>水中</b>で生活し、胸びれで泳ぐ。すべてが陸上向きではない。"]},
+ {sh:shisochoTable,
+  q:"始祖鳥の特徴a〜eのうち、は虫類の特徴だけを選んだ組み合わせはどれ？",
+  c:["a・c","b・d・e","a・b・c","c・d・e"],a:1,
+  e:"は虫類の特徴＝<b>歯（b）・爪のある指（d）・長い尾の骨（e）</b>。鳥類の特徴＝翼（a）・羽毛（c）。",
+  w:["翼（a）と羽毛（c）は<b>鳥類</b>の特徴。逆！",null,
+     "aとcは鳥類の特徴。は虫類はbだけ入っている。",
+     "羽毛（c）は<b>鳥類</b>の特徴。"]},
+];
+
+/* ---------- 90点コース：説明・記述（部品をすべて選ぶ） ---------- */
+const Q90 = [
+ {q:"「根の細胞分裂の観察で、根をうすい塩酸に入れたり、カバーガラスの上から押しつぶしたりする理由」を説明したい。説明の部品として正しいものを【すべて】選びなさい。",
+  c:[
+   {t:"うすい塩酸に入れるのは、細胞どうしを離れやすくするため",ok:true,fb:"塩酸の役割。<b>「1つ1つ離れやすくする」</b>と書けばOK。"},
+   {t:"押しつぶすのは、細胞の重なりを少なくして見やすくするため",ok:true,fb:"押しつぶしの役割。重なっていると観察できないので<b>「重なりを少なくする」</b>。"},
+   {t:"うすい塩酸に入れるのは、染色体を赤く染めるため",ok:false,fb:"染めるのは<b>酢酸オルセイン液（酢酸カーミン液）</b>の役割。塩酸と染色液の役割の混同が一番多いミス！"},
+   {t:"押しつぶすのは、細胞分裂を速く進ませるため",ok:false,fb:"観察する根の細胞はすでに<b>生きていない</b>。押しつぶしても分裂は進まない。目的は「見やすく」すること。"},
+   {t:"うすい塩酸に入れるのは、細胞の数を増やすため",ok:false,fb:"細胞の数が増えるのは<b>細胞分裂</b>のはたらき。薬品で増えることはない。"},
+  ],
+  m:"①うすい塩酸に入れるのは、細胞どうしを離れやすくするため。②押しつぶすのは、細胞の重なりを少なくして観察しやすくするため。"},
+ {q:"「体細胞分裂はどのように進むか」を説明したい。説明の部品として正しいものを【すべて】選びなさい。",
+  c:[
+   {t:"分裂の前に、染色体が複製されて2本ずつになる",ok:true,fb:"スタートの準備。だから分かれても<b>染色体の数が減らない</b>。"},
+   {t:"染色体が現れ、細胞の中央に並ぶ",ok:true,fb:"「現れる→並ぶ」。順番を正確に。"},
+   {t:"染色体が2つに分かれて両はしに移動し、仕切りができて2つの細胞になる",ok:true,fb:"「分かれる→仕切り→2つ」。植物細胞では中央に<b>仕切り</b>ができる。"},
+   {t:"染色体の数が半分になった2つの細胞ができる",ok:false,fb:"半分になるのは<b>減数分裂</b>。体細胞分裂では、もとの細胞と<b>同じ数</b>の染色体をもつ。"},
+   {t:"染色体は、分かれてから中央に並ぶ",ok:false,fb:"順番が逆。<b>並んでから分かれる</b>。"},
+  ],
+  m:"①分裂の前に染色体が複製されて2本ずつになる。②分裂が始まると染色体が現れて細胞の中央に並び、③それぞれが2つに分かれて両はしに移動する。④中央に仕切りができて2つの細胞になり、それぞれがもとの細胞と同じ数の染色体をもつ。"},
+ {q:"「多細胞生物（植物の根など）はどのようにして成長するか」を説明したい。説明の部品として正しいものを【すべて】選びなさい。",
+  c:[
+   {t:"体細胞分裂によって細胞の数が増える",ok:true,fb:"成長の1つめの要素：<b>数が増える</b>。"},
+   {t:"分裂して増えた1つ1つの細胞が大きくなる",ok:true,fb:"成長の2つめの要素：<b>大きくなる</b>。2つセットで書けて満点！"},
+   {t:"細胞の数は変わらず、1つ1つの細胞がどこまでも大きくなる",ok:false,fb:"細胞の数は<b>増える</b>。数が変わらないまま大きくなるだけでは、根の先端で分裂が見られる理由が説明できない。"},
+   {t:"減数分裂によって細胞の数が増える",ok:false,fb:"減数分裂は<b>生殖細胞</b>をつくる分裂。からだの成長は<b>体細胞分裂</b>。"},
+   {t:"根の場合、細胞分裂は先端に近い部分でさかんに行われる",ok:true,fb:"根の成長する場所。先端付近で増え、根もと側で大きくなる。"},
+  ],
+  m:"多細胞生物は、①体細胞分裂によって細胞の数が増え、②増えた細胞の1つ1つが大きくなることで成長する。③根では先端に近い部分で細胞分裂がさかんに行われる。"},
+ {q:"「無性生殖でできた子の形質が、親とまったく同じになる理由」を説明したい。説明の部品として正しいものを【すべて】選びなさい。",
+  c:[
+   {t:"子は、親の体細胞分裂によってできる",ok:true,fb:"無性生殖のしくみ。<b>受精がない</b>ことがポイント。"},
+   {t:"子は、親の染色体（遺伝子）をそのまま受けつぐ",ok:true,fb:"理由の中心。遺伝子が同じ→形質も同じ。"},
+   {t:"子は、両親から半分ずつ染色体を受けつぐ",ok:false,fb:"これは<b>有性生殖</b>の説明。無性生殖では親は1個体だけ。"},
+   {t:"子は、減数分裂でできた生殖細胞が受精してできる",ok:false,fb:"生殖細胞・受精は<b>有性生殖</b>のしくみ。"},
+   {t:"親の遺伝子と同じ遺伝子をもつので、形質も親と同じになる",ok:true,fb:"結論の部品。「遺伝子が同じ→形質が同じ」の因果を最後に書く。"},
+  ],
+  m:"無性生殖では、①子は親の体細胞分裂によってでき、②親の染色体（遺伝子）をそのまま受けつぐ。③そのため子は親と同じ遺伝子をもち、形質も親と同じになる。"},
+ {q:"「有性生殖でできた子の形質が、多様になる理由」を説明したい。説明の部品として正しいものを【すべて】選びなさい。",
+  c:[
+   {t:"子は、受精によって両親から半分ずつ染色体を受けつぐ",ok:true,fb:"理由の1つめ。「<b>両親から半分ずつ</b>」が必須キーワード。"},
+   {t:"受けつがれる染色体（遺伝子）の組み合わせがさまざまになる",ok:true,fb:"理由の2つめ。組み合わせが多様→形質が多様。"},
+   {t:"子は、親の染色体をそのまま受けつぐ",ok:false,fb:"これは<b>無性生殖</b>の説明。そのまま受けつぐと形質は親と同じになる。"},
+   {t:"子の染色体の数は、親の2倍になる",ok:false,fb:"生殖細胞は減数分裂で<b>半分</b>になっているので、子の染色体の数は<b>親と同じ</b>。"},
+   {t:"そのため、子の形質は親と同じになったり異なったりする",ok:true,fb:"結論。親と同じこともあれば違うこともある＝多様。"},
+  ],
+  m:"有性生殖では、①子は受精によって両親から半分ずつ染色体を受けつぐため、②受けつがれる遺伝子の組み合わせがさまざまになる。③そのため子の形質は、親と同じになったり異なったりして多様になる。"},
+ {q:"「減数分裂と体細胞分裂のちがい」を説明したい。説明の部品として正しいものを【すべて】選びなさい。",
+  c:[
+   {t:"減数分裂は、生殖細胞がつくられるときに行われる",ok:true,fb:"「いつ・どこで」の違い。体細胞分裂はからだの細胞が増えるとき。"},
+   {t:"減数分裂では、染色体の数がもとの細胞の半分になる",ok:true,fb:"一番大事な違い。<b>「半分」</b>は必ず書く。"},
+   {t:"体細胞分裂では、染色体の数はもとの細胞と同じになる",ok:true,fb:"対比させる部品。片方だけでなく<b>両方</b>書くと差がはっきり伝わる。"},
+   {t:"減数分裂では、染色体の数がもとの細胞の2倍になる",ok:false,fb:"「減数」＝<b>数が減る</b>。2倍は誤り。"},
+   {t:"減数分裂は、植物だけで行われる",ok:false,fb:"動物（卵・精子）でも植物（卵細胞・精細胞）でも行われる。"},
+  ],
+  m:"①減数分裂は生殖細胞がつくられるときに行われる特別な細胞分裂で、②染色体の数がもとの細胞の半分になる。③一方、体細胞分裂では、染色体の数はもとの細胞と同じになる。"},
+ {q:"「被子植物で受精卵ができるまで」を説明したい。説明の部品として正しいものを【すべて】選びなさい。",
+  c:[
+   {t:"花粉がめしべの柱頭につくと、花粉管が胚珠に向かってのびる",ok:true,fb:"スタート。「受粉→花粉管がのびる」。"},
+   {t:"花粉管の中を精細胞が移動する",ok:true,fb:"精細胞は花粉管の中を<b>運ばれていく</b>。"},
+   {t:"精細胞の核と、胚珠の中の卵細胞の核が合体して受精卵ができる",ok:true,fb:"ゴール。「<b>核が合体</b>」まで書くと正確。"},
+   {t:"花粉管は子房の中ではなく、おしべに向かってのびる",ok:false,fb:"花粉管がのびるのは<b>胚珠</b>（子房の中）に向かって。おしべは花粉をつくる側。"},
+   {t:"精細胞と卵細胞は、どちらも体細胞分裂でつくられる",ok:false,fb:"生殖細胞は<b>減数分裂</b>でつくられる。"},
+  ],
+  m:"①花粉がめしべの柱頭につくと、花粉から胚珠に向かって花粉管がのびる。②その中を精細胞が移動し、③精細胞の核と胚珠の中の卵細胞の核が合体して受精卵ができる。"},
+ {q:"「発生とは何か（カエルの例）」を説明したい。説明の部品として正しいものを【すべて】選びなさい。",
+  c:[
+   {t:"受精卵が細胞分裂をくり返して胚になる",ok:true,fb:"前半。「受精卵→（分裂）→胚」。"},
+   {t:"しだいに親と同じからだのつくりやはたらきをもつ成体に成長していく",ok:true,fb:"後半。ゴールは「<b>成体</b>」。"},
+   {t:"自分で食物をとることができるようになる前までの段階を胚という",ok:true,fb:"胚の定義も添えると説明が厚くなる。"},
+   {t:"成体が子を産むまでの過程を発生という",ok:false,fb:"発生は<b>受精卵→成体</b>まで。子を産むのは「生殖」。"},
+   {t:"受精卵は分裂のたびに全体が2倍の大きさになる",ok:false,fb:"胚の時期は、細胞の数が増えても<b>全体の大きさはほぼ変わらない</b>。"},
+  ],
+  m:"発生とは、①受精卵が細胞分裂をくり返して胚になり、②しだいに親と同じからだのつくりやはたらきをもつ成体に成長していく過程のことである。③胚とは、受精卵が分裂を始めてから自分で食物をとれるようになる前までの段階である。"},
+ {q:"「生殖細胞の染色体の数が、体細胞の半分である理由（意味）」を説明したい。説明の部品として正しいものを【すべて】選びなさい。",
+  c:[
+   {t:"生殖細胞は減数分裂によってつくられ、染色体の数が半分になる",ok:true,fb:"半分になる「しくみ」の部品。"},
+   {t:"受精によって2つの生殖細胞の核が合体する",ok:true,fb:"半分＋半分＝1つ分。"},
+   {t:"そのため受精卵の染色体の数は、親の体細胞と同じになる",ok:true,fb:"結論。これで<b>代を重ねても染色体の数が一定</b>に保たれる。"},
+   {t:"染色体の数が半分のほうが、細胞分裂が速く進むから",ok:false,fb:"分裂の速さは関係ない。ポイントは<b>受精後に数がもとにもどる</b>こと。"},
+   {t:"受精卵の染色体の数は、親の2倍になる",ok:false,fb:"半分＋半分なので<b>親と同じ</b>。生殖細胞が半分でなければ、ここが2倍になってしまう。"},
+  ],
+  m:"①生殖細胞は減数分裂によってつくられ、染色体の数が体細胞の半分になる。②受精によって2つの生殖細胞の核が合体するので、③受精卵の染色体の数は親の体細胞と同じになり、代を重ねても染色体の数は変わらない。"},
+ {q:"「農業で、さし木やいもなどの栄養生殖で作物を増やす利点」を説明したい。説明の部品として正しいものを【すべて】選びなさい。",
+  c:[
+   {t:"栄養生殖は無性生殖なので、子は親と同じ遺伝子をもつ",ok:true,fb:"理由。無性生殖＝遺伝子をそのまま受けつぐ。"},
+   {t:"親と同じ形質（味・形など）の作物を確実に増やすことができる",ok:true,fb:"利点の結論。よい性質を<b>そのまま</b>残せる。"},
+   {t:"子の形質が多様になるので、新しい品種が生まれやすい",ok:false,fb:"形質が多様になるのは<b>有性生殖</b>。栄養生殖では親と同じになる。"},
+   {t:"受精によって両親のよい形質をあわせもつことができる",ok:false,fb:"受精は<b>有性生殖</b>。栄養生殖では受精は行われない。"},
+  ],
+  m:"①栄養生殖は無性生殖なので、子は親と同じ遺伝子をもつ。②そのため、親と同じすぐれた形質をもつ作物を確実に増やすことができる。"},
+];
+
+const Q90B = [
+ {q:"「分離の法則」とは何かを説明したい。説明の部品として正しいものを【すべて】選びなさい。",
+  c:[
+   {t:"減数分裂のときに起こる",ok:true,fb:"「いつ」。分離の法則は<b>減数分裂</b>とセット。"},
+   {t:"対になっている遺伝子が分かれる",ok:true,fb:"「何が」。<b>対の遺伝子</b>（Aとaなど）。"},
+   {t:"分かれた遺伝子が、別々の生殖細胞に入る",ok:true,fb:"「どうなる」。Aaの親からはAの生殖細胞とaの生殖細胞ができる。"},
+   {t:"受精のときに、対の遺伝子が合体する",ok:false,fb:"これは受精の話。分離の法則は<b>分かれる</b>ほう。"},
+   {t:"顕性形質の遺伝子だけが生殖細胞に入る",ok:false,fb:"潜性の遺伝子(a)も<b>同じように</b>生殖細胞に入る。だから孫で潜性形質が現れる。"},
+  ],
+  m:"分離の法則とは、①減数分裂のときに、②対になっている遺伝子が分かれて、③別々の生殖細胞に入ることである。"},
+ {q:"「丸い種子の純系（AA）としわの種子の純系（aa）をかけ合わせると、子がすべて丸になる理由」を説明したい。説明の部品として正しいものを【すべて】選びなさい。",
+  c:[
+   {t:"AAの親の生殖細胞はすべてA、aaの親の生殖細胞はすべてaをもつ",ok:true,fb:"分離の法則から。純系なのでどちらも1種類だけ。"},
+   {t:"受精によって、子の遺伝子の組み合わせはすべてAaになる",ok:true,fb:"組み合わせ。A×a＝Aaしかない。"},
+   {t:"Aaでは、顕性形質である丸が現れる",ok:true,fb:"結論。Aが1つでもあれば<b>顕性の丸</b>。"},
+   {t:"しわの遺伝子aは、子に受けつがれずに消える",ok:false,fb:"aは<b>消えていない</b>。子はaをもっているが形質として現れないだけ。だから孫でしわが現れる。"},
+   {t:"子の遺伝子の組み合わせはAA・Aa・aaの3種類になる",ok:false,fb:"それは<b>孫</b>（Aa×Aa）の場合。純系どうしの子はAaだけ。"},
+  ],
+  m:"①AAの親からはAをもつ生殖細胞、aaの親からはaをもつ生殖細胞ができるので、②受精によって子の遺伝子の組み合わせはすべてAaになる。③Aaでは顕性形質の丸が現れるため、子はすべて丸になる。"},
+ {q:"「子（Aa）を自家受粉させると、孫に丸：しわ＝約3：1で現れる理由」を説明したい。説明の部品として正しいものを【すべて】選びなさい。",
+  c:[
+   {t:"子（Aa）からは、Aをもつ生殖細胞とaをもつ生殖細胞が同じ数ずつできる",ok:true,fb:"スタート。分離の法則で1：1にできる。"},
+   {t:"孫の遺伝子の組み合わせは AA：Aa：aa＝1：2：1 になる",ok:true,fb:"かけ合わせ表から。この比は書けるようにする。"},
+   {t:"AAとAaは丸、aaはしわになるので、丸：しわ＝3：1になる",ok:true,fb:"結論。(1+2)：1＝3：1。"},
+   {t:"孫の遺伝子の組み合わせは AA：aa＝3：1 になる",ok:false,fb:"<b>遺伝子の組み合わせ</b>と<b>形質</b>の比をまぜている。組み合わせは1：2：1。"},
+   {t:"Aaの個体は、丸としわの中間の形の種子になる",ok:false,fb:"Aaは<b>顕性の丸</b>になる。中間にはならない（エンドウの種子の形の場合）。"},
+  ],
+  m:"①子（Aa）からはAをもつ生殖細胞とaをもつ生殖細胞が同じ数ずつでき、②それらが受精すると孫の遺伝子の組み合わせはAA：Aa：aa＝1：2：1になる。③AAとAaは丸、aaはしわになるので、丸：しわ＝3：1となる。"},
+ {q:"「遺伝の実験で、つぼみのうちにおしべを取り除いておく理由」を説明したい。説明の部品として正しいものを【すべて】選びなさい。",
+  c:[
+   {t:"自家受粉が起こらないようにするため",ok:true,fb:"目的の中心。エンドウやアサガオは<b>自然の状態では自家受粉</b>する。"},
+   {t:"ねらった別の個体の花粉だけで受粉させるため",ok:true,fb:"目的の裏返し。実験の<b>条件をそろえる</b>ため。"},
+   {t:"花粉管がのびやすくなるようにするため",ok:false,fb:"おしべを取っても花粉管ののび方は変わらない。"},
+   {t:"めしべに栄養を集めて、種子を大きくするため",ok:false,fb:"栄養の話ではない。<b>どの花粉で受粉したかをはっきりさせる</b>ため。"},
+   {t:"つぼみのうちに取るのは、花が開くと自分の花粉で受粉してしまうおそれがあるから",ok:true,fb:"「なぜ<b>つぼみのうち</b>に」まで説明できると完璧。"},
+  ],
+  m:"①花が開くと自分の花粉で自家受粉してしまうおそれがあるので、②つぼみのうちにおしべを取り除いて自家受粉を防ぎ、③ねらった別の個体の花粉だけで受粉させるため。"},
+ {q:"「相同器官が、生物が進化してきた証拠と考えられる理由」を説明したい。説明の部品として正しいものを【すべて】選びなさい。",
+  c:[
+   {t:"ヒトの腕・クジラの胸びれ・ハトの翼などは、形やはたらきがちがう",ok:true,fb:"事実①：見た目・はたらきの違い。"},
+   {t:"しかし、骨格の基本的なつくりはよく似ている",ok:true,fb:"事実②：つくりの共通点。この「<b>しかし</b>」が説明の核。"},
+   {t:"もとは同じ器官が、それぞれの生活環境に適した形に変化したと考えられる",ok:true,fb:"結論。共通の祖先から変化＝<b>進化</b>。"},
+   {t:"これらの動物は、すべて同じ時期に地球上に現れた",ok:false,fb:"出現時期は<b>ちがう</b>。同時に現れたなら進化の証拠にならない。"},
+   {t:"はたらきが同じ器官は、どの動物でもつくりがまったく同じである",ok:false,fb:"相同器官のポイントは「<b>はたらきはちがう</b>のにつくりが似ている」こと。"},
+  ],
+  m:"①ヒトの腕、クジラの胸びれ、ハトの翼などは、形やはたらきがちがうが、②骨格の基本的なつくりはよく似ている。③これは、もとは同じ器官が、それぞれの生活環境に適した形に変化したためと考えられるから。"},
+ {q:"「始祖鳥が、鳥類がは虫類から進化した証拠と考えられる理由」を説明したい。説明の部品として正しいものを【すべて】選びなさい。",
+  c:[
+   {t:"始祖鳥は、翼や羽毛といった鳥類の特徴をもつ",ok:true,fb:"鳥類の特徴：<b>翼・羽毛</b>。"},
+   {t:"始祖鳥は、歯や爪のある指といったは虫類の特徴ももつ",ok:true,fb:"は虫類の特徴：<b>歯・爪・長い尾の骨</b>。"},
+   {t:"両方の特徴をもつ中間的な生物であることから、鳥類はは虫類から生じたと考えられる",ok:true,fb:"結論。「中間的な生物」がキーワード。"},
+   {t:"始祖鳥は、魚類と両生類の両方の特徴をもつ",ok:false,fb:"魚類と両生類の関係の手がかりは<b>シーラカンス</b>。"},
+   {t:"始祖鳥は、現在も姿を変えずに生き続けている",ok:false,fb:"始祖鳥は<b>化石</b>で見つかる生物。古いころの特徴がほぼ変わらず生きているのはシーラカンス。"},
+  ],
+  m:"①始祖鳥は、翼や羽毛といった鳥類の特徴と、②歯や爪のある指といったは虫類の特徴の両方をもつ。③このような中間的な生物が存在したことから、鳥類はは虫類から生じたと考えられる。"},
+ {q:"「脊椎動物が水中から陸上へ生活の場を広げる中で、からだがどのように変化したか」を説明したい。説明の部品として正しいものを【すべて】選びなさい。",
+  c:[
+   {t:"呼吸器官が、えらから肺へ変化した",ok:true,fb:"呼吸の変化。空気中の酸素を取り入れるため。"},
+   {t:"移動の手段が、ひれからあしへ変化した",ok:true,fb:"移動の変化。陸上で体を支えて歩くため。"},
+   {t:"殻のない卵から、殻のある卵や胎生へ変化した",ok:true,fb:"生まれ方の変化。<b>乾燥</b>から卵を守る。"},
+   {t:"体温が、恒温から変温へ変化した",ok:false,fb:"逆。変温（魚類など）→<b>恒温</b>（鳥類・哺乳類）。"},
+   {t:"体表が、うろこからしめった皮ふへ変化した",ok:false,fb:"しめった皮ふ（両生類）は<b>乾燥に弱い</b>。は虫類はうろこで乾燥を防ぐ。"},
+  ],
+  m:"脊椎動物は進化する中で、①呼吸器官がえらから肺へ、②移動手段がひれからあしへ、③殻のない卵から殻のある卵や胎生へと変化し、水中から水辺、陸上へと生活の場を広げていった。"},
+ {q:"「植物が陸上へ進出していった進化の流れ」を説明したい。説明の部品として正しいものを【すべて】選びなさい。",
+  c:[
+   {t:"コケ植物やシダ植物が先に陸上へ進出した",ok:true,fb:"スタート。コケ・シダが先行。"},
+   {t:"その後、シダ植物から裸子植物へ、裸子植物から被子植物へと進化した",ok:true,fb:"順番。裸子（子房なし）→被子（子房あり）。"},
+   {t:"陸上の乾燥に強いからだを獲得してきた",ok:true,fb:"変化の方向性。「<b>乾燥に強く</b>」がキーワード。"},
+   {t:"被子植物から裸子植物が進化した",ok:false,fb:"逆。<b>裸子植物 → 被子植物</b>。"},
+   {t:"コケ植物は、からだ全体に水を運ぶしくみ（維管束）を発達させて陸上に進出した",ok:false,fb:"コケ植物は<b>水を運ぶしくみをもたない</b>。だから乾燥に弱く、しめった場所に生える。"},
+  ],
+  m:"植物は、①コケ植物やシダ植物が先に陸上に進出し、②その後シダ植物から裸子植物へ、裸子植物から被子植物へと進化して、③陸上の乾燥に強いからだを獲得してきた。"},
+ {q:"「生物の形質が変化し、進化が起こる原因」を説明したい。説明の部品として正しいものを【すべて】選びなさい。",
+  c:[
+   {t:"生物の形質は、細胞の染色体にある遺伝子によって決まる",ok:true,fb:"前提。形質のもと＝<b>遺伝子</b>。"},
+   {t:"遺伝子は、さまざまな原因によって変化することがある",ok:true,fb:"原因。遺伝子（DNA）が変化する。"},
+   {t:"遺伝子が変化すると形質が変化し、それが長い時間をかけて世代を重ねると進化につながる",ok:true,fb:"結論。<b>長い時間・世代を重ねる</b>が進化の定義。"},
+   {t:"1つの個体が成長するあいだに形が変わることを進化という",ok:false,fb:"1つの個体の変化は<b>成長・発生</b>。進化は世代を重ねる変化。"},
+   {t:"遺伝子は親から子へ必ず変化せずに伝わるので、形質が変わることはない",ok:false,fb:"遺伝子は<b>変化することがある</b>。だから形質が変わり、進化が起こる。"},
+  ],
+  m:"①生物の形質は、細胞の染色体にある遺伝子によって決まる。②遺伝子はさまざまな原因によって変化することがあり、③遺伝子が変化すると形質も変化する。これが長い時間をかけて世代を重ねることで進化が起こる。"},
+ {q:"「DNAや遺伝子に関する研究成果が、どのように活用されているか」を説明したい。説明の部品として正しいものを【すべて】選びなさい。",
+  c:[
+   {t:"農業では、作物の品種改良に利用されている",ok:true,fb:"農業への応用。"},
+   {t:"例えば、特定の除草剤の影響を受けないダイズやトウモロコシがつくられている",ok:true,fb:"農業の具体例。例まで書けると説得力アップ。"},
+   {t:"医療では、DNA分析によるオーダーメイド医療に利用されている",ok:true,fb:"医療への応用。一人一人に合わせた治療。"},
+   {t:"DNAの研究により、無性生殖をする生物がいなくなった",ok:false,fb:"そんな事実はない。無性生殖をする生物は今もたくさんいる。"},
+   {t:"DNAは遺伝子の本体ではないため、研究は形質と関係がない",ok:false,fb:"DNAは<b>遺伝子の本体</b>。だから形質の改良や医療に役立つ。"},
+  ],
+  m:"DNAや遺伝子の研究成果は、①農業では作物の品種改良に利用され、②特定の除草剤の影響を受けないダイズやトウモロコシなどがつくられている。③医療では、DNA分析によるオーダーメイド医療に利用されている。"},
+];
+
+/* ================= エンジン ================= */
+const COURSE_INFO={
+  "50":{label:"50点コース｜基礎暗記", cls:"c50", pts:10},
+  "70":{label:"70点コース｜資料読み取り", cls:"c70", pts:15},
+  "90":{label:"90点コース｜説明・記述", cls:"c90", pts:20},
+};
+const N=10;
+let S=null;
+
+function shuffle(arr){
+  const a=arr.slice();
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+  return a;
+}
+function el(id){return document.getElementById(id);}
+function show(id){el(id).classList.remove("hidden");}
+function hide(id){el(id).classList.add("hidden");}
+
+/* セット定義 */
+const SETS={
+ "50":[
+  {key:"ch1",name:"① 生物の成長と殖え方",sub:"細胞分裂・染色体・無性/有性生殖・受精・発生・減数分裂（10問）",get:()=>shuffle(CH1)},
+  {key:"ch2",name:"② 遺伝の規則性",sub:"遺伝子・純系・対立形質・顕性/潜性・分離の法則・DNA（10問）",get:()=>shuffle(CH2)},
+  {key:"ch3",name:"③ 生物の多様性と進化",sub:"変温/恒温・脊椎動物の出現順・始祖鳥・相同器官・進化（10問）",get:()=>shuffle(CH3)},
+  {key:"mix",name:"🔀 全範囲ミックス",sub:"全30問からランダム10問。仕上げの腕試し！",get:()=>shuffle(ALL50).slice(0,N)},
+ ],
+ "70":[
+  {key:"s1",name:"資料セット①（成長と殖え方）",sub:"細胞分裂の図・根の観察・染色体の数・受精のしくみ（10問）",get:()=>shuffle(Q70)},
+  {key:"s2",name:"資料セット②（遺伝と進化）",sub:"かけ合わせ表・実験結果の比・出現年代・相同器官（10問）",get:()=>shuffle(Q70B)},
+ ],
+ "90":[
+  {key:"s1",name:"説明セット①（成長と殖え方）",sub:"観察の操作・体細胞分裂・無性/有性生殖・減数分裂｜部品を選んで記述を完成（10問）",get:()=>shuffle(Q90)},
+  {key:"s2",name:"説明セット②（遺伝と進化）",sub:"分離の法則・3：1の理由・相同器官・陸上進出｜部品を選んで記述を完成（10問）",get:()=>shuffle(Q90B)},
+ ],
+};
+let curCourse=null;
+
+function startCourse(course){
+  curCourse=course;
+  hide("home");hide("result");hide("quiz");hide("sets");
+  if(course==="90"){show("intro90");window.scrollTo(0,0);return;}
+  renderSets();
+  show("sets");
+  window.scrollTo(0,0);
+}
+function ackIntro90(){
+  hide("intro90");
+  renderSets();
+  show("sets");
+  window.scrollTo(0,0);
+}
+
+function renderSets(){
+  const info=COURSE_INFO[curCourse];
+  const total=curCourse==="50"?"全30問（＋ミックス）":"全20問";
+  el("sets-lead").innerHTML="<b>"+info.label+"</b>（"+total+"）<br>セットを選んでスタート！全セット制覇で範囲マスターだ💪";
+  const list=el("set-list");list.innerHTML="";
+  SETS[curCourse].forEach((st,i)=>{
+    const best=localStorage.getItem("seibutsu1-best-"+curCourse+"-"+st.key);
+    const b=document.createElement("button");
+    b.className="setbtn";
+    b.innerHTML='<span><span class="sn">'+st.name+'</span><br><span class="sd">'+st.sub+'</span></span>'+
+      '<span class="sb">'+(best?"ベスト "+best+"pt":"未挑戦")+'</span>';
+    b.onclick=()=>startSet(i);
+    list.appendChild(b);
+  });
+}
+
+function startSet(si){
+  const st=SETS[curCourse][si];
+  S={course:curCourse,setIdx:si,setKey:st.key,setName:st.name,
+     qs:st.get(),idx:0,correct:0,streak:0,score:0,wrongs:[],results:[]};
+  hide("sets");hide("result");show("quiz");
+  const info=COURSE_INFO[curCourse];
+  const tag=el("course-tag");
+  tag.textContent=info.label.split("｜")[0]+"｜"+st.name.replace("🔀 ","");
+  tag.className="";
+  tag.classList.add(info.cls);
+  tag.id="course-tag";
+  renderQ();
+  window.scrollTo(0,0);
+}
+
+function renderDots(){
+  const d=el("dots");d.innerHTML="";
+  for(let i=0;i<N;i++){
+    const sp=document.createElement("span");
+    sp.className="dot";
+    if(i<S.idx) sp.classList.add(S.results[i]?"done":"miss");
+    else if(i===S.idx) sp.classList.add("now");
+    d.appendChild(sp);
+  }
+}
+
+const MARKS=["ア","イ","ウ","エ","オ","カ"];
+function renderQ(){
+  const q=S.qs[S.idx];
+  const multi=typeof q.c[0]==="object";
+  renderDots();
+  el("score-box").textContent="スコア "+S.score;
+  el("q-num").innerHTML="第"+(S.idx+1)+"問 / "+N+(multi?'<span id="q-type">すべて選べ</span>':(q.type?'<span id="q-type">'+q.type+'</span>':""));
+  el("shiryo").innerHTML = q.sh ? (typeof q.sh==="function"?q.sh():q.sh) : "";
+  let qt=q.q.replace("【誤っているもの】",'<span class="wrong-word">【誤っているもの】</span>')
+            .replace("【すべて】",'<span class="wrong-word">【すべて】</span>');
+  if(multi) qt+='\n（いくつ正解があるかはヒミツ。選び終わったら「決定する！」）';
+  el("q-text").innerHTML=qt;
+  const order=shuffle([...Array(q.c.length).keys()]);
+  S.order=order;
+  const box=el("choices");box.innerHTML="";
+  order.forEach((oi,di)=>{
+    const b=document.createElement("button");
+    b.className="choice";
+    const txt=multi?q.c[oi].t:q.c[oi];
+    b.innerHTML='<span class="mark">'+MARKS[di]+'</span><span>'+txt+'</span>';
+    if(multi) b.onclick=()=>toggleSel(b);
+    else b.onclick=()=>answer(di,b);
+    box.appendChild(b);
+  });
+  if(multi){
+    const d=document.createElement("button");
+    d.id="decide-btn";d.textContent="決定する！";d.disabled=true;
+    d.onclick=decide;
+    box.appendChild(d);
+  }
+  hide("feedback");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function toggleSel(b){
+  b.classList.toggle("sel");
+  const any=el("choices").querySelectorAll(".choice.sel").length>0;
+  el("decide-btn").disabled=!any;
+}
+
+function decide(){
+  const q=S.qs[S.idx];
+  const btns=[...el("choices").querySelectorAll(".choice")];
+  const totalOk=q.c.filter(x=>x.ok).length;
+  let hits=0,fp=0;
+  const lines=[];
+  const selIdx=[];
+  btns.forEach((b,di)=>{
+    const ch=q.c[S.order[di]];
+    const sel=b.classList.contains("sel");
+    if(sel) selIdx.push(S.order[di]);
+    b.disabled=true;b.classList.remove("sel");
+    let icon,head;
+    if(ch.ok&&sel){hits++;b.classList.add("correct");icon="✅";head=MARKS[di]+"：正しい部品（選べた！）";}
+    else if(ch.ok&&!sel){b.classList.add("missed");icon="😮";head=MARKS[di]+"：これも正しい部品だった（選び忘れ）";}
+    else if(!ch.ok&&sel){fp++;b.classList.add("wrongpick");icon="❌";head=MARKS[di]+"：これは誤り";}
+    else{b.classList.add("dim");icon="🚫";head=MARKS[di]+"：誤りの選択肢（選ばなくて正解）";}
+    lines.push('<div class="fb-item"><b>'+icon+" "+head+'</b><br>'+ch.fb+'</div>');
+  });
+  const dbt=document.getElementById("decide-btn");
+  if(dbt) dbt.remove();
+  let got=7*hits-4*fp;
+  if(got<0) got=0;
+  const perfect = hits===totalOk && fp===0;
+  S.results.push(perfect);
+  if(perfect){
+    S.correct++;S.streak++;
+    got+=10+(S.streak>=2?(S.streak-1)*5:0);
+  }else{
+    S.streak=0;
+    S.wrongs.push({no:S.idx+1,q:q,sel:selIdx});
+  }
+  S.score+=got;
+  el("score-box").textContent="スコア "+S.score;
+  el("verdict").textContent = perfect ? "⭕ 完答！すばらしい！" : (hits>0 ? "🔺 おしい！正しい部品 "+hits+"/"+totalOk+" を発見" : "❌ ざんねん…");
+  el("verdict").className="verdict "+(perfect?"ok":(hits>0?"part":"ng"));
+  el("gotpt").textContent="+"+got+"pt（正しい部品 +7／誤り選択 −4"+(perfect?"／完答ボーナス +10"+(S.streak>=2?"＋連続ボーナス":""):"")+"）";
+  el("expl").innerHTML='<div class="fb-title">🔎 全選択肢の解説 ― まちがい知識はここで正しい場所へ！</div>'+lines.join("");
+  el("model-wrap").innerHTML='<div class="model-box"><div class="mb-title">🧩 正しい部品を組み合わせると…（記述の模範解答）</div><div class="mb-text">'+q.m+'</div></div>'+
+    '<div class="ondoku"><span class="spk">📢</span><span>模範解答を声に出して2回音読しよう！読めたら「次へ」</span></div>';
+  el("next-btn").textContent = S.idx===N-1 ? "結果を見る ▶" : "次へ ▶";
+  show("feedback");
+  renderDotsAfter();
+}
+
+function answer(di,btn){
+  const q=S.qs[S.idx];
+  const picked=S.order[di];
+  const ok=picked===q.a;
+  const buttons=el("choices").querySelectorAll(".choice");
+  buttons.forEach((b,i)=>{
+    b.disabled=true;
+    if(S.order[i]===q.a) b.classList.add("correct");
+    else if(i===di) b.classList.add("wrongpick");
+    else b.classList.add("dim");
+  });
+  S.results.push(ok);
+  let got=0;
+  if(ok){
+    S.correct++;S.streak++;
+    got=COURSE_INFO[S.course].pts+(S.streak>=2?(S.streak-1)*5:0);
+    S.score+=got;
+  }else{
+    S.streak=0;
+    S.wrongs.push({no:S.idx+1,q:q,picked:picked});
+  }
+  el("verdict").textContent= ok ? "⭕ 正解！" : "❌ ざんねん…";
+  el("verdict").className="verdict "+(ok?"ok":"ng");
+  el("gotpt").textContent= ok ? "+"+got+"pt"+(S.streak>=2?"（"+S.streak+"連続正解ボーナス！）":"") : "正解は上の緑の選択肢だよ";
+  el("expl").innerHTML="💡 "+q.e;
+  const mw=el("model-wrap");
+  if(q.m){
+    mw.innerHTML='<div class="model-box"><div class="mb-title">✍️ 実際に記述・説明するならこう書く！</div><div class="mb-text">'+q.m+'</div></div>'+
+      '<div class="ondoku"><span class="spk">📢</span><span>模範解答を声に出して2回音読しよう！読めたら「次へ」</span></div>';
+  }else{
+    mw.innerHTML="";
+  }
+  el("next-btn").textContent = S.idx===N-1 ? "結果を見る ▶" : "次へ ▶";
+  show("feedback");
+  renderDotsAfter();
+}
+function renderDotsAfter(){
+  const d=el("dots").children;
+  d[S.idx].className="dot "+(S.results[S.idx]?"done":"miss");
+}
+
+function nextQ(){
+  S.idx++;
+  if(S.idx>=N){showResult();}
+  else{renderQ();}
+}
+
+function showResult(){
+  hide("quiz");show("result");
+  const c=S.correct;
+  let rank,msg;
+  if(c===10){rank="S";msg="パーフェクト！この範囲はマスターだ！";}
+  else if(c>=8){rank="A";msg="すばらしい！あと少しで満点！";}
+  else if(c>=6){rank="B";msg="いい調子！まちがえた問題を復習しよう";}
+  else{rank="C";msg="ここからが本番！もう一度チャレンジしよう";}
+  const rk=el("rank");rk.textContent=rank;rk.className=rank;
+  el("stars").textContent="★".repeat(Math.max(1,Math.ceil(c/2)))+"☆".repeat(5-Math.max(1,Math.ceil(c/2)));
+  el("result-msg").textContent=msg;
+  el("result-score").textContent=(S.course==="90"?"完答 ":"正解 ")+c+" / "+N+"問　｜　スコア "+S.score+"pt";
+  const key="seibutsu1-best-"+S.course+"-"+S.setKey;
+  const prev=Number(localStorage.getItem(key)||0);
+  if(S.score>prev){localStorage.setItem(key,String(S.score));
+    el("result-best").textContent="🎉 ベストスコア更新！（"+prev+" → "+S.score+"）";
+  }else{
+    el("result-best").textContent="ベストスコア："+Math.max(prev,S.score)+"pt";
+  }
+  const rv=el("review");
+  if(S.wrongs.length){
+    rv.innerHTML='<h3>📒 まちがえた問題の徹底復習（'+S.wrongs.length+'問）</h3>'+
+      '<p class="rv-lead">「なぜ自分の答えが違うのか」まで読むのが、点数が伸びる一番の近道。1問ずつじっくり読もう！</p>'+
+      S.wrongs.map(reviewCard).join("");
+  }else{
+    rv.innerHTML='<div class="rv-perfect">🎉 まちがえた問題はなし！この調子で次のセットへ！</div>';
+  }
+  window.scrollTo(0,0);
+}
+
+/* 結果画面：まちがえた問題の手厚い解説カード */
+function reviewCard(w){
+  const q=w.q;
+  const qtext=q.q.replace(/\n/g,"<br>");
+  let h='<div class="rv-card"><div class="rv-no">第'+w.no+'問</div><div class="rv-q">'+qtext+'</div>';
+  if(q.sh){
+    h+='<details class="rv-sh"><summary>📊 資料をもう一度見る</summary>'+(typeof q.sh==="function"?q.sh():q.sh)+'</details>';
+  }
+  if(w.sel){ /* 90点コース：部品選択 */
+    const wrongSel=w.sel.filter(i=>!q.c[i].ok);
+    const missed=q.c.map((c,i)=>i).filter(i=>q.c[i].ok&&w.sel.indexOf(i)<0);
+    const okSel=w.sel.filter(i=>q.c[i].ok);
+    if(okSel.length){
+      h+='<div class="rv-sec rv-good"><div class="rv-lbl">✅ 選べた正しい部品</div>'+
+        okSel.map(i=>'<div class="rv-line">「'+q.c[i].t+'」</div>').join("")+'</div>';
+    }
+    if(wrongSel.length){
+      h+='<div class="rv-sec rv-you"><div class="rv-lbl">❌ あなたが選んだ「まちがいの部品」― なぜ違う？</div>'+
+        wrongSel.map(i=>'<div class="rv-line"><b>「'+q.c[i].t+'」</b><div class="rv-why">→ '+q.c[i].fb+'</div></div>').join("")+'</div>';
+    }
+    if(missed.length){
+      h+='<div class="rv-sec rv-miss"><div class="rv-lbl">😮 選び忘れた正しい部品 ― なぜ必要？</div>'+
+        missed.map(i=>'<div class="rv-line"><b>「'+q.c[i].t+'」</b><div class="rv-why">→ '+q.c[i].fb+'</div></div>').join("")+'</div>';
+    }
+    h+='<div class="rv-sec rv-model"><div class="rv-lbl">🧩 正しい部品だけで組み立てた模範解答</div><div class="rv-mtext">'+q.m+'</div></div>';
+  }else{ /* 50点・70点コース：4択 */
+    const why=(q.w&&q.w[w.picked])||"この選択肢は、問われている内容とは別のことがらを指している。";
+    h+='<div class="rv-sec rv-you"><div class="rv-lbl">❌ あなたの答え</div><div class="rv-line"><b>'+q.c[w.picked]+'</b></div>'+
+       '<div class="rv-why">🤔 <b>なぜ違う？</b> '+why+'</div></div>';
+    h+='<div class="rv-sec rv-right"><div class="rv-lbl">⭕ 正しくは</div><div class="rv-line"><b>'+q.c[q.a]+'</b></div>'+
+       '<div class="rv-why">💡 '+q.e+'</div></div>';
+    const others=q.c.map((c,i)=>i).filter(i=>i!==q.a&&i!==w.picked&&q.w&&q.w[i]);
+    if(others.length){
+      h+='<details class="rv-more"><summary>🔍 ほかの選択肢もチェック（ひっかけ対策）</summary>'+
+        others.map(i=>'<div class="rv-line"><b>'+q.c[i]+'</b><div class="rv-why">→ '+q.w[i]+'</div></div>').join("")+'</details>';
+    }
+    if(q.m){
+      h+='<div class="rv-sec rv-model"><div class="rv-lbl">✍️ 記述で書くならこう</div><div class="rv-mtext">'+q.m+'</div></div>';
+    }
+  }
+  return h+'</div>';
+}
+
+function closeWelcome(){hide("welcome");show("home");window.scrollTo(0,0);}
+function openWelcome(){hide("home");show("welcome");window.scrollTo(0,0);}
+function retry(){startSet(S.setIdx);}
+function goHome(){hide("quiz");hide("result");hide("sets");hide("intro90");hide("welcome");show("home");window.scrollTo(0,0);}
+function backToSets(){hide("quiz");hide("result");renderSets();show("sets");window.scrollTo(0,0);}
+</script>
+</body>
+</html>
