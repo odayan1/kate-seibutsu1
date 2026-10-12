@@ -61,6 +61,12 @@ main{max-width:760px;margin:0 auto;padding:16px 14px 50px;}
 .wl-d{font-size:12.5px;color:#48616d;}
 .wl-arrow{text-align:center;color:#8aa0ab;font-weight:900;font-size:13px;line-height:1.2;}
 .wl-note{background:#eef7fb;border-radius:10px;padding:10px 12px;font-size:13px;line-height:1.75;margin-bottom:14px;}
+.wl-lab{background:linear-gradient(135deg,#f3eefe,#eaf7fd);border:2px solid #c9b8f2;border-radius:12px;padding:11px 13px;margin-bottom:14px;font-size:12.5px;line-height:1.7;}
+.wl-lab .wl-pt{color:#6a4fc4;}
+.wl-lab ul{list-style:none;margin:5px 0;}
+.wl-lab li{background:#fff;border-radius:8px;padding:4px 9px;margin:3px 0;font-size:12.5px;}
+.wl-lab li b{color:#6a4fc4;}
+.wl-lab .when{background:#fffbe8;border-radius:8px;padding:6px 9px;margin-top:5px;}
 .wl-link{display:block;margin:14px auto 0;background:none;border:none;color:#1491bd;font:inherit;font-size:13px;font-weight:800;text-decoration:underline;cursor:pointer;}
 
 /* ===== set picker ===== */
@@ -287,9 +293,15 @@ footer b{color:var(--blue);}
           <div class="wl-d">「〜を説明しなさい」に答える力をつける。正しい部品を選ぶと、そのまま記述の模範解答が完成するよ。</div>
         </div>
       </div>
+      <div class="wl-lab">
+        <div class="wl-pt">🧪 おまけ｜インタラクティブ教材（シミュレーション）</div>
+        <div class="wl-h">さわって・動かして、しくみを理解する</div>
+        ホーム画面の<b>紫色の「🧪 インタラクティブ教材」ボタン</b>から開けるよ。スライダーやボタンを動かすと、教科書の図や数字が<b>目の前で動く</b>。点数はつかないので、気軽に何度でもさわってOK！
+        <ul><li><b>かけ合わせシミュレーター</b>：親の遺伝子（AA・Aa・aa）を選ぶと、子の組み合わせと3：1などの比が出る。実際に何百個体も「育てる」実験も！</li><li><b>体細胞分裂ステップ観察</b>：1段階ずつ進めて、染色体が「現れる→並ぶ→分かれる」動きを見る</li><li><b>減数分裂と受精</b>：有性生殖と無性生殖を切りかえて、子の染色体の組み合わせが変わるか確かめる</li><li><b>根の伸び方タイムラプス</b>：時間を進めると、根のどこが伸びるのかが分かる</li><li><b>脊椎動物の進化タイムライン</b>：5億年前から現在まで、なかまが現れる順を見る</li></ul>
+        <div class="when">💡 <b>こんなときに使おう</b>：①50点コースで用語がピンとこないとき ②70点コースの前に、図や資料の「意味」をつかみたいとき ③まちがえた問題を、動かして確かめ直したいとき</div>
+      </div>
       <div class="wl-note">
         📱 1プレイは10問。<br>
-        🧪 ホームの「インタラクティブ教材」で、図を動かして理解することもできるよ。<br>
         📒 最後の結果画面で、まちがえた問題を「なぜ違うのか」までくわしく解説するよ。<b>ここを読むのが一番伸びる！</b>
       </div>
       <button class="btn retry" onclick="closeWelcome()">わかった！コースを選ぶ ▶</button>
