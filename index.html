@@ -211,6 +211,12 @@ footer b{color:var(--blue);}
 .lab-entry b{font-size:16px;color:#6a4fc4;}
 .lab-entry small{font-size:11.5px;color:#48616d;}
 .lab-entry .le-go{margin-left:auto;color:#6a4fc4;font-weight:900;}
+.lab-hint{margin-top:10px;background:#f6f1ff;border:2px dashed #b9a3ef;border-radius:14px;padding:10px 12px;font-size:13.5px;line-height:1.7;color:#3b2d6b;}
+.lab-entry{position:relative;}
+.lab-entry.has-new{border-color:#8f6ce0;animation:labpulse 1.6s ease-in-out infinite;}
+@keyframes labpulse{0%,100%{box-shadow:0 2px 8px rgba(110,80,200,.12);}50%{box-shadow:0 0 0 7px rgba(143,108,224,.30);}}
+.new-badge{position:absolute;top:-10px;right:12px;background:#e8467c;color:#fff;font-size:11px;font-weight:900;border-radius:999px;padding:2px 10px;box-shadow:0 2px 6px rgba(232,70,124,.35);}
+.hint-tag{display:inline-block;margin-top:5px;background:#fff3c4;color:#8a5a00;border:1.5px solid #f2cf5b;border-radius:999px;font-size:11px;font-weight:800;padding:1px 9px;}
 .lab-head{font-size:17px;font-weight:900;color:#6a4fc4;margin:2px 0 10px;}
 .lab-card{background:#fff;border-radius:16px;padding:14px;box-shadow:0 2px 8px rgba(31,120,150,.10);}
 .lab-lbl{font-size:12px;font-weight:800;color:#1491bd;margin:10px 0 4px;}
@@ -1023,6 +1029,13 @@ const Q70B = [
   w:"「分かれる（減数分裂）」と「合わさる（受精）」の<b>順番</b>に注意。遺伝子が分かれるのは生殖細胞が<b>できるとき</b>で、受精はそのあと。"},
  _O2[7], _O2[8], _O2[9],
 ];
+/* 70点コース → 関連するインタラクティブ教材（LABSの番号）。不正解時に「こんな教材があるよ」と予告する */
+(function(){
+  const SH_LAB=new Map([[bunretsuFig,1],[nekoFig,3],[nobiTable,3],[kazuFlow,2],[ukeFig,2],
+    [punnett1,0],[punnett2,0],[kekkaTable,0],[nendaiFig,4],[tokuchoTable,4]]);
+  [...Q70,...Q70B].forEach(q=>{if(q.lab==null&&SH_LAB.has(q.sh))q.lab=SH_LAB.get(q.sh);});
+  Q70B.forEach(q=>{if(q.kind==="order"&&!q.sh)q.lab=0;}); /* Aa→子への遺伝子の流れ＝かけ合わせ */
+})();
 
 /* ---------- 90点コース：説明・記述（部品をすべて選ぶ） ---------- */
 const Q90 = [
@@ -1439,7 +1452,7 @@ function finishSpecial(q,ok,rec,html){
   el("verdict").textContent=ok?"⭕ 正解！":"❌ ざんねん…";
   el("verdict").className="verdict "+(ok?"ok":"ng");
   el("gotpt").textContent=ok?"+"+got+"pt"+(S.streak>=2?"（"+S.streak+"連続正解ボーナス！）":""):"";
-  el("expl").innerHTML=html;
+  el("expl").innerHTML=html+(ok?"":labHint(q));
   el("model-wrap").innerHTML="";
   el("next-btn").textContent=S.idx===N-1?"結果を見る ▶":"次へ ▶";
   show("feedback");
@@ -1542,7 +1555,7 @@ function answer(di,btn){
   el("verdict").textContent= ok ? "⭕ 正解！" : "❌ ざんねん…";
   el("verdict").className="verdict "+(ok?"ok":"ng");
   el("gotpt").textContent= ok ? "+"+got+"pt"+(S.streak>=2?"（"+S.streak+"連続正解ボーナス！）":"") : "正解は上の緑の選択肢だよ";
-  el("expl").innerHTML="💡 "+q.e;
+  el("expl").innerHTML="💡 "+q.e+(ok?"":labHint(q));
   const mw=el("model-wrap");
   if(q.m){
     mw.innerHTML='<div class="model-box"><div class="mb-title">✍️ 実際に記述・説明するならこう書く！</div><div class="mb-text">'+q.m+'</div></div>'+
@@ -1653,18 +1666,37 @@ const LABS=[
  {t:"📏 根の伸び方タイムラプス",d:"時間を進めると、根のどこが伸びるのかが見える",f:labRoot},
  {t:"🦕 脊椎動物の進化タイムライン",d:"5億年前から現在まで。なかまが現れる順と、陸上への変化",f:labEvo},
 ];
+/* ---- 教材の「気づかせ」：ボタンで飛ばさず、ホームの紫ボタンに NEW! を付けて自分で見つけさせる ---- */
+const LH_KEY="kateLabHint:"+location.pathname;
+let LH=(()=>{try{const v=JSON.parse(localStorage.getItem(LH_KEY));if(v&&Array.isArray(v.labs))return v;}catch(e){}return {isNew:false,labs:[]};})();
+function lhSave(){try{localStorage.setItem(LH_KEY,JSON.stringify(LH));}catch(e){}}
+function labHint(q){
+  if(!S||S.course!=="70"||q.lab==null||!LABS[q.lab])return "";
+  if(!LH.labs.includes(q.lab))LH.labs.push(q.lab);
+  LH.isNew=true;lhSave();paintLabEntry();
+  return '<div class="lab-hint">🧪 <b>ちょっと待って！</b>この問題は、インタラクティブ教材の<b>「'+LABS[q.lab].t+'」</b>で、実際に動かして確かめられるよ。<br>👉 ホームの<b>紫のボタン</b>の中を探してみよう！</div>';
+}
+function paintLabEntry(){
+  document.querySelectorAll(".lab-entry").forEach(b=>{
+    b.classList.toggle("has-new",!!LH.isNew);
+    let bd=b.querySelector(".new-badge");
+    if(LH.isNew&&!bd){bd=document.createElement("span");bd.className="new-badge";bd.textContent="🔓 NEW!";b.appendChild(bd);}
+    if(!LH.isNew&&bd)bd.remove();
+  });
+}
 let labTimer=null;
 function stopLabTimer(){if(labTimer){clearInterval(labTimer);labTimer=null;}}
-function openLab(){hide("home");hide("welcome");show("lab");renderLabMenu();}
+function openLab(){LH.isNew=false;lhSave();paintLabEntry();hide("home");hide("welcome");show("lab");renderLabMenu();}
 function renderLabMenu(){
   stopLabTimer();
   let h='<div class="lead">🧪 <b>さわって理解する教材</b>だよ。ボタンやスライダーを動かして、教科書の図が「どう動くのか」を確かめよう。問題でまちがえたところの確認にも使える！</div><div class="set-grid">';
-  LABS.forEach((L,i)=>{h+='<button class="setbtn" onclick="labOpen('+i+')"><span><span class="sn">'+L.t+'</span><br><span class="sd">'+L.d+'</span></span><span class="sb">ひらく ▶</span></button>';});
+  LABS.forEach((L,i)=>{h+='<button class="setbtn" onclick="labOpen('+i+')"><span><span class="sn">'+L.t+'</span><br><span class="sd">'+L.d+'</span>'+(LH.labs.includes(i)?'<br><span class="hint-tag">💡 さっきまちがえた問題のヒントがここに！</span>':'')+'</span><span class="sb">ひらく ▶</span></button>';});
   h+='</div><div class="btn-row"><button class="btn home" onclick="goHome()">ホームにもどる</button></div>';
   el("lab-body").innerHTML=h;window.scrollTo(0,0);
 }
 function labOpen(i){
   stopLabTimer();
+  LH.labs=LH.labs.filter(x=>x!==i);lhSave();
   el("lab-body").innerHTML='<div class="lab-head">'+LABS[i].t+'</div><div id="lab-x" class="lab-card"></div>'+
     '<div class="btn-row"><button class="btn home" onclick="renderLabMenu()">教材一覧にもどる</button></div>';
   LABS[i].f(el("lab-x"));window.scrollTo(0,0);
@@ -1870,6 +1902,7 @@ function evRender(fromSlider){
   el("ev-dyn").innerHTML=s+'<div class="lab-res">'+(last?'最も新しく現れたなかま：<b>'+last[0]+'</b>（約'+evFmt(last[1])+'）<br>'+last[3]:'まだ脊椎動物は現れていない（最初の生物は約40億年前）。')+evs+'</div>';
 }
 
+paintLabEntry();
 </script>
 </body>
 </html>
