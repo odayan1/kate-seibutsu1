@@ -769,7 +769,8 @@ function kekkaTable(){
 }
 
 /* 脊椎動物の出現（帯グラフ） */
-function nendaiFig(){
+function nendaiFigBlank(){return nendaiFig(true);}
+function nendaiFig(blank){
   const W=384,H=196,x0=96,x1=372;
   const toX=v=>x0+(x1-x0)*(5.4-v)/5.4; // 億年前 → x
   const g=[["魚類",5.0,"#2fbdea"],["両生類",3.6,"#8dc63f"],["は虫類",3.2,"#e0a82e"],["哺乳類",2.2,"#e07da0"],["鳥類",1.5,"#8b6fd6"]];
@@ -777,12 +778,13 @@ function nendaiFig(){
   [5,4,3,2,1,0].forEach(v=>{const x=toX(v);s+='<line x1="'+x+'" y1="22" x2="'+x+'" y2="168" stroke="#e1edf2"/><text x="'+x+'" y="182" text-anchor="middle" font-size="10" fill="#5b7884">'+(v===0?"現在":v+"億年前")+'</text>';});
   g.forEach((r,i)=>{
     const y=30+i*28,x=toX(r[1]);
-    s+='<text x="'+(x0-8)+'" y="'+(y+13)+'" text-anchor="end" font-size="12" font-weight="700" fill="#1c3a47">'+r[0]+'</text>';
+    if(blank) s+='<rect x="'+(x0-62)+'" y="'+(y-1)+'" width="54" height="20" rx="5" fill="#fff" stroke="#9fb6c1" stroke-dasharray="3 2"/><text x="'+(x0-35)+'" y="'+(y+14)+'" text-anchor="middle" font-size="13" font-weight="900" fill="#9fb6c1">？</text>';
+    else s+='<text x="'+(x0-8)+'" y="'+(y+13)+'" text-anchor="end" font-size="12" font-weight="700" fill="#1c3a47">'+r[0]+'</text>';
     s+='<rect x="'+x+'" y="'+y+'" width="'+(x1-x)+'" height="18" rx="4" fill="'+r[2]+'" opacity=".85"/>';
     s+='<circle cx="'+x+'" cy="'+(y+9)+'" r="4" fill="#e05d5d"/>';
   });
   s+='</svg>';
-  return box("◆脊椎動物のなかまが地球上に現れた時期（帯の左はし＝最古の化石）",s);
+  return box("◆脊椎動物のなかまが地球上に現れた時期（帯の左はし＝最古の化石）"+(blank?"　※なかまの名前はかくしてあるよ":""),s);
 }
 
 /* 脊椎動物の特徴比較 */
@@ -1017,11 +1019,11 @@ const Q70B = [
   q:"資料のかけ合わせで子が600個体できたとすると、しわの個体はおよそ何個体か。",
   blanks:[{l:"",a:300,u:"個体",miss:{"150":"3：1（Aa×Aa）で計算している。片方が<b>aa</b>なので1：1。","450":"3：1で計算し、さらに丸の数を答えている。Aa×aaは<b>1：1</b>。","0":"Aaの親もaをもつ生殖細胞をつくるので、<b>しわも現れる</b>。"}}],
   e:"4マスのうちAa（丸）2マス・aa（しわ）2マス → <b>丸：しわ＝1：1</b>。600÷2＝<b>300個体</b>。"},
- {kind:"order",sh:nendaiFig,
-  q:"資料から、脊椎動物のなかまを地球上に現れた順（古い順）にタップして並べなさい。",
+ {kind:"order",sh:nendaiFigBlank,
+  q:"資料の「？」には、脊椎動物の5つのなかまが入る。地球上に現れた順（古い順＝資料の上から）にタップして並べなさい。",
   items:["魚類","両生類","は虫類","哺乳類","鳥類"],
   e:"<b>魚類（約5億年前）→両生類→は虫類→哺乳類（約2.2億年前）→鳥類（約1.5億年前）</b>。哺乳類のほうが鳥類より<b>先</b>！",
-  w:"一番多いミスは<b>鳥類と哺乳類の入れかえ</b>。帯の左はし（赤い点）を見比べると、哺乳類のほうが左＝古い。"},
+  w:"一番多いミスは<b>鳥類と哺乳類の入れかえ</b>。哺乳類（約2.2億年前）のほうが、鳥類（約1.5億年前）より<b>先</b>に現れた。鳥類は、は虫類から進化した（始祖鳥）ので最後、と覚えよう。"},
  {kind:"order",
   q:"遺伝子の組み合わせがAaの親から、子に遺伝子が受けつがれるまでの流れを、正しい順にタップして並べなさい。",
   items:["親の体細胞の中で、遺伝子Aとaが対になっている","減数分裂で、対になっている遺伝子が分かれる","Aをもつ生殖細胞と、aをもつ生殖細胞ができる","受精によって、2つの生殖細胞の核が合体する","子の細胞で、遺伝子がふたたび対になる"],
@@ -1032,7 +1034,7 @@ const Q70B = [
 /* 70点コース → 関連するインタラクティブ教材（LABSの番号）。不正解時に「こんな教材があるよ」と予告する */
 (function(){
   const SH_LAB=new Map([[bunretsuFig,1],[nekoFig,3],[nobiTable,3],[kazuFlow,2],[ukeFig,2],
-    [punnett1,0],[punnett2,0],[kekkaTable,0],[nendaiFig,4],[tokuchoTable,4]]);
+    [punnett1,0],[punnett2,0],[kekkaTable,0],[nendaiFig,4],[nendaiFigBlank,4],[tokuchoTable,4]]);
   [...Q70,...Q70B].forEach(q=>{if(q.lab==null&&SH_LAB.has(q.sh))q.lab=SH_LAB.get(q.sh);});
   Q70B.forEach(q=>{if(q.kind==="order"&&!q.sh)q.lab=0;}); /* Aa→子への遺伝子の流れ＝かけ合わせ */
 })();
