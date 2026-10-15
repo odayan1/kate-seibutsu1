@@ -1239,6 +1239,15 @@ function shuffle(arr){
   for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
   return a;
 }
+/* 同じ資料(sh)を使う問題は「ひとかたまり・元の順番のまま」で出す。かたまり同士の順番だけシャッフル */
+function groupShuffle(arr){
+  const groups=[],m=new Map();
+  arr.forEach(q=>{
+    if(q.sh){if(!m.has(q.sh)){const g=[];m.set(q.sh,g);groups.push(g);}m.get(q.sh).push(q);}
+    else groups.push([q]);
+  });
+  return shuffle(groups).flat();
+}
 function el(id){return document.getElementById(id);}
 function show(id){el(id).classList.remove("hidden");}
 function hide(id){el(id).classList.add("hidden");}
@@ -1246,14 +1255,14 @@ function hide(id){el(id).classList.add("hidden");}
 /* セット定義 */
 const SETS={
  "50":[
-  {key:"ch1",name:"① 生物の成長と殖え方",sub:"細胞分裂・染色体・無性/有性生殖・受精・発生・減数分裂（10問）",get:()=>shuffle(CH1)},
-  {key:"ch2",name:"② 遺伝の規則性",sub:"遺伝子・純系・対立形質・顕性/潜性・分離の法則・DNA（10問）",get:()=>shuffle(CH2)},
-  {key:"ch3",name:"③ 生物の多様性と進化",sub:"変温/恒温・脊椎動物の出現順・始祖鳥・相同器官・進化（10問）",get:()=>shuffle(CH3)},
+  {key:"ch1",name:"① 生物の成長と殖え方",sub:"細胞分裂・染色体・無性/有性生殖・受精・発生・減数分裂（10問）",get:()=>groupShuffle(CH1)},
+  {key:"ch2",name:"② 遺伝の規則性",sub:"遺伝子・純系・対立形質・顕性/潜性・分離の法則・DNA（10問）",get:()=>groupShuffle(CH2)},
+  {key:"ch3",name:"③ 生物の多様性と進化",sub:"変温/恒温・脊椎動物の出現順・始祖鳥・相同器官・進化（10問）",get:()=>groupShuffle(CH3)},
   {key:"mix",name:"🔀 全範囲ミックス",sub:"全30問からランダム10問。仕上げの腕試し！",get:()=>shuffle(ALL50).slice(0,N)},
  ],
  "70":[
-  {key:"s1",name:"資料セット①（成長と殖え方）",sub:"分裂の順・観察手順の並べ替え／根の伸びの計算／染色体の数（10問）",get:()=>shuffle(Q70)},
-  {key:"s2",name:"資料セット②（遺伝と進化）",sub:"かけ合わせの個体数計算／出現順・遺伝子の流れの並べ替え／相同器官（10問）",get:()=>shuffle(Q70B)},
+  {key:"s1",name:"資料セット①（成長と殖え方）",sub:"分裂の順・観察手順の並べ替え／根の伸びの計算／染色体の数（10問）",get:()=>groupShuffle(Q70)},
+  {key:"s2",name:"資料セット②（遺伝と進化）",sub:"かけ合わせの個体数計算／出現順・遺伝子の流れの並べ替え／相同器官（10問）",get:()=>groupShuffle(Q70B)},
  ],
  "90":[
   {key:"s1",name:"説明セット①（成長と殖え方）",sub:"観察の操作・体細胞分裂・無性/有性生殖・減数分裂｜部品を選んで記述を完成（10問）",get:()=>shuffle(Q90)},
